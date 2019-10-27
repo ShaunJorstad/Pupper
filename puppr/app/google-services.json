@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "958052204739",
+    "firebase_url": "https://puppr-comp402.firebaseio.com",
+    "project_id": "puppr-comp402",
+    "storage_bucket": "puppr-comp402.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:958052204739:android:c4062ab48d2612e1782276",
+        "android_client_info": {
+          "package_name": "com.example.puppr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "958052204739-cfrjslph2uo2idh7piv05jr2ai6251sl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.puppr",
+            "certificate_hash": "e455cd0b9b18422c45064756316dfdd4f84037c2"
+          }
+        },
+        {
+          "client_id": "958052204739-ja979ii73ncgf44r7ga9mc1rrhliit3m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpohq1g0etyhlUFGGYRMRiFEMYPOrtjq4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "958052204739-ja979ii73ncgf44r7ga9mc1rrhliit3m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
