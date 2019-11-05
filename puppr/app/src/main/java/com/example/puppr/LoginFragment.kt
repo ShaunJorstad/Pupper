@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.example.puppr.databinding.FragmentLoginBinding
 
 /**
@@ -21,8 +23,13 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentLoginBinding>(inflater,
             R.layout.fragment_login,container,false)
+
+        val loginButton: Button = binding.loginButton
+        loginButton.setOnClickListener {view : View ->
+            view.findNavController().navigate(R.id.action_loginFragment_to_dogFinder)
+        }
+
         return binding.root
     }
-
 
 }

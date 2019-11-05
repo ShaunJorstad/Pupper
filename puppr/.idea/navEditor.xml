@@ -13,8 +13,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="221" />
-                            <option name="y" value="46" />
+                            <option name="x" value="252" />
+                            <option name="y" value="63" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -25,8 +25,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="19" />
-                            <option name="y" value="58" />
+                            <option name="x" value="-75" />
+                            <option name="y" value="56" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -37,6 +37,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="mainActivity">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-235" />
+                            <option name="y" value="105" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
