@@ -17,11 +17,13 @@
     <fragment
         android:id="@+id/userLoginFragment"
         android:name="com.example.puppr.userLoginFragment"
-        android:label="userLoginFragment" />
+        android:label="userLoginFragment"
+        tools:layout="@layout/fragment_user_login"/>
     <fragment
         android:id="@+id/signupOptionsFragment"
         android:name="com.example.puppr.SignupOptionsFragment"
-        android:label="SignupOptionsFragment" >
+        android:label="SignupOptionsFragment"
+        tools:layout="@layout/fragment_signup_options">
         <action
             android:id="@+id/action_signupOptionsFragment_to_userLoginFragment"
             app:destination="@id/userLoginFragment" />
