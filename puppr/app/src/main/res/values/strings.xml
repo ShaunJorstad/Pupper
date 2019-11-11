@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Puppr</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="testString">This is a test</string>
+    <string name="pupprTitle">Puppr</string>
+    <string name="userButton">I\'m a user</string>
+    <string name="shelterButton">I\'m a shelter</string>
+    <string name="emailEntry">Email</string>
+    <string name="passwordEntry">Password</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="sign_up_with_phone">sign up with phone</string>
+    <string name="sign_up_with_email">sign up with email</string>
 </resources>
