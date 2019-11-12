@@ -14,4 +14,6 @@
     <string name="sign_up_with_email">sign up with email</string>
     <string name="userNameText" />
     <string name="web_client_id">AIzaSyDqr8LR7AJTMbhsytMTImi7j8AiV_2wnrA</string>
+    <string name="loginSubmitButtonText">Sign in</string>
+    <string name="signUpButtonText">join</string>
 </resources>

@@ -37,13 +37,13 @@ class SignupOptionsFragment : Fragment() {
 
         binding.emailSignInButton.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(R.id.action_signupOptionsFragment_to_userLoginFragment)
+                .navigate(R.id.action_signupOptionsFragment_to_userSignUpFragment)
         }
 
-        binding.googleSignInButton.setOnClickListener { view: View ->
-            view.findNavController()
-                .navigate(R.id.action_signupOptionsFragment_to_googleSignInFragment)
-        }
+//        binding.googleSignInButton.setOnClickListener { view: View ->
+//            view.findNavController()
+//                .navigate(R.id.action_signupOptionsFragment_to_googleSignInFragment)
+//        }
 
         return binding.root
     }
