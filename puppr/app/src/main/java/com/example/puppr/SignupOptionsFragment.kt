@@ -42,7 +42,7 @@ class SignupOptionsFragment : Fragment() {
 
         binding.googleSignInButton.setOnClickListener { view: View ->
             view.findNavController()
-                .navigate(R.id.action_signupOptionsFragment_to_userSettingsFragment)
+                .navigate(R.id.action_signupOptionsFragment_to_googleSignInFragment)
         }
 
         return binding.root

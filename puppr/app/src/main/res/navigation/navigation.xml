@@ -28,13 +28,21 @@
             android:id="@+id/action_signupOptionsFragment_to_userLoginFragment"
             app:destination="@id/userLoginFragment" />
         <action
-            android:id="@+id/action_signupOptionsFragment_to_userSettingsFragment"
-            app:destination="@id/userSettingsFragment"
-            app:enterAnim="@anim/nav_default_enter_anim" />
+            android:id="@+id/action_signupOptionsFragment_to_googleSignInFragment"
+            app:destination="@id/googleSignInFragment" />
     </fragment>
     <fragment
         android:id="@+id/userSettingsFragment"
         android:name="com.example.puppr.userSettingsFragment"
         android:label="fragment_user_settings"
         tools:layout="@layout/fragment_user_settings" />
+    <fragment
+        android:id="@+id/googleSignInFragment"
+        android:name="com.example.puppr.googleSignInFragment"
+        android:label="fragment_google_sign_in"
+        tools:layout="@layout/fragment_google_sign_in" >
+        <action
+            android:id="@+id/action_googleSignInFragment_to_userSettingsFragment"
+            app:destination="@id/userSettingsFragment" />
+    </fragment>
 </navigation>

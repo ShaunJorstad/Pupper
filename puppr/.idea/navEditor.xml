@@ -8,6 +8,27 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="googleSignInFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="101" />
+                            <option name="y" value="294" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_googleSignInFragment_to_userSettingsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="loginFragment">
                     <value>
                       <LayoutPositions>
@@ -39,6 +60,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_signupOptionsFragment_to_googleSignInFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_signupOptionsFragment_to_userLoginFragment">
                               <value>
                                 <LayoutPositions />
@@ -66,8 +92,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="100" />
-                            <option name="y" value="291" />
+                            <option name="x" value="318" />
+                            <option name="y" value="295" />
                           </Point>
                         </option>
                       </LayoutPositions>
