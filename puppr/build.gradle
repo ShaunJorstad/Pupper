@@ -10,7 +10,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.gms:google-services:4.3.2' // firebase
+        classpath 'com.google.gms:google-services:4.3.3' // firebase
         classpath 'com.google.firebase:firebase-analytics:17.2.1' // firebase analytics
         classpath 'com.google.firebase:firebase-auth:19.1.0' // firebase authentication
         classpath 'com.google.firebase:firebase-firestore-ktx:21.2.1' //firestore kotlin beta
