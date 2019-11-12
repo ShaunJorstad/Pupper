@@ -12,4 +12,5 @@
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="sign_up_with_phone">sign up with phone</string>
     <string name="sign_up_with_email">sign up with email</string>
+    <string name="userNameText" />
 </resources>

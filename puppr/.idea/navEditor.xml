@@ -34,8 +34,17 @@
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="-122" />
-                            <option name="y" value="19" />
+                            <option name="y" value="3" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_signupOptionsFragment_to_userLoginFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -45,8 +54,20 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="101" />
-                            <option name="y" value="19" />
+                            <option name="x" value="99" />
+                            <option name="y" value="-1" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="userSettingsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="100" />
+                            <option name="y" value="291" />
                           </Point>
                         </option>
                       </LayoutPositions>
