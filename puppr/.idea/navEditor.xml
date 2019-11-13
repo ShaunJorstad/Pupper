@@ -40,6 +40,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_loginFragment_to_shelterSUOFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_loginFragment_to_signupOptionsFragment">
                               <value>
                                 <LayoutPositions />
@@ -50,13 +55,46 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="shelterSUOFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-72" />
+                            <option name="y" value="-43" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_shelterSUOFragment_to_shelterSignUpFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="shelterSignUpFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="142" />
+                            <option name="y" value="-42" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="signupOptionsFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-118" />
-                            <option name="y" value="-195" />
+                            <option name="x" value="-68" />
+                            <option name="y" value="-356" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -102,8 +140,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="78" />
-                            <option name="y" value="333" />
+                            <option name="x" value="-23" />
+                            <option name="y" value="463" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -114,8 +152,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="76" />
-                            <option name="y" value="-195" />
+                            <option name="x" value="145" />
+                            <option name="y" value="-353" />
                           </Point>
                         </option>
                         <option name="myPositions">

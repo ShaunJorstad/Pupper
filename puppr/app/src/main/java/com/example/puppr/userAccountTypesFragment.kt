@@ -29,6 +29,9 @@ class userAccountTypesFragment : Fragment() {
         binding.userButton.setOnClickListener{view : View ->
             view.findNavController().navigate(R.id.action_loginFragment_to_signupOptionsFragment)}
 
+        binding.shelterButton.setOnClickListener{view : View ->
+            view.findNavController().navigate(R.id.action_loginFragment_to_shelterSUOFragment)}
+
         return binding.root
     }
 
