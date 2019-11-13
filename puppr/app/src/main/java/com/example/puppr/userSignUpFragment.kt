@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.example.puppr.databinding.FragmentUserSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_user_sign_up.*
@@ -29,28 +30,37 @@ class userSignUpFragment : Fragment() {
             inflater,
             R.layout.fragment_user_sign_up, container, false
         )
-
         auth = FirebaseAuth.getInstance()
         binding.signUpButton.setOnClickListener{
-            //            TODO: check input values for complexity constraints
-            var email = email_input.text.toString()
-            var password = password_input.text.toString()
-
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(context, "please enter text into email and password", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
-                    if (!it.isSuccessful) return@addOnCompleteListener
-                    else {
-                        Log.d(TAG, "Successful account creation for user ${it.result?.user?.uid}")
-                    }
-                }
+            registerUser(it)
         }
 
         return binding.root
+    }
+
+    private fun registerUser(view: View) {
+        //            TODO: check input values for complexity constraints
+        var email = email_input.text.toString()
+        var password = password_input.text.toString()
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(context, "please enter text into email and password", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
+                if (!it.isSuccessful) return@addOnCompleteListener
+                else {
+                    Log.d(TAG, "Successful account creation for user ${it.result?.user?.uid}")
+                    view.findNavController().navigate(R.id.action_userSignUpFragment_to_userSettingsFragment)
+                }
+//                navigate to the user settings page
+
+            }
+            .addOnFailureListener {
+                Log.d(TAG, "Failed to create user: ${it.message}")
+            }
     }
 
 

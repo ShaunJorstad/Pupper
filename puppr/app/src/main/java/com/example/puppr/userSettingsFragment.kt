@@ -23,7 +23,7 @@ class userSettingsFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentUserSettingsBinding>(
             inflater,
-            R.layout.fragment_login, container, false
+            R.layout.fragment_user_settings, container, false
         )
         return binding.root
     }
