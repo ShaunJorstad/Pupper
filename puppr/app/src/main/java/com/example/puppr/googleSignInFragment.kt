@@ -1,9 +1,7 @@
 package com.example.puppr
 
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +9,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.puppr.databinding.FragmentGoogleSignInBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
 
 
 /**
@@ -35,7 +29,7 @@ class googleSignInFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentGoogleSignInBinding>(
             inflater,
-            R.layout.fragment_login, container, false
+            R.layout.fragment_user_account_types, container, false
         )
 
         return binding.root

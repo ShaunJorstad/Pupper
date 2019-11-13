@@ -8,11 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
-import com.example.puppr.databinding.FragmentLoginBinding
+import com.example.puppr.databinding.FragmentUserAccountTypesBinding
 import com.google.firebase.auth.FirebaseAuth
 
-class LoginFragment : Fragment() {
-    private lateinit var binding: FragmentLoginBinding
+class userAccountTypesFragment : Fragment() {
+    private lateinit var binding: FragmentUserAccountTypesBinding
     private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
@@ -21,9 +21,9 @@ class LoginFragment : Fragment() {
     ): View? {
 //        TODO: Check to see if the FirebaseAuth object has a current user instance. If so navigate to the main page before inflating this fragment
         auth = FirebaseAuth.getInstance()
-        val binding = DataBindingUtil.inflate<FragmentLoginBinding>(
+        val binding = DataBindingUtil.inflate<FragmentUserAccountTypesBinding>(
             inflater,
-            R.layout.fragment_login, container, false
+            R.layout.fragment_user_account_types, container, false
         )
 
         binding.userButton.setOnClickListener{view : View ->
