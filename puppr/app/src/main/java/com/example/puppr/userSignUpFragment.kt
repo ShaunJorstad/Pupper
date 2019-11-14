@@ -11,6 +11,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.puppr.databinding.FragmentUserSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_user_sign_up.*
 
 /**
@@ -19,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_user_sign_up.*
 class userSignUpFragment : Fragment() {
     private lateinit var binding: FragmentUserSignUpBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
     private var TAG = "SignUp"
 
     override fun onCreateView(
@@ -34,6 +38,8 @@ class userSignUpFragment : Fragment() {
         binding.signUpButton.setOnClickListener{
             registerUser(it)
         }
+
+        db = FirebaseFirestore.getInstance()
 
         return binding.root
     }
@@ -53,6 +59,7 @@ class userSignUpFragment : Fragment() {
                 if (!it.isSuccessful) return@addOnCompleteListener
                 else {
                     Log.d(TAG, "Successful account creation for user ${it.result?.user?.uid}")
+                    writeUserEntry(email, it.result?.user?.uid)
                     view.findNavController().navigate(R.id.action_userSignUpFragment_to_userSettingsFragment)
                 }
 //                navigate to the user settings page
@@ -63,5 +70,16 @@ class userSignUpFragment : Fragment() {
             }
     }
 
-
+    private fun writeUserEntry(email: String, userID: String?) {
+        val user = User(email= email)
+        db.collection("users")
+            .document(userID.toString())
+            .set(user)
+            .addOnSuccessListener {
+                Log.d(TAG, "Document added")
+            }
+            .addOnFailureListener {
+                Log.w(TAG, "Error adding document", it)
+            }
+    }
 }

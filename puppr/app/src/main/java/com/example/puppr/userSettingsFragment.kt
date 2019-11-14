@@ -11,13 +11,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.puppr.databinding.FragmentUserSettingsBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
 /**
  * A simple [Fragment] subclass.
  */
 class userSettingsFragment : Fragment() {
-
     private lateinit var binding: FragmentUserSettingsBinding
+    private lateinit var database: FirebaseDatabase
+    private lateinit var databaseRef: DatabaseReference
+    private val TAG = "userSettings"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +36,18 @@ class userSettingsFragment : Fragment() {
             FirebaseAuth.getInstance().signOut()
             view.findNavController().navigate(R.id.action_userSettingsFragment_to_userLoginFragment)
             Log.i("logOut", "logout button pressed")
+        }
+
+        binding.userImage.setOnClickListener{
+//            instantiate ui to upload new image
+        }
+        database = FirebaseDatabase.getInstance()
+        databaseRef = FirebaseDatabase.getInstance().reference
+
+        binding.testButton.setOnClickListener{view: View ->
+//            val ref = database.getReference("message")
+//            Log.i("userSettings", "$ref")
+            databaseRef.child("users").child("clcdmYjLwDTcNcQ0xKrX").child("address").setValue("The Wall")
         }
 
         return binding.root
