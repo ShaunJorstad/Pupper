@@ -18,7 +18,7 @@ Follow the steps at https://firebase.google.com/docs/auth/android/firebaseui to 
 ## Managing Users
 https://firebase.google.com/docs/auth/android/manage-users
 
-Getting the current user:
+Getting the current user (to check if they are signed in):
 ```kt
 val user = FirebaseAuth.getInstance().currentUser
 if (user != null) {
@@ -30,24 +30,34 @@ if (user != null) {
 
 Getting a users profile
 ```kt
+//class declaration
+private lateinit var auth: FirebaseAuth
+private lateinit var db: FirebaseFirestore
+---
+//onCreate
+auth = FirebaseAuth.getInstance()
+db = FirebaseFirestore.getInstance()
+---
 val user = FirebaseAuth.getInstance().currentUser
-user?.let {
-    // Name, email address, and profile photo Url
-    val name = user.displayName
-    val email = user.email
-    val photoUrl = user.photoUrl
+// user uid is the id of the user entry in the users table
+val userEntry = db.collection("users")
+    .document(user.uid)
+    docRef.get()
+        .addOnSuccessListener {document -> 
+            if (document != null) {
+                Log.d(TAG, "DocumentSnapashot data: ${document.data}")
+            } else {
+                Log.d(TAG, "No such document")
+            }
+        }
+        .addOnFailureListener { exception ->
+            Log.d(TAG, "get failed with ", exception)
+        }
 
-    // Check if user's email is verified
-    val emailVerified = user.isEmailVerified
-
-    // The user's ID, unique to the Firebase project. Do NOT use this value to
-    // authenticate with your backend server, if you have one. Use
-    // FirebaseUser.getToken() instead.
-    val uid = user.uid
-}
 ```
 
-Update a user's profile
+
+<!-- Update a user's profile
 ```kt
 val user = FirebaseAuth.getInstance().currentUser
 
@@ -62,6 +72,6 @@ user?.updateProfile(profileUpdates)
                 Log.d(TAG, "User profile updated.")
             }
         }
-```
+``` -->
 
 TODO: finish with a ton more snippets
