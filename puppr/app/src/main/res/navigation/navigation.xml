@@ -3,20 +3,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/userLoginFragment">
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.puppr.LoginFragment"
+        android:name="com.example.puppr.userAccountTypesFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_user_account_types" >
         <action
-            android:id="@+id/action_loginFragment_to_dogFinder"
-            app:destination="@id/dogFinder" />
+            android:id="@+id/action_loginFragment_to_signupOptionsFragment"
+            app:destination="@id/signupOptionsFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_shelterSUOFragment"
+            app:destination="@id/shelterSUOFragment" />
     </fragment>
     <fragment
-        android:id="@+id/dogFinder"
-        android:name="com.example.puppr.DogFinder"
-        android:label="fragment_dog_finder"
-        tools:layout="@layout/fragment_dog_finder" />
+        android:id="@+id/userLoginFragment"
+        android:name="com.example.puppr.userLoginFragment"
+        android:label="userLoginFragment"
+        tools:layout="@layout/fragment_user_login">
+        <action
+            android:id="@+id/action_userLoginFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_userLoginFragment_to_userSettingsFragment2"
+            app:destination="@id/userSettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupOptionsFragment"
+        android:name="com.example.puppr.SignupOptionsFragment"
+        android:label="SignupOptionsFragment"
+        tools:layout="@layout/fragment_signup_options">
+        <action
+            android:id="@+id/action_signupOptionsFragment_to_userSignUpFragment"
+            app:destination="@id/userSignUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userSettingsFragment"
+        android:name="com.example.puppr.userSettingsFragment"
+        android:label="fragment_user_settings"
+        tools:layout="@layout/fragment_user_settings" >
+        <action
+            android:id="@+id/action_userSettingsFragment_to_userLoginFragment"
+            app:destination="@id/userLoginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userSignUpFragment"
+        android:name="com.example.puppr.userSignUpFragment"
+        android:label="userSignUpFragment"
+        tools:layout="@layout/fragment_user_sign_up">
+        <action
+            android:id="@+id/action_userSignUpFragment_to_userSettingsFragment"
+            app:destination="@id/userSettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shelterSUOFragment"
+        android:name="com.example.puppr.ShelterSUOFragment"
+        android:label="ShelterSUOFragment"
+        tools:layout="@layout/fragment_shelter_suo">
+        <action
+            android:id="@+id/action_shelterSUOFragment_to_shelterSignUpFragment"
+            app:destination="@id/shelterSignUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shelterSignUpFragment"
+        android:name="com.example.puppr.ShelterSignUpFragment"
+        android:label="ShelterSignUpFragment"
+        tools:layout="@layout/fragment_shelter_sign_up"/>
 </navigation>
