@@ -42,15 +42,10 @@
         android:id="@+id/userSettingsFragment"
         android:name="com.example.puppr.userSettingsFragment"
         android:label="fragment_user_settings"
-        tools:layout="@layout/fragment_user_settings" />
-    <fragment
-        android:id="@+id/googleSignInFragment"
-        android:name="com.example.puppr.googleSignInFragment"
-        android:label="fragment_google_sign_in"
-        tools:layout="@layout/fragment_google_sign_in" >
+        tools:layout="@layout/fragment_user_settings" >
         <action
-            android:id="@+id/action_googleSignInFragment_to_userSettingsFragment"
-            app:destination="@id/userSettingsFragment" />
+            android:id="@+id/action_userSettingsFragment_to_userLoginFragment"
+            app:destination="@id/userLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/userSignUpFragment"

@@ -2,12 +2,15 @@ package com.example.puppr
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.example.puppr.databinding.FragmentUserSettingsBinding
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * A simple [Fragment] subclass.
@@ -25,6 +28,13 @@ class userSettingsFragment : Fragment() {
             inflater,
             R.layout.fragment_user_settings, container, false
         )
+
+        binding.signOutButton.setOnClickListener{view: View ->
+            FirebaseAuth.getInstance().signOut()
+            view.findNavController().navigate(R.id.action_userSettingsFragment_to_userLoginFragment)
+            Log.i("logOut", "logout button pressed")
+        }
+
         return binding.root
     }
 

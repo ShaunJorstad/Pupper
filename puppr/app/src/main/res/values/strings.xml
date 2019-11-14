@@ -16,4 +16,5 @@
     <string name="web_client_id">AIzaSyDqr8LR7AJTMbhsytMTImi7j8AiV_2wnrA</string>
     <string name="loginSubmitButtonText">Sign in</string>
     <string name="signUpButtonText">join</string>
+    <string name="signOutButtonText">Log Out</string>
 </resources>

@@ -1,24 +1,21 @@
 package com.example.puppr
 
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.puppr.databinding.FragmentUserLoginBinding
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.fragment_user_login.*
 import kotlinx.android.synthetic.main.fragment_user_login.email_input
 import kotlinx.android.synthetic.main.fragment_user_login.password_input
-import kotlinx.android.synthetic.main.fragment_user_sign_up.*
 
 /**
  * A simple [Fragment] subclass.
@@ -26,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_user_sign_up.*
 class userLoginFragment : Fragment() {
     private lateinit var binding: FragmentUserLoginBinding
     private lateinit var auth: FirebaseAuth
-    private var TAG = ""
+    private var TAG = "userLogIn"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,12 +61,25 @@ class userLoginFragment : Fragment() {
                     Log.d(TAG, "Successful signed in user ${it.result?.user?.uid}")
                     view.findNavController().navigate(R.id.action_userLoginFragment_to_userSettingsFragment2)
                 }
-//                navigate to the user settings page
-
             }
             .addOnFailureListener {
-                Log.d(TAG, "Failed to create user: ${it.message}")
+                Log.d(TAG, "Failed to sign in user: ${it.message}")
+                view.hideKeyboard()
                 Toast.makeText(context, "invalid login credentials", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            view?.findNavController()?.navigate(R.id.action_userLoginFragment_to_userSettingsFragment2)
+        }
+    }
+
+    fun View.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
     }
 }
