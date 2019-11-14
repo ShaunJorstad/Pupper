@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_userLoginFragment_to_userSettingsFragment2"
             app:destination="@id/userSettingsFragment" />
+        <action
+            android:id="@+id/action_userLoginFragment_to_clientSavedDogs"
+            app:destination="@id/clientSavedDogs" />
     </fragment>
     <fragment
         android:id="@+id/signupOptionsFragment"

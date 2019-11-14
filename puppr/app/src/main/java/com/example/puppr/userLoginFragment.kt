@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.puppr.databinding.FragmentUserLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_user_login.email_input
@@ -36,7 +37,8 @@ class userLoginFragment : Fragment() {
         )
         auth = FirebaseAuth.getInstance()
         binding.loginSubmitButton.setOnClickListener {
-            loginUser(it)
+            findNavController().navigate(R.id.action_userLoginFragment_to_clientSavedDogs)
+            //loginUser(it)
         }
         binding.signUpButton.setOnClickListener {
             it.findNavController()

@@ -177,6 +177,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_userLoginFragment_to_clientSavedDogs">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_userLoginFragment_to_loginFragment">
                               <value>
                                 <LayoutPositions />
