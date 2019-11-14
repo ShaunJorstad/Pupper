@@ -17,4 +17,14 @@
     <string name="loginSubmitButtonText">Sign in</string>
     <string name="signUpButtonText">join</string>
     <string name="signOutButtonText">Log Out</string>
+    <string name="main_dog_image">main dog image</string>
+    <string name="menu_view_dogs">View Dogs</string>
+    <string name="menu_saved_dogs">Saved Dogs</string>
+    <string name="menu_preferences">Preferences</string>
+    <string name="dog_name">Cornbread</string>
+    <string name="dislike_button">dislike button</string>
+    <string name="like_button">like button</string>
+    <string name="saved_dogs_title">Saved Dogs</string>
+    <string name="preferences">Preferences</string>
+    <string name="dog_shelter_name">Happy Dog Shelter</string>
 </resources>

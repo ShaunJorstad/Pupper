@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Title_Style">
+        <item name="android:fontFamily">@font/signika</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+
 </resources>
