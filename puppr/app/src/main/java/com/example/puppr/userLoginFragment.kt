@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.example.puppr.databinding.FragmentUserLoginBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_user_login.password_input
  */
 class userLoginFragment : Fragment() {
     private lateinit var binding: FragmentUserLoginBinding
-    private lateinit var auth: FirebaseAuth
+    private lateinit var userVM: UserViewModel
     private var TAG = "userLogIn"
 
     override fun onCreateView(
@@ -34,7 +35,7 @@ class userLoginFragment : Fragment() {
             inflater,
             R.layout.fragment_user_login, container, false
         )
-        auth = FirebaseAuth.getInstance()
+        userVM = ViewModelProviders.of(this).get(UserViewModel::class.java)
         binding.loginSubmitButton.setOnClickListener {
             loginUser(it)
         }
@@ -54,12 +55,14 @@ class userLoginFragment : Fragment() {
             return
         }
 
-        auth.signInWithEmailAndPassword(email, password)
+        userVM.auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (!it.isSuccessful) return@addOnCompleteListener
                 else {
                     Log.d(TAG, "Successful signed in user ${it.result?.user?.uid}")
                     view.findNavController().navigate(R.id.action_userLoginFragment_to_userSettingsFragment2)
+                    // load user settings from firestore and populate in view module
+//                    userVM.populateFields()
                 }
             }
             .addOnFailureListener {
@@ -72,9 +75,10 @@ class userLoginFragment : Fragment() {
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
+        val currentUser = userVM.auth.currentUser
         if (currentUser != null) {
             view?.findNavController()?.navigate(R.id.action_userLoginFragment_to_userSettingsFragment2)
+            Log.i(TAG, "userID: ${currentUser.uid}")
         }
     }
 

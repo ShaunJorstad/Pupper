@@ -54,7 +54,38 @@ val userEntry = db.collection("users")
             Log.d(TAG, "get failed with ", exception)
         }
 
+// so to access elements of the user account:
+Log.d(TAG, "User's name: ${document.data!!["name"].toString()}")
+
 ```
+
+querying and setting an image from firebase
+```kt
+private lateinit var auth: FirebaseAuth
+private lateinit var db: FirebaseFirestore
+private lateinit var storage: FirebaseStorage
+---
+auth = FirebaseAuth.getInstance()
+db = FirebaseFirestore.getInstance()
+storage = FirebaseStorage.getInstance()
+var storageRef = storage.reference
+var userImageRef = storageRef.child("users/" + auth.currentUser!!.uid + "/userPhoto.jpg")
+val ONE_MEGABYTE: Long = 1024 * 1024 * 5
+userImageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+    var test = it!!
+    var bmp = BitmapFactory.decodeByteArray(test, 0, test.size)
+    binding.userImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, 500, 500, false))
+}.addOnFailureListener {
+    // Handle any errors
+}
+
+```
+
+For example, to pull the images for all of the dogs a user has liked:
+
+1. get current authenticated user ID
+2. query user settings with user ID, get array of liked Dog ID's
+3. for each ID in that array, query for all of the dog's images. Dogs images are located at "dogs" + DogID + "/filename"
 
 
 <!-- Update a user's profile
