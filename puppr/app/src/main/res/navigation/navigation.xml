@@ -103,4 +103,40 @@
             android:id="@+id/action_clientSavedDogs_to_clientPreferences"
             app:destination="@id/clientPreferences" />
     </fragment>
+    <fragment
+        android:id="@+id/uploadDog"
+        android:name="com.example.puppr.UploadDog"
+        android:label="fragment_upload_dog"
+        tools:layout="@layout/fragment_upload_dog" >
+        <action
+            android:id="@+id/action_uploadDog_to_shelterDogs"
+            app:destination="@id/shelterDogs" />
+        <action
+            android:id="@+id/action_uploadDog_to_shelterInformation"
+            app:destination="@id/shelterInformation" />
+    </fragment>
+    <fragment
+        android:id="@+id/shelterInformation"
+        android:name="com.example.puppr.ShelterInformation"
+        android:label="fragment_shelter_information"
+        tools:layout="@layout/fragment_shelter_information" >
+        <action
+            android:id="@+id/action_shelterInformation_to_shelterDogs"
+            app:destination="@id/shelterDogs" />
+        <action
+            android:id="@+id/action_shelterInformation_to_uploadDog"
+            app:destination="@id/uploadDog" />
+    </fragment>
+    <fragment
+        android:id="@+id/shelterDogs"
+        android:name="com.example.puppr.ShelterDogs"
+        android:label="fragment_shelter_dogs"
+        tools:layout="@layout/fragment_shelter_dogs" >
+        <action
+            android:id="@+id/action_shelterDogs_to_shelterInformation"
+            app:destination="@id/shelterInformation" />
+        <action
+            android:id="@+id/action_shelterDogs_to_uploadDog"
+            app:destination="@id/uploadDog" />
+    </fragment>
 </navigation>

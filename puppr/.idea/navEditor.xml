@@ -112,6 +112,30 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="shelterDogs">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1393" />
+                            <option name="y" value="66" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="shelterInformation">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1375" />
+                            <option name="y" value="-304" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="shelterSUOFragment">
                     <value>
                       <LayoutPositions>
@@ -162,6 +186,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="uploadDog">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1081" />
+                            <option name="y" value="-88" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
