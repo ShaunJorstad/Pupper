@@ -18,11 +18,6 @@
             app:destination="@id/signUpFragment" />
     </fragment>
     <fragment
-        android:id="@+id/signupOptionsFragment"
-        android:name="com.example.puppr.SignupOptionsFragment"
-        android:label="SignupOptionsFragment"
-        tools:layout="@layout/fragment_signup_options"/>
-    <fragment
         android:id="@+id/userSettingsFragment"
         android:name="com.example.puppr.SettingsFragment"
         android:label="fragment_user_settings"
@@ -40,26 +35,11 @@
             android:id="@+id/action_signUpFragment_to_userSettingsFragment"
             app:destination="@id/userSettingsFragment" />
     </fragment>
-<<<<<<< HEAD
-=======
-    <fragment
-        android:id="@+id/shelterSUOFragment"
-        android:name="com.example.puppr.ShelterSUOFragment"
-        android:label="ShelterSUOFragment"
-        tools:layout="@layout/fragment_shelter_suo">
-        <action
-            android:id="@+id/action_shelterSUOFragment_to_shelterSignUpFragment"
-            app:destination="@id/shelterSignUpFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/shelterSignUpFragment"
-        android:name="com.example.puppr.ShelterSignUpFragment"
-        android:label="ShelterSignUpFragment"
-        tools:layout="@layout/fragment_shelter_sign_up"/>
     <fragment
         android:id="@+id/clientViewDog"
         android:name="com.example.puppr.clientViewDog"
-        android:label="clientViewDog" >
+        android:label="clientViewDog"
+        tools:layout="@layout/fragment_client_view_dog">
         <action
             android:id="@+id/action_clientViewDog_to_clientSavedDogs"
             app:destination="@id/clientSavedDogs" />
@@ -70,7 +50,8 @@
     <fragment
         android:id="@+id/clientPreferences"
         android:name="com.example.puppr.clientPreferences"
-        android:label="clientPreferences" >
+        android:label="clientPreferences"
+        tools:layout="@layout/fragment_client_preferences">
         <action
             android:id="@+id/action_clientPreferences_to_clientViewDog"
             app:destination="@id/clientViewDog" />
@@ -81,7 +62,8 @@
     <fragment
         android:id="@+id/clientSavedDogs"
         android:name="com.example.puppr.clientSavedDogs"
-        android:label="clientSavedDogs" >
+        android:label="clientSavedDogs"
+        tools:layout="@layout/fragment_client_saved_dogs">
         <action
             android:id="@+id/action_clientSavedDogs_to_clientViewDog"
             app:destination="@id/clientViewDog" />
@@ -89,5 +71,4 @@
             android:id="@+id/action_clientSavedDogs_to_clientPreferences"
             app:destination="@id/clientPreferences" />
     </fragment>
->>>>>>> df395183639da44a221e2c6aece44022ab92398e
 </navigation>

@@ -18,7 +18,6 @@
     <string name="userSignUpButtonText">join as user</string>
     <string name="shelterSignUpButton">join as shelter</string>
     <string name="signOutButtonText">Log Out</string>
-<<<<<<< HEAD
     <string name="profileTitleText">Profile</string>
     <string name="userNameText">Arya Stark</string>
     <string name="userImageDescription">User Image</string>
@@ -30,7 +29,6 @@
     <string name="signUpSubmitButton">join</string>
     <string name="joinWithGoogleButtonText">Join with Google</string>
     <string name="joinWithPhoneButtonText">join with Phone #</string>
-=======
     <string name="main_dog_image">main dog image</string>
     <string name="menu_view_dogs">View Dogs</string>
     <string name="menu_saved_dogs">Saved Dogs</string>
@@ -41,5 +39,4 @@
     <string name="saved_dogs_title">Saved Dogs</string>
     <string name="preferences">Preferences</string>
     <string name="dog_shelter_name">Happy Dog Shelter</string>
->>>>>>> df395183639da44a221e2c6aece44022ab92398e
 </resources>
