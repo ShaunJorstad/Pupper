@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/action_preferences"
+        android:title="@string/menu_preferences"
+        android:icon="@drawable/menu_preferences_icon_foreground" />
+    <item android:id="@+id/action_view_dogs"
+        android:title="@string/menu_view_dogs"
+        android:icon="@drawable/menu_view_dog_icon_foreground" />
+    <item android:id="@+id/action_saved_dogs"
+        android:title="@string/menu_saved_dogs"
+        android:icon="@drawable/menu_saved_dog_icon_foreground" />
+</menu>
