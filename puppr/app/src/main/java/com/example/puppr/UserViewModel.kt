@@ -1,6 +1,7 @@
 package com.example.puppr
 
 import android.content.Context
+import android.text.Editable
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -35,7 +36,10 @@ data class Shelter(
 
 class UserViewModel : ViewModel() {
     private val TAG = "UserViewModel"
+    var userID: String? = ""
     var userType = ""
+    var tempEmail = ""
+    var tempPassword = ""
     lateinit var shelter: Shelter
     lateinit var user: User
     lateinit var auth: FirebaseAuth
@@ -48,18 +52,11 @@ class UserViewModel : ViewModel() {
         auth = FirebaseAuth.getInstance()
         database = FirebaseFirestore.getInstance()
         storage = FirebaseStorage.getInstance()
+        user = User()
+        shelter = Shelter()
     }
 
-
-    private fun declareUserType() {
-        if (userType == "user") {
-            user = User()
-        } else {
-            shelter = Shelter()
-        }
-    }
-
-    fun populateFields() {
+    fun populateFields(){
 //        load settings from firestore into user or shelter object
         // loads firestoreUser and sets userType
         var firestoreUser = database.collection("users").document(auth.currentUser!!.uid)
@@ -68,11 +65,11 @@ class UserViewModel : ViewModel() {
                 if (document != null) {
                     Log.d(TAG, "DocumentSnapshot data: ${document.data}")
                     userType = "user"
-                    declareUserType()
+                    Log.d(TAG, "This user type is!: $userType")
+//                    TODO: pull all other user information from firebase into the viewmodel here
                 } else {
                     Log.d(TAG, "No such document")
                     userType = "shelter"
-                    declareUserType()
                 }
             }
             .addOnFailureListener { exception ->

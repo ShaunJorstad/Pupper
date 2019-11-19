@@ -15,6 +15,8 @@
     <string name="web_client_id">AIzaSyDqr8LR7AJTMbhsytMTImi7j8AiV_2wnrA</string>
     <string name="loginSubmitButtonText">Sign in</string>
     <string name="signUpButtonText">join</string>
+    <string name="userSignUpButtonText">join as user</string>
+    <string name="shelterSignUpButton">join as shelter</string>
     <string name="signOutButtonText">Log Out</string>
     <string name="profileTitleText">Profile</string>
     <string name="userNameText">Arya Stark</string>
@@ -24,4 +26,7 @@
     <string name="addressInputText">Address</string>
     <string name="addressInputHint">Address</string>
     <string name="nameInputHint">Name</string>
+    <string name="signUpSubmitButton">join</string>
+    <string name="joinWithGoogleButtonText">Join with Google</string>
+    <string name="joinWithPhoneButtonText">join with Phone #</string>
 </resources>
