@@ -31,7 +31,7 @@ class clientViewDog : Fragment() {
 
         val bottomNav: BottomNavigationView = binding.viewDogsBottomNav
         bottomNav.selectedItemId = bottomNav.menu[1].itemId
-        bottomNav.menu[2].setOnMenuItemClickListener {
+       /* bottomNav.menu[2].setOnMenuItemClickListener {
 
             this.findNavController().navigate(R.id.action_clientViewDog_to_clientSavedDogs)
             return@setOnMenuItemClickListener true
@@ -41,7 +41,7 @@ class clientViewDog : Fragment() {
             this.findNavController().navigate(R.id.action_clientViewDog_to_clientPreferences)
             return@setOnMenuItemClickListener true
         }
-
+*/
         binding.likeButton.setOnClickListener {
             Log.i("YERT", "Liked")
         }

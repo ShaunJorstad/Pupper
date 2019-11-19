@@ -29,7 +29,7 @@ class clientSavedDogs : Fragment() {
 
         val navBottom: BottomNavigationView = binding.savedDogsBottomNav
         navBottom.selectedItemId = navBottom.menu[2].itemId
-        navBottom.menu[1].setOnMenuItemClickListener {
+       /* navBottom.menu[1].setOnMenuItemClickListener {
             this.findNavController().navigate(R.id.action_clientSavedDogs_to_clientViewDog)
             return@setOnMenuItemClickListener true
         }
@@ -37,7 +37,7 @@ class clientSavedDogs : Fragment() {
             this.findNavController().navigate(R.id.action_clientSavedDogs_to_clientPreferences)
             return@setOnMenuItemClickListener true
         }
-
+*/
         return binding.root
     }
 }
