@@ -42,4 +42,8 @@
     <string name="uploadDogs">Upload Dogs</string>
     <string name="myShelter">My Shelter</string>
     <string name="myDogs">My Dogs</string>
+    <string name="shelterName">Grove City Animal Shelter</string>
+    <string name="shelterImage" />
+    <string name="shelterAddress">123 Main Street</string>
+    <string name="shelterPhone">(123) 456 - 780-</string>
 </resources>
