@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     app:startDestination="@id/userLoginFragment">
-
     <fragment
         android:id="@+id/userLoginFragment"
         android:name="com.example.puppr.LoginFragment"
@@ -35,10 +34,6 @@
             android:id="@+id/action_signUpFragment_to_userSettingsFragment"
             app:destination="@id/userSettingsFragment" />
     </fragment>
-<<<<<<< Updated upstream
-
-</navigation>
-=======
     <fragment
         android:id="@+id/shelterSUOFragment"
         android:name="com.example.puppr.ShelterSUOFragment"
@@ -127,4 +122,3 @@
             app:destination="@id/uploadDog" />
     </fragment>
 </navigation>
->>>>>>> Stashed changes

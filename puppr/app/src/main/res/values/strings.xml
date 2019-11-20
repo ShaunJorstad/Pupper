@@ -39,4 +39,7 @@
     <string name="saved_dogs_title">Saved Dogs</string>
     <string name="preferences">Preferences</string>
     <string name="dog_shelter_name">Happy Dog Shelter</string>
+    <string name="uploadDogs">Upload Dogs</string>
+    <string name="myShelter">My Shelter</string>
+    <string name="myDogs">My Dogs</string>
 </resources>
