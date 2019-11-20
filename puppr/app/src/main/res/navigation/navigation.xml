@@ -35,24 +35,6 @@
             app:destination="@id/userSettingsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/shelterSUOFragment"
-        android:name="com.example.puppr.ShelterSUOFragment"
-        android:label="ShelterSUOFragment"
-        tools:layout="@layout/fragment_shelter_suo">
-        <action
-            android:id="@+id/action_shelterSUOFragment_to_shelterSignUpFragment"
-            app:destination="@id/shelterSignUpFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/shelterSignUpFragment"
-        android:name="com.example.puppr.ShelterSignUpFragment"
-        android:label="ShelterSignUpFragment"
-        tools:layout="@layout/fragment_shelter_sign_up">
-        <action
-            android:id="@+id/action_shelterSignUpFragment_to_shelterDogs"
-            app:destination="@id/shelterDogs" />
-    </fragment>
-    <fragment
         android:id="@+id/clientViewDog"
         android:name="com.example.puppr.clientViewDog"
         android:label="clientViewDog" >

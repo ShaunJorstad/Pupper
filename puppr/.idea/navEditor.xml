@@ -8,30 +8,95 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="action_clientViewDog_to_clientPreferences">
-                    <value>
-                      <LayoutPositions />
-                    </value>
-                  </entry>
-                  <entry key="action_clientViewDog_to_clientSavedDogs">
-                    <value>
-                      <LayoutPositions />
-                    </value>
-                  </entry>
-                  <entry key="signUpFragment">
+                  <entry key="clientPreferences">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="342" />
-                            <option name="y" value="801" />
+                            <option name="x" value="256" />
+                            <option name="y" value="63" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-<<<<<<< Updated upstream
-                            <entry key="action_signUpFragment_to_userSettingsFragment">
-=======
+                            <entry key="action_clientPreferences_to_clientSavedDogs">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_clientPreferences_to_clientViewDog">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="clientSavedDogs">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="164" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_clientSavedDogs_to_clientPreferences">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_clientSavedDogs_to_clientViewDog">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="clientViewDog">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="500" />
+                            <option name="y" value="45" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_clientViewDog_to_clientPreferences">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_clientViewDog_to_clientSavedDogs">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="shelterDogs">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="500" />
+                            <option name="y" value="884" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
                             <entry key="action_shelterDogs_to_shelterInformation">
                               <value>
                                 <LayoutPositions />
@@ -52,8 +117,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1375" />
-                            <option name="y" value="-304" />
+                            <option name="x" value="256" />
+                            <option name="y" value="597" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -78,8 +143,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="500" />
-                            <option name="y" value="12" />
+                            <option name="x" value="12" />
+                            <option name="y" value="970" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -99,25 +164,34 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="777" />
-                            <option name="y" value="6" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="signupOptionsFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="500" />
-                            <option name="y" value="368" />
+                            <option name="x" value="256" />
+                            <option name="y" value="970" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_signupOptionsFragment_to_userSignUpFragment">
+                            <entry key="action_shelterSignUpFragment_to_shelterDogs">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="signUpFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="988" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_signUpFragment_to_userSettingsFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -132,8 +206,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1081" />
-                            <option name="y" value="-88" />
+                            <option name="x" value="12" />
+                            <option name="y" value="614" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -144,7 +218,6 @@
                               </value>
                             </entry>
                             <entry key="action_uploadDog_to_shelterInformation">
->>>>>>> Stashed changes
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -159,8 +232,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="368" />
+                            <option name="x" value="744" />
+                            <option name="y" value="76" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -185,8 +258,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="288" />
-                            <option name="y" value="469" />
+                            <option name="x" value="1232" />
+                            <option name="y" value="190" />
                           </Point>
                         </option>
                         <option name="myPositions">
