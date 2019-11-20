@@ -46,4 +46,8 @@
     <string name="shelterImage" />
     <string name="shelterAddress">123 Main Street</string>
     <string name="shelterPhone">(123) 456 - 780-</string>
+    <string name="saveDogButton">Save Dog</string>
+    <string name="dogName">Dog Name</string>
+    <string name="takePhoto">Take Photo</string>
+    <string name="dogImage">Dog Image</string>
 </resources>

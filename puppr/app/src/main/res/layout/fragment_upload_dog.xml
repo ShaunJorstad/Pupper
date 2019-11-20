@@ -24,6 +24,54 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/dogImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/dogImage"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.19"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:src="@tools:sample/avatars[0]" />
+
+        <Button
+            android:id="@+id/captureDogButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/takePhoto"
+            app:layout_constraintBottom_toTopOf="@id/dog_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/dog_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_bold"
+            android:hint="@string/dogName"
+            android:inputType="textPassword"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            app:layout_constraintBottom_toTopOf="@+id/saveDogButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_conversion_absoluteHeight="51dp"
+            tools:layout_conversion_absoluteWidth="178dp" />
+
+        <Button
+            android:id="@+id/saveDogButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/saveDogButton"
+            app:layout_constraintBottom_toTopOf="@id/preference_bottom_nav"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/preference_bottom_nav"
             android:layout_width="0dp"

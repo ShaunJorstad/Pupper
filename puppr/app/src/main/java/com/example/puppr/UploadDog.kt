@@ -1,7 +1,9 @@
 package com.example.puppr
 
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +34,11 @@ class UploadDog : Fragment() {
         navBottom.menu[2].setOnMenuItemClickListener {
             this.findNavController().navigate(R.id.action_uploadDog_to_shelterInformation)
             return@setOnMenuItemClickListener true
+        }
+
+        binding.captureDogButton.setOnClickListener {
+
+
         }
 
         return binding.root
