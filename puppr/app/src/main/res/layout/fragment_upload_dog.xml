@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E69842"
+        android:background="@color/white"
         tools:context=".Preference">
 
         <TextView
@@ -23,13 +23,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/preference_bottom_nav"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="#00424242"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:background="#ffffff"
+            app:itemIconTint="@color/orange"
+            app:itemTextColor="@color/orange"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:menu="@menu/client_bottom_nav_items" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:menu="@menu/shelter_bottom_nav_items" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
