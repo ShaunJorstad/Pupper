@@ -9,21 +9,21 @@ import android.view.ViewGroup
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
-import com.example.puppr.databinding.FragmentShelterInformationBinding
+import com.example.puppr.databinding.FragmentShelterSettingsBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 /**
  * A simple [Fragment] subclass.
  */
-class ShelterInformation : Fragment() {
+class ShelterSettings : Fragment() {
 
-    private lateinit var binding: FragmentShelterInformationBinding
+    private lateinit var binding: FragmentShelterSettingsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate<FragmentShelterInformationBinding>(inflater, R.layout.fragment_shelter_information,
+        binding = DataBindingUtil.inflate<FragmentShelterSettingsBinding>(inflater, R.layout.fragment_shelter_settings,
             container, false)
         val navBottom: BottomNavigationView = binding.preferenceBottomNav
         navBottom.menu[0].setOnMenuItemClickListener {

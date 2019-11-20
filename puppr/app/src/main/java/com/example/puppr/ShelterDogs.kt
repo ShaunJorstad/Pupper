@@ -10,7 +10,6 @@ import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.example.puppr.databinding.FragmentShelterDogsBinding
-import com.example.puppr.databinding.FragmentShelterInformationBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 /**

@@ -77,13 +77,13 @@
             app:destination="@id/shelterDogs" />
         <action
             android:id="@+id/action_uploadDog_to_shelterInformation"
-            app:destination="@id/shelterInformation" />
+            app:destination="@id/shelterSettings" />
     </fragment>
     <fragment
-        android:id="@+id/shelterInformation"
-        android:name="com.example.puppr.ShelterInformation"
-        android:label="fragment_shelter_information"
-        tools:layout="@layout/fragment_shelter_information" >
+        android:id="@+id/shelterSettings"
+        android:name="com.example.puppr.ShelterSettings"
+        android:label="fragment_shelter_settings"
+        tools:layout="@layout/fragment_shelter_settings">
         <action
             android:id="@+id/action_shelterInformation_to_shelterDogs"
             app:destination="@id/shelterDogs" />
@@ -98,7 +98,7 @@
         tools:layout="@layout/fragment_shelter_dogs" >
         <action
             android:id="@+id/action_shelterDogs_to_shelterInformation"
-            app:destination="@id/shelterInformation" />
+            app:destination="@id/shelterSettings" />
         <action
             android:id="@+id/action_shelterDogs_to_uploadDog"
             app:destination="@id/uploadDog" />
