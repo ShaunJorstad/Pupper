@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.puppr.databinding.FragmentClientSavedDogsBinding
 import com.example.puppr.databinding.FragmentClientViewDogBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -19,6 +22,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class clientSavedDogs : Fragment() {
 
     private lateinit var binding: FragmentClientSavedDogsBinding
+    private lateinit var dogCard: CardView
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +33,17 @@ class clientSavedDogs : Fragment() {
 
         binding = DataBindingUtil.inflate<FragmentClientSavedDogsBinding>(inflater, R.layout.fragment_client_saved_dogs,
             container, false)
+
+        val myArray: Array<String> = arrayOf("One", "Two", "Three", "Four", "Five")
+
+        viewManager = LinearLayoutManager(this.context)
+        viewAdapter = dogCardAdapter(myArray)
+        recyclerView = binding.dogCards.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
+
 
         val navBottom: BottomNavigationView = binding.savedDogsBottomNav
         navBottom.selectedItemId = navBottom.menu[2].itemId

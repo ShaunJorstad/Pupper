@@ -13,5 +13,16 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">50sp</item>
     </style>
+    
+    <style name="Client_View_Dog_Base_Card" parent="CardView">
+        <item name="android:layout_width">360dp</item>
+        <item name="android:layout_height">500dp</item>
+        <item name="android:layout_marginTop">25dp</item>
+        <item name="cardCornerRadius">25dp</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@id/view_dogs_bottom_nav</item>
+    </style>
 
 </resources>

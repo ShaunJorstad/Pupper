@@ -170,7 +170,16 @@
                         </option>
                         <option name="myPositions">
                           <map>
+<<<<<<< HEAD
                             <entry key="action_uploadDog_to_shelterDogs">
+=======
+                            <entry key="action_userLoginFragment_to_clientSavedDogs">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_userLoginFragment_to_loginFragment">
+>>>>>>> customer_side
                               <value>
                                 <LayoutPositions />
                               </value>
