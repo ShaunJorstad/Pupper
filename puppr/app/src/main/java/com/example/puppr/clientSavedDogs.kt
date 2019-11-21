@@ -34,7 +34,7 @@ class clientSavedDogs : Fragment() {
         binding = DataBindingUtil.inflate<FragmentClientSavedDogsBinding>(inflater, R.layout.fragment_client_saved_dogs,
             container, false)
 
-        val myArray: Array<String> = arrayOf("One", "Two", "Three", "Four", "Five")
+        val myArray: Array<String> = arrayOf("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten")
 
         viewManager = LinearLayoutManager(this.context)
         viewAdapter = dogCardAdapter(myArray)
@@ -47,7 +47,7 @@ class clientSavedDogs : Fragment() {
 
         val navBottom: BottomNavigationView = binding.savedDogsBottomNav
         navBottom.selectedItemId = navBottom.menu[2].itemId
-       /* navBottom.menu[1].setOnMenuItemClickListener {
+        navBottom.menu[1].setOnMenuItemClickListener {
             this.findNavController().navigate(R.id.action_clientSavedDogs_to_clientViewDog)
             return@setOnMenuItemClickListener true
         }
@@ -55,7 +55,7 @@ class clientSavedDogs : Fragment() {
             this.findNavController().navigate(R.id.action_clientSavedDogs_to_clientPreferences)
             return@setOnMenuItemClickListener true
         }
-*/
+
         return binding.root
     }
 }

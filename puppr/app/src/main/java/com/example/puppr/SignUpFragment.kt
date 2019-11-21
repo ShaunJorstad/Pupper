@@ -100,7 +100,12 @@ class SignUpFragment : Fragment() {
                     }
                 }
                 .addOnFailureListener {
-
+                    Toast.makeText(
+                        context,
+                        it.message,
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
                 }
         } else if (userVM.userType == "shelter") {
             userVM.auth.createUserWithEmailAndPassword(email, password)
@@ -132,7 +137,12 @@ class SignUpFragment : Fragment() {
                     }
                 }
                 .addOnFailureListener {
-
+                    Toast.makeText(
+                        context,
+                        it.message,
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
                 }
         } else {
             Toast.makeText(

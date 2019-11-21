@@ -34,20 +34,20 @@ class clientPreferences : Fragment() {
         } ?: throw Exception("Invalid Activity")
         binding.signOutButton.setOnClickListener {view ->
             userVM.auth.signOut()
-            view.findNavController().navigate(R.id.action_shelterDogs_to_userLoginFragment)
+            view.findNavController().navigate(R.id.action_clientPreferences_to_userLoginFragment)
             Log.i("logOut", "logout button pressed")
         }
 
         val navBottom: BottomNavigationView = binding.preferenceBottomNav
         navBottom.selectedItemId = navBottom.menu[0].itemId
-        /*navBottom.menu[1].setOnMenuItemClickListener {
+        navBottom.menu[1].setOnMenuItemClickListener {
             this.findNavController().navigate(R.id.action_clientPreferences_to_clientViewDog)
             return@setOnMenuItemClickListener true
         }
         navBottom.menu[2].setOnMenuItemClickListener {
             this.findNavController().navigate(R.id.action_clientPreferences_to_clientSavedDogs)
             return@setOnMenuItemClickListener true
-        }*/
+        }
 
         return binding.root
     }

@@ -34,7 +34,7 @@ class ShelterSettings : Fragment() {
         } ?: throw Exception("Invalid Activity")
         binding.signOutButton.setOnClickListener {view ->
             userVM.auth.signOut()
-            view.findNavController().navigate(R.id.action_shelterDogs_to_userLoginFragment)
+            view.findNavController().navigate(R.id.action_shelterSettings_to_signUpFragment)
             Log.i("logOut", "logout button pressed")
         }
         val navBottom: BottomNavigationView = binding.preferenceBottomNav

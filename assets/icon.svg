@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2169" height="2169" viewBox="0 0 2169 2169">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1" y1="0.063" x2="0.032" y2="0.944" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#e69842"/>
+      <stop offset="1" stop-color="#d64d21"/>
+    </linearGradient>
+    <filter id="Rectangle_19" x="54.5" y="64.5" width="2060" height="2060" filterUnits="userSpaceOnUse">
+      <feOffset dy="10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="8.5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-Artboard_1">
+      <rect width="2169" height="2169"/>
+    </clipPath>
+  </defs>
+  <g id="Artboard_1" data-name="Artboard – 1" clip-path="url(#clip-Artboard_1)">
+    <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Rectangle_19)">
+      <rect id="Rectangle_19-2" data-name="Rectangle 19" width="2009" height="2009" rx="522" transform="translate(80 80)" fill="url(#linear-gradient)"/>
+    </g>
+    <path id="Path_10" data-name="Path 10" d="M0,0H1364.229V1364.229H0Z" transform="matrix(0.819, 0.574, -0.574, 0.819, 917.489, 80)" fill="none"/>
+    <g id="Group_22" data-name="Group 22" transform="translate(226.26 -147.02) rotate(9)">
+      <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="123.681" cy="124.506" rx="123.681" ry="124.506" transform="matrix(0.819, 0.574, -0.574, 0.819, 710.234, 600.874)" fill="#fff"/>
+      <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="123.936" cy="123.936" rx="123.936" ry="123.936" transform="matrix(0.819, 0.574, -0.574, 0.819, 1042.896, 528.527)" fill="#fff"/>
+      <ellipse id="Ellipse_4" data-name="Ellipse 4" cx="123.936" cy="123.936" rx="123.936" ry="123.936" transform="matrix(0.819, 0.574, -0.574, 0.819, 1366.727, 725.922)" fill="#fff"/>
+      <ellipse id="Ellipse_5" data-name="Ellipse 5" cx="123.681" cy="124.506" rx="123.681" ry="124.506" transform="matrix(0.819, 0.574, -0.574, 0.819, 1443.623, 1049.458)" fill="#fff"/>
+      <path id="Path_11" data-name="Path 11" d="M758.653,247.835C709.2,189.855,667.7,140.4,617.682,82.422,591.535,51.727,558,21.032,518.207,7.39a115.083,115.083,0,0,0-18.758-5.116C485.238,0,469.891,0,455.112,0s-30.127,0-44.906,2.842a115.085,115.085,0,0,0-18.758,5.116C351.658,21.6,318.689,52.3,291.973,82.991,242.52,140.97,201.024,190.424,151,248.4,76.538,322.868-14.979,405.29,2.074,520.681c16.484,57.98,57.98,115.391,132.444,131.875,41.5,8.526,173.939-25.011,314.909-25.011h10.232c140.97,0,273.414,32.969,314.91,25.011,74.464-16.485,115.959-74.464,132.444-131.875,17.621-115.96-73.9-198.382-148.36-272.846Z" transform="matrix(0.819, 0.574, -0.574, 0.819, 761.1, 699.115)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

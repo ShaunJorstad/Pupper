@@ -13,22 +13,9 @@
             android:id="@+id/action_userLoginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
         <action
-<<<<<<< HEAD
+
             android:id="@+id/action_userLoginFragment_to_shelterDogs"
             app:destination="@id/shelterDogs" />
-=======
-            android:id="@+id/action_userLoginFragment_to_userSettingsFragment2"
-            app:destination="@id/userSettingsFragment" />
-        <action
-            android:id="@+id/action_userLoginFragment_to_clientSavedDogs"
-            app:destination="@id/clientSavedDogs" />
-    </fragment>
-    <fragment
-        android:id="@+id/signupOptionsFragment"
-        android:name="com.example.puppr.SignupOptionsFragment"
-        android:label="SignupOptionsFragment"
-        tools:layout="@layout/fragment_signup_options">
->>>>>>> customer_side
         <action
             android:id="@+id/action_userLoginFragment_to_clientSavedDogs"
             app:destination="@id/clientSavedDogs" />
@@ -61,6 +48,12 @@
         <action
             android:id="@+id/action_clientViewDog_to_clientPreferences"
             app:destination="@id/clientPreferences" />
+        <action
+            android:id="@+id/action_clientViewDog_to_clientPreferences2"
+            app:destination="@id/clientPreferences" />
+        <action
+            android:id="@+id/action_clientViewDog_to_clientSavedDogs2"
+            app:destination="@id/clientSavedDogs" />
     </fragment>
     <fragment
         android:id="@+id/clientPreferences"
@@ -73,6 +66,15 @@
         <action
             android:id="@+id/action_clientPreferences_to_clientSavedDogs"
             app:destination="@id/clientSavedDogs" />
+        <action
+            android:id="@+id/action_clientPreferences_to_clientViewDog2"
+            app:destination="@id/clientViewDog" />
+        <action
+            android:id="@+id/action_clientPreferences_to_clientSavedDogs2"
+            app:destination="@id/clientSavedDogs" />
+        <action
+            android:id="@+id/action_clientPreferences_to_userLoginFragment"
+            app:destination="@id/userLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/clientSavedDogs"
@@ -84,6 +86,12 @@
             app:destination="@id/clientViewDog" />
         <action
             android:id="@+id/action_clientSavedDogs_to_clientPreferences"
+            app:destination="@id/clientPreferences" />
+        <action
+            android:id="@+id/action_clientSavedDogs_to_clientViewDog2"
+            app:destination="@id/clientViewDog" />
+        <action
+            android:id="@+id/action_clientSavedDogs_to_clientPreferences2"
             app:destination="@id/clientPreferences" />
     </fragment>
     <fragment
@@ -109,6 +117,9 @@
         <action
             android:id="@+id/action_shelterInformation_to_uploadDog"
             app:destination="@id/uploadDog" />
+        <action
+            android:id="@+id/action_shelterSettings_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/shelterDogs"
