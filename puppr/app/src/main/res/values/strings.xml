@@ -17,7 +17,6 @@
     <string name="signUpButtonText">join</string>
     <string name="userSignUpButtonText">join as user</string>
     <string name="shelterSignUpButton">join as shelter</string>
-    <string name="signOutButtonText">Log Out</string>
     <string name="profileTitleText">Profile</string>
     <string name="userNameText">Arya Stark</string>
     <string name="userImageDescription">User Image</string>
@@ -50,4 +49,5 @@
     <string name="dogName">Dog Name</string>
     <string name="takePhoto">Take Photo</string>
     <string name="dogImage">Dog Image</string>
+    <string name="signOutButtonText">Log Out</string>
 </resources>

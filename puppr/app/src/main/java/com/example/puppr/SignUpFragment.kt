@@ -94,7 +94,7 @@ class SignUpFragment : Fragment() {
                                     TAG,
                                     "DocumentSnapshot successfully written!"
                                 )
-                                view?.findNavController()?.navigate(R.id.action_signUpFragment_to_userSettingsFragment)
+                                view?.findNavController()?.navigate(R.id.action_signUpFragment_to_clientSavedDogs)
                             }
                             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
                     }
@@ -126,7 +126,7 @@ class SignUpFragment : Fragment() {
                                     TAG,
                                     "DocumentSnapshot succwessfully written!"
                                 )
-                                view?.findNavController()?.navigate(R.id.action_signUpFragment_to_userSettingsFragment)
+                                view?.findNavController()?.navigate(R.id.action_signUpFragment_to_shelterDogs)
                             }
                             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
                     }

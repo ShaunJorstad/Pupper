@@ -36,7 +36,7 @@ class LoginFragment : Fragment() {
         )
         userVM = activity?.run {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
-        }?: throw Exception("Invalid Activity")
+        } ?: throw Exception("Invalid Activity")
         binding.signInSubmitButton.setOnClickListener {
             loginUser(it)
         }
@@ -77,9 +77,17 @@ class LoginFragment : Fragment() {
             .addOnCompleteListener {
                 if (!it.isSuccessful) return@addOnCompleteListener
                 else {
-                    Log.d(TAG, "Successful signed in user ${it.result?.user?.uid}")
-                    view.findNavController()
-                        .navigate(R.id.action_userLoginFragment_to_userSettingsFragment2)
+                    if (userVM.userType == "user") {
+                        Log.d(TAG, "Successful signed in user ${it.result?.user?.uid}")
+                        view.findNavController()
+                            .navigate(R.id.action_userLoginFragment_to_clientSavedDogs)
+                    }
+                    if (userVM.userType == "shelter") {
+                        Log.d(TAG, "Successful signed in user ${it.result?.user?.uid}")
+                        view.findNavController()
+                            .navigate(R.id.action_userLoginFragment_to_shelterDogs)
+                    }
+
                     // load user settings from firestore and populate in view module
 //                    userVM.populateFields()
                 }
@@ -96,9 +104,35 @@ class LoginFragment : Fragment() {
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = userVM.auth.currentUser
         if (currentUser != null) {
-            view?.findNavController()
-                ?.navigate(R.id.action_userLoginFragment_to_userSettingsFragment2)
-            Log.i(TAG, "userID: ${currentUser.uid}")
+            //set user type
+            var firestoreUser =
+                userVM.database.collection("users").document(userVM.auth.currentUser!!.uid)
+            firestoreUser.get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+                        userVM.userType = "user"
+                        Log.d(TAG, "This user type is!: $userVM.userType")
+                        //navigate to user fragment view thing
+                        view?.findNavController()?.navigate(R.id.action_userLoginFragment_to_clientSavedDogs)
+//                    TODO: pull all other user information from firebase into the viewmodel here
+                    } else {
+                        userVM.database.collection("shelters")
+                            .document(userVM.auth.currentUser!!.uid).get()
+                            .addOnSuccessListener { innerDocument ->
+                                Log.d(TAG, "DocumentSnapshot data: ${innerDocument.data}")
+                                userVM.userType = "shelter"
+                                Log.d(TAG, "This user type is!: $userVM.userType")
+                                view?.findNavController()?.navigate(R.id.action_userLoginFragment_to_shelterDogs)
+                            }
+                            .addOnFailureListener { exception ->
+                                Log.d(TAG, "get failed with ", exception)
+                            }
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d(TAG, "get failed with ", exception)
+                }
             userVM.userID = currentUser.uid
         }
     }

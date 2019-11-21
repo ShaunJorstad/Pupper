@@ -53,19 +53,6 @@ class SettingsFragment : Fragment() {
             Log.d(TAG, "usertype undefined " + userVM.userType)
         }
 
-        binding.signOutButton.setOnClickListener { view: View ->
-            FirebaseAuth.getInstance().signOut()
-            view.findNavController().navigate(R.id.action_userSettingsFragment_to_userLoginFragment)
-            Log.i("logOut", "logout button pressed")
-        }
-
-        binding.userImage.setOnClickListener {
-            //            instantiate ui to upload new image
-        }
-
-        binding.testButton.setOnClickListener { view: View ->
-        }
-
         return binding.root
     }
 
