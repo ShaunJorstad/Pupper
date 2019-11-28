@@ -120,6 +120,9 @@
         <action
             android:id="@+id/action_shelterSettings_to_signUpFragment"
             app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_shelterSettings_to_userLoginFragment"
+            app:destination="@id/userLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/shelterDogs"

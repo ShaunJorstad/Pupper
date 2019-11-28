@@ -57,38 +57,38 @@ class UserViewModel : ViewModel() {
     }
 
     fun populateFields(){
+        Log.d(TAG, "inside populate fields")
+        Log.d(TAG, "current userID: ${userID}")
 //        load settings from firestore into user or shelter object
         // loads firestoreUser and sets userType
-        var firestoreUser = database.collection("users").document(auth.currentUser!!.uid)
+        var firestoreUser = database.collection("users").document(userID.toString())
         firestoreUser.get()
             .addOnSuccessListener { document ->
-                if (document != null) {
+                if (document.data != null) {
                     Log.d(TAG, "DocumentSnapshot data: ${document.data}")
                     userType = "user"
-                    Log.d(TAG, "This user type is!: $userType")
+                    Log.d(TAG, "DocumentSnapshot: ${document}")
+                    Log.d(TAG, "This user type is!: ${userType}")
+                    //navigate to user fragment view thing
 //                    TODO: pull all other user information from firebase into the viewmodel here
                 } else {
-                    Log.d(TAG, "No such document")
-                    userType = "shelter"
+                    database.collection("shelters")
+                        .document(userID.toString()).get()
+                        .addOnSuccessListener { innerDocument ->
+                            if (innerDocument.data != null) {
+                                Log.d(TAG, "DocumentSnapshot data: ${innerDocument.data}")
+                                userType = "shelter"
+                                Log.d(TAG, "This user type is!: ${userType}")
+                            }
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.d(TAG, "get failed with ", exception)
+                        }
                 }
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "get failed with ", exception)
             }
-        if (userType == "shelter") {
-            firestoreUser = database.collection("shelters").document(auth.currentUser!!.uid)
-            firestoreUser.get()
-                .addOnSuccessListener { document ->
-                    if (document != null) {
-                        Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                    } else {
-                        Log.d(TAG, "No such document")
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    Log.d(TAG, "get failed with ", exception)
-                }
-        }
     }
 
 }
