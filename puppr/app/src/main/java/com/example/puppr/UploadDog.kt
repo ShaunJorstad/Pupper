@@ -33,12 +33,12 @@ class UploadDog : Fragment() {
         binding = DataBindingUtil.inflate<FragmentUploadDogBinding>(inflater, R.layout.fragment_upload_dog,
             container, false)
         val navBottom: BottomNavigationView = binding.preferenceBottomNav
-        navBottom.menu[0].setOnMenuItemClickListener {
+        navBottom.menu[2].setOnMenuItemClickListener {
             this.findNavController().navigate(R.id.action_uploadDog_to_shelterDogs)
             return@setOnMenuItemClickListener true
         }
         navBottom.selectedItemId = navBottom.menu[1].itemId
-        navBottom.menu[2].setOnMenuItemClickListener {
+        navBottom.menu[0].setOnMenuItemClickListener {
             this.findNavController().navigate(R.id.action_uploadDog_to_shelterInformation)
             return@setOnMenuItemClickListener true
         }

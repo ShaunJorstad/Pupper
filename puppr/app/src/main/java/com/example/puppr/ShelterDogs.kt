@@ -24,12 +24,12 @@ class ShelterDogs : Fragment() {
         binding = DataBindingUtil.inflate<FragmentShelterDogsBinding>(inflater, R.layout.fragment_shelter_dogs,
             container, false)
         val navBottom: BottomNavigationView = binding.preferenceBottomNav
-        navBottom.selectedItemId = navBottom.menu[0].itemId
+        navBottom.selectedItemId = navBottom.menu[2].itemId
         navBottom.menu[1].setOnMenuItemClickListener {
             this.findNavController().navigate(R.id.action_shelterDogs_to_uploadDog)
             return@setOnMenuItemClickListener true
         }
-        navBottom.menu[2].setOnMenuItemClickListener {
+        navBottom.menu[0].setOnMenuItemClickListener {
             this.findNavController().navigate(R.id.action_shelterDogs_to_shelterInformation)
             return@setOnMenuItemClickListener true
         }
