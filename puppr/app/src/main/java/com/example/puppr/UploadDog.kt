@@ -67,7 +67,7 @@ class UploadDog : Fragment() {
                 "photos" to null,
                 "shelter" to userVM.userID
             )
-            userVM.database.collection("dogs").document("dog")
+            userVM.database.collection("dogs").document()
                 .set(dog)
                 .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
                 .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
