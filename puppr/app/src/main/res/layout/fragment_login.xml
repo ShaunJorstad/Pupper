@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/pupprText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="70dp"
             android:fontFamily="@font/signika_bold"
@@ -32,15 +32,13 @@
 
         <EditText
             android:id="@+id/password_input"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
             android:fontFamily="@font/lato_bold"
             android:hint="@string/passwordEntry"
             android:inputType="textPassword"
-            android:paddingLeft="50dp"
             android:paddingTop="15dp"
-            android:paddingRight="50dp"
             app:layout_constraintBottom_toTopOf="@+id/signInSubmitButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,15 +47,13 @@
 
         <EditText
             android:id="@+id/email_input"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/lato_bold"
             android:hint="@string/emailEntry"
             android:inputType="textEmailAddress"
-            android:paddingLeft="68dp"
             android:paddingTop="15dp"
-            android:paddingRight="68dp"
             app:layout_constraintBottom_toTopOf="@+id/password_input"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,9 +62,10 @@
 
         <Button
             android:id="@+id/signInSubmitButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:background="@color/lightOrange"
             android:text="@string/loginSubmitButtonText"
             app:layout_constraintBottom_toTopOf="@+id/userSignUpButton"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,9 +75,10 @@
 
         <Button
             android:id="@+id/userSignUpButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="140dp"
+            android:background="@color/lightOrange"
             android:text="@string/userSignUpButtonText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -90,9 +88,10 @@
 
         <Button
             android:id="@+id/shelterSignUpButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="@color/lightOrange"
             android:text="@string/shelterSignUpButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
