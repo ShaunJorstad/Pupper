@@ -178,6 +178,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_shelterSettings_to_userLoginFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>

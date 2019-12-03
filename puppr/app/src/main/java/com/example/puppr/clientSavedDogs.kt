@@ -34,7 +34,7 @@ class clientSavedDogs : Fragment() {
         binding = DataBindingUtil.inflate<FragmentClientSavedDogsBinding>(inflater, R.layout.fragment_client_saved_dogs,
             container, false)
 
-        val myArray: Array<String> = arrayOf("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten")
+        val myArray: Array<String> = arrayOf("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten","Eleven")
 
         viewManager = LinearLayoutManager(this.context)
         viewAdapter = dogCardAdapter(myArray)
