@@ -21,6 +21,22 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 /**
  * A simple [Fragment] subclass.
  */
+
+
+//age - string
+//bio - string
+//breed - string
+//color - string
+//dislikes - array
+//health - array
+    //current - array
+    //history - array
+    //vaccinations - array
+//likes - array
+//name - string
+//photos - array
+//shelter - string
+
 class UploadDog : Fragment() {
     private lateinit var binding: FragmentUploadDogBinding
     val REQUEST_IMAGE_CAPTURE = 1
