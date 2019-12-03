@@ -21,6 +21,22 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 /**
  * A simple [Fragment] subclass.
  */
+
+
+//age - string
+//bio - string
+//breed - string
+//color - string
+//dislikes - array
+//health - array
+    //current - array
+    //history - array
+    //vaccinations - array
+//likes - array
+//name - string
+//photos - array
+//shelter - string
+
 class UploadDog : Fragment() {
     private lateinit var binding: FragmentUploadDogBinding
     val REQUEST_IMAGE_CAPTURE = 1
@@ -33,12 +49,12 @@ class UploadDog : Fragment() {
         binding = DataBindingUtil.inflate<FragmentUploadDogBinding>(inflater, R.layout.fragment_upload_dog,
             container, false)
         val navBottom: BottomNavigationView = binding.preferenceBottomNav
-        navBottom.menu[0].setOnMenuItemClickListener {
+        navBottom.menu[2].setOnMenuItemClickListener {
             this.findNavController().navigate(R.id.action_uploadDog_to_shelterDogs)
             return@setOnMenuItemClickListener true
         }
         navBottom.selectedItemId = navBottom.menu[1].itemId
-        navBottom.menu[2].setOnMenuItemClickListener {
+        navBottom.menu[0].setOnMenuItemClickListener {
             this.findNavController().navigate(R.id.action_uploadDog_to_shelterInformation)
             return@setOnMenuItemClickListener true
         }

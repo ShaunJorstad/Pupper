@@ -38,7 +38,7 @@ class ShelterSettings : Fragment() {
             Log.i("logOut", "logout button pressed")
         }
         val navBottom: BottomNavigationView = binding.preferenceBottomNav
-        navBottom.menu[0].setOnMenuItemClickListener {
+        navBottom.menu[2].setOnMenuItemClickListener {
             this.findNavController().navigate(R.id.action_shelterInformation_to_shelterDogs)
             return@setOnMenuItemClickListener true
         }
@@ -46,7 +46,7 @@ class ShelterSettings : Fragment() {
             this.findNavController().navigate(R.id.action_shelterInformation_to_uploadDog)
             return@setOnMenuItemClickListener true
         }
-        navBottom.selectedItemId = navBottom.menu[2].itemId
+        navBottom.selectedItemId = navBottom.menu[0].itemId
         return binding.root
     }
 
