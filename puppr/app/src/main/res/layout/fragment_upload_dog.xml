@@ -23,25 +23,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <ImageView
             android:id="@+id/dogImage"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:contentDescription="@string/dogImage"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/captureDogButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
             app:layout_constraintVertical_bias="0.19"
             app:layout_constraintVertical_chainStyle="packed"
             tools:src="@tools:sample/avatars[0]" />
 
         <Button
             android:id="@+id/captureDogButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/lightOrange"
             android:text="@string/takePhoto"
+            android:textColor="@color/white"
+            android:textColorHighlight="@android:color/black"
             app:layout_constraintBottom_toTopOf="@id/dog_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -49,24 +51,109 @@
 
         <EditText
             android:id="@+id/dog_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato_bold"
             android:hint="@string/dogName"
-            android:inputType="textPassword"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp"
-            app:layout_constraintBottom_toTopOf="@+id/saveDogButton"
+            android:textColorLink="@color/orange"
+            android:textCursorDrawable="@color/orange"
+            app:layout_constraintBottom_toTopOf="@+id/dog_age"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_conversion_absoluteHeight="51dp"
             tools:layout_conversion_absoluteWidth="178dp" />
 
+        <EditText
+            android:id="@+id/dog_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_bold"
+            android:hint="Dog Age"
+            android:textColorLink="@color/colorAccent"
+            android:textCursorDrawable="@color/colorAccent"
+            app:layout_constraintBottom_toTopOf="@+id/dog_bio"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_conversion_absoluteHeight="51dp"
+            tools:layout_conversion_absoluteWidth="178dp" />
+
+        <EditText
+            android:id="@+id/dog_bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_bold"
+            android:hint="Dog bio"
+            android:textColorLink="@color/colorAccent"
+            android:textCursorDrawable="@color/colorAccent"
+            app:layout_constraintBottom_toTopOf="@+id/dog_breed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_conversion_absoluteHeight="51dp"
+            tools:layout_conversion_absoluteWidth="178dp" />
+
+        <EditText
+            android:id="@+id/dog_breed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_bold"
+            android:hint="Breed"
+            app:layout_constraintBottom_toTopOf="@+id/dog_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_conversion_absoluteHeight="51dp"
+            tools:layout_conversion_absoluteWidth="178dp" />
+        <EditText
+            android:id="@+id/dog_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_bold"
+            android:hint="Color"
+            app:layout_constraintBottom_toTopOf="@+id/current_health"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_conversion_absoluteHeight="51dp"
+            tools:layout_conversion_absoluteWidth="178dp" />
+        <EditText
+            android:id="@+id/current_health"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_bold"
+            android:hint="Current health status"
+            app:layout_constraintBottom_toTopOf="@+id/health_history"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_conversion_absoluteHeight="51dp"
+            tools:layout_conversion_absoluteWidth="178dp" />
+        <EditText
+            android:id="@+id/health_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_bold"
+            android:hint="Health history"
+            app:layout_constraintBottom_toTopOf="@+id/vaccinations"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_conversion_absoluteHeight="51dp"
+            tools:layout_conversion_absoluteWidth="178dp" />
+        <EditText
+            android:id="@+id/vaccinations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_bold"
+            android:hint="Vaccinations"
+            app:layout_constraintBottom_toTopOf="@+id/saveDogButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_conversion_absoluteHeight="51dp"
+            tools:layout_conversion_absoluteWidth="178dp" />
         <Button
             android:id="@+id/saveDogButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/lightOrange"
             android:text="@string/saveDogButton"
+            android:textColor="@color/white"
+            android:textColorHighlight="@android:color/black"
             app:layout_constraintBottom_toTopOf="@id/preference_bottom_nav"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"

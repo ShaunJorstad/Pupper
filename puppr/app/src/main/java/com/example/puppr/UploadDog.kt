@@ -12,7 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.get
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.puppr.databinding.FragmentUploadDogBinding
 import com.google.android.gms.common.wrappers.PackageManagerWrapper
@@ -23,29 +25,23 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
  */
 
 
-//age - string
-//bio - string
-//breed - string
-//color - string
-//dislikes - array
-//health - array
-    //current - array
-    //history - array
-    //vaccinations - array
-//likes - array
-//name - string
-//photos - array
-//shelter - string
+
 
 class UploadDog : Fragment() {
     private lateinit var binding: FragmentUploadDogBinding
+    private lateinit var userVM: UserViewModel
     val REQUEST_IMAGE_CAPTURE = 1
+    val TAG: String = "Urgent UploadDog"
+    //private lateinit var userVM: UserViewModel
     //val packageManager: PackageManager? = context?.getPackageManager()
     //val packageManager = android.content.pm.PackageManager.FEATURE_CAMERA
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        userVM = activity?.run {
+            ViewModelProviders.of(this).get(UserViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
         binding = DataBindingUtil.inflate<FragmentUploadDogBinding>(inflater, R.layout.fragment_upload_dog,
             container, false)
         val navBottom: BottomNavigationView = binding.preferenceBottomNav
@@ -58,7 +54,23 @@ class UploadDog : Fragment() {
             this.findNavController().navigate(R.id.action_uploadDog_to_shelterInformation)
             return@setOnMenuItemClickListener true
         }
-
+        binding.saveDogButton.setOnClickListener {
+            val dog = hashMapOf(
+                "age" to binding.dogAge.getText().toString(),
+                "bio" to binding.dogBio.getText().toString(),
+                "breed" to binding.dogBreed.getText().toString(),
+                "color" to binding.dogColor.getText().toString(),
+                "dislikes" to null,
+                "health" to null,
+                "likes" to null,
+                "name" to binding.dogName.getText().toString(),
+                "photos" to null,
+                "shelter" to userVM.userID
+            )
+            userVM.database.collection("dogs").document("dogs").set(dog)
+                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+                .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+        }
 //        binding.captureDogButton.setOnClickListener {
 //            dispatchTakePictureIntent()
 //
