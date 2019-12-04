@@ -1,24 +1,17 @@
 package com.example.puppr
-
-
-import android.app.Activity.RESULT_OK
-import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.get
-import android.content.pm.PackageManager
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.puppr.databinding.FragmentUploadDogBinding
-import com.google.android.gms.common.wrappers.PackageManagerWrapper
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlin.reflect.typeOf
 
 /**
  * A simple [Fragment] subclass.
@@ -67,17 +60,34 @@ class UploadDog : Fragment() {
                 "photos" to null,
                 "shelter" to userVM.userID
             )
-            var dogCode = userVM.database.collection("dogs").document()
-                .set(dog)
-                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
-                .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+            userVM.database.collection("dogs").add(dog)
+                .addOnSuccessListener { documentReference ->
+                    Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
+                    val docRef = userVM.database.collection("shelters").document(documentReference.id.toString())
+                    docRef.get()
+                        .addOnSuccessListener { document ->
+                            if (document != null) {
+                                Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+                                if(document.data!=null) {
+                                    for (i in document.data!!) {
+                                        Log.d(TAG, i.toString())
+                                    }
+                                } else {
+                                    val dogs: List<String> = listOf(documentReference.id)
+                                    userVM.database.collection("shelters").document(userVM.userID.toString())
+                                        .update(mapOf("dogs" to dogs));
+                                }
+                            } else {
+                                Log.d(TAG, "No such document")
+                            }
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.d(TAG, "get failed with ", exception)
+                        }
 
-            userVM.shelter.dogs?.plusElement(dogCode)
-            val dogs = hashMapOf("dogs" to userVM.shelter.dogs)
-            userVM.database.collection("shelters").document(userVM.userID.toString())
-                .set(dogs)
-                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+                }
                 .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+            //binding.dogAge.
         }
 //        binding.captureDogButton.setOnClickListener {
 //            dispatchTakePictureIntent()
