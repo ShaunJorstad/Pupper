@@ -94,7 +94,7 @@ class SignUpFragment : Fragment() {
                                     TAG,
                                     "DocumentSnapshot successfully written!"
                                 )
-                                view?.findNavController()?.navigate(R.id.action_signUpFragment_to_clientSavedDogs)
+                                view?.findNavController()?.navigate(R.id.action_signUpFragment_to_userPrefSetupFragment)
                             }
                             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
                     }

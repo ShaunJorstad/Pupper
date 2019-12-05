@@ -26,7 +26,7 @@ class userPrefSetupFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentUserPrefSetupBinding>(
             inflater,
-            R.layout.fragment_settings, container, false
+            R.layout.fragment_user_pref_setup, container, false
         )
         userVM = activity?.run {
             ViewModelProviders.of(this).get(UserViewModel::class.java)

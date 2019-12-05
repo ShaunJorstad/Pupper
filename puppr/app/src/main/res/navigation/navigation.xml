@@ -34,8 +34,8 @@
             android:id="@+id/action_signUpFragment_to_shelterDogs"
             app:destination="@id/shelterDogs" />
         <action
-            android:id="@+id/action_signUpFragment_to_clientSavedDogs"
-            app:destination="@id/clientSavedDogs" />
+            android:id="@+id/action_signUpFragment_to_userPrefSetupFragment"
+            app:destination="@id/userPrefSetupFragment" />
     </fragment>
     <fragment
         android:id="@+id/clientViewDog"
@@ -139,4 +139,9 @@
             android:id="@+id/action_shelterDogs_to_userLoginFragment"
             app:destination="@id/userLoginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/userPrefSetupFragment"
+        android:name="com.example.puppr.userPrefSetupFragment"
+        android:label="userPrefSetupFragment"
+        tools:layout="@layout/fragment_user_pref_setup" />
 </navigation>

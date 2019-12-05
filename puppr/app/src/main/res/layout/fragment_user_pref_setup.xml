@@ -7,7 +7,6 @@
         android:layout_height="match_parent"
         tools:context=".userPrefSetupFragment">
 
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -24,16 +23,36 @@
                     android:text="@string/userPrefTitle"
                     android:textSize="30sp"
                     android:textStyle="bold"
-                    android:fontFamily="@font/signika_bold"
-                    android:gravity="center"/>
+                    android:fontFamily="@font/signika_bold" />
 
                 <EditText
                     android:id="@+id/edit_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="50sp"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:text="@string/editableName"
+                    android:textColorHint="#868686" />
+
+                <EditText
+                    android:id="@+id/address_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25sp"
+                    android:ems="10"
+                    android:inputType="textPostalAddress"
+                    android:text="@string/addressText"
+                    android:textColorHint="#868686"/>
+
+                <EditText
+                    android:id="@+id/phone_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25sp"
+                    android:ems="10"
+                    android:inputType="textPostalAddress"
+                    android:text="@string/phoneNumberText"
                     android:textColorHint="#868686" />
 
 

@@ -266,6 +266,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="userPrefSetupFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="248" />
+                            <option name="y" value="945" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="userSettingsFragment">
                     <value>
                       <LayoutPositions>
