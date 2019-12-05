@@ -124,9 +124,20 @@ class LoginFragment : Fragment() {
                     userVM.userType = "user"
                     Log.d(TAG, "DocumentSnapshot: ${document}")
                     Log.d(TAG, "This user type is!: ${userVM.userType}")
+                    Log.d(TAG, "DocumentSnapshot data: " + document.data)
                     //navigate to user fragment view thing
+                    userVM.user.name = document.data?.getValue("name").toString()
+                    userVM.user.email = document.data?.getValue("email").toString()
+                    userVM.user.address = document.data?.getValue("address").toString()
+                    userVM.user.phone = document.data?.getValue("phone").toString().toInt()
+                    userVM.user.agePrefHigh = document.data?.getValue("agePrefHigh").toString().toInt()
+                    userVM.user.agePrefLow = document.data?.getValue("agePrefLow").toString().toInt()
+//                    userVM.user.preferredBreeds = document.data?.getValue("preferredBreeds")
+//                    userVM.user.likedDogs = document.data?.getValue("likedDogs")
+//                    userVM.user.dislikedDogs = document.data?.getValue("dislikedDogs")
+
                     view?.findNavController()?.navigate(R.id.action_userLoginFragment_to_clientSavedDogs)
-//                    TODO: pull all other user information from firebase into the viewmodel here
+
                 } else {
                     userVM.database.collection("shelters")
                         .document(userVM.userID.toString()).get()
@@ -135,6 +146,15 @@ class LoginFragment : Fragment() {
                                 Log.d(TAG, "DocumentSnapshot data: ${innerDocument.data}")
                                 userVM.userType = "shelter"
                                 Log.d(TAG, "This user type is!: ${userVM.userType}")
+                                Log.d(TAG, "This name is: " + innerDocument.data?.getValue("name"))
+                                userVM.shelter.name = innerDocument.data?.getValue("name").toString()
+                                userVM.shelter.address = innerDocument.data?.getValue("address").toString()
+                                userVM.shelter.phone = innerDocument.data?.getValue("phone").toString().toInt()
+//                                userVM.shelter.dogs = innerDocument.data?.getValue("dogs")
+//                                userVM.shelter.photos = innerDocument.data?.getValue("photos")
+                                userVM.shelter.website = innerDocument.data?.getValue("websiteUrl").toString()
+                                Log.d(TAG, "this is data from the viewModel: "+ userVM.shelter.phone)
+
                                 view?.findNavController()?.navigate(R.id.action_userLoginFragment_to_shelterDogs)
                             }
                         }
