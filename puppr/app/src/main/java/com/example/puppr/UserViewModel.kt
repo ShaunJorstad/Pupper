@@ -31,7 +31,7 @@ data class Shelter(
     var phone: Int? = -1,
     var dogs: List<String>? = null,
     var photos: List<String>? = null,
-    var website: String? = null
+    var website: String? = ""
 )
 
 class UserViewModel : ViewModel() {

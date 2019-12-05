@@ -152,8 +152,8 @@ class LoginFragment : Fragment() {
                                 userVM.shelter.phone = innerDocument.data?.getValue("phone").toString().toInt()
 //                                userVM.shelter.dogs = innerDocument.data?.getValue("dogs")
 //                                userVM.shelter.photos = innerDocument.data?.getValue("photos")
-                                userVM.shelter.website = innerDocument.data?.getValue("website").toString()
-
+                                userVM.shelter.website = innerDocument.data?.getValue("websiteUrl").toString()
+                                Log.d(TAG, "this is data from the viewModel: "+ userVM.shelter.phone)
 
                                 view?.findNavController()?.navigate(R.id.action_userLoginFragment_to_shelterDogs)
                             }
