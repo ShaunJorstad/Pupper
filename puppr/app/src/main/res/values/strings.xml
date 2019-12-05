@@ -50,4 +50,7 @@
     <string name="takePhoto">Take Photo</string>
     <string name="dogImage">Dog Image</string>
     <string name="signOutButtonText">Log Out</string>
+    <string name="nameText">Name:</string>
+    <string name="editableName">Name (ex: Gabe)</string>
+    <string name="userPrefTitle">Setup Info and Preferences</string>
 </resources>

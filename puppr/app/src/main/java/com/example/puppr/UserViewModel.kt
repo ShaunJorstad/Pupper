@@ -29,9 +29,9 @@ data class Shelter(
     var email: String? = "",
     var address: String? = "",
     var phone: Int? = -1,
-    val dogs: List<String>? = null,
-    val photos: List<String>? = null,
-    val website: String? = null
+    var dogs: List<String>? = null,
+    var photos: List<String>? = null,
+    var website: String? = ""
 )
 
 class UserViewModel : ViewModel() {
