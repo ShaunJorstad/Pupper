@@ -20,8 +20,8 @@ data class User(
     var agePrefHigh: Int? = -1,
     var agePrefLow: Int? = -1,
     var preferredBreeds: List<String>? = null,
-    val likedDogs: List<String>? = null,
-    val dislikedDogs: List<String>? = null
+    var likedDogs: List<String>? = null,
+    var dislikedDogs: List<String>? = null
 )
 
 data class Shelter(

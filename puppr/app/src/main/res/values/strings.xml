@@ -55,4 +55,5 @@
     <string name="userPrefTitle">Setup Info and Preferences</string>
     <string name="addressText">Address (ex: 200 Campus Drive, Grove City MA)</string>
     <string name="phoneNumberText">phone number (ex: 1234567890)</string>
+    <string name="sumbit_button">Submit</string>
 </resources>

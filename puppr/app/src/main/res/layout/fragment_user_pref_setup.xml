@@ -23,7 +23,8 @@
                     android:text="@string/userPrefTitle"
                     android:textSize="30sp"
                     android:textStyle="bold"
-                    android:fontFamily="@font/signika_bold" />
+                    android:fontFamily="@font/signika_bold"
+                    android:layout_gravity="center_horizontal"/>
 
                 <EditText
                     android:id="@+id/edit_name"
@@ -54,6 +55,13 @@
                     android:inputType="textPostalAddress"
                     android:text="@string/phoneNumberText"
                     android:textColorHint="#868686" />
+
+                <Button
+                    android:id="@+id/submitButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sumbit_button"
+                    android:layout_gravity="center_horizontal"/>
 
 
             </LinearLayout>

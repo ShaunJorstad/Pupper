@@ -143,5 +143,9 @@
         android:id="@+id/userPrefSetupFragment"
         android:name="com.example.puppr.userPrefSetupFragment"
         android:label="userPrefSetupFragment"
-        tools:layout="@layout/fragment_user_pref_setup" />
+        tools:layout="@layout/fragment_user_pref_setup" >
+        <action
+            android:id="@+id/action_userPrefSetupFragment_to_clientSavedDogs"
+            app:destination="@id/clientSavedDogs" />
+    </fragment>
 </navigation>
