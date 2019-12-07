@@ -11,25 +11,25 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-import com.example.puppr.databinding.FragmentUserPrefSetupBinding
-import kotlinx.android.synthetic.main.fragment_user_pref_setup.*
+import com.example.puppr.databinding.FragmentShelterPrefSetupBinding
+import kotlinx.android.synthetic.main.fragment_shelter_pref_setup.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class userPrefSetupFragment : Fragment() {
-    private lateinit var binding: FragmentUserPrefSetupBinding
+class shelterPrefSetupFragment : Fragment() {
+    private lateinit var binding: FragmentShelterPrefSetupBinding
     private lateinit var userVM: UserViewModel
-    private val TAG = "userSetupPref"
+    private val TAG = "shelterSetupPref"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentUserPrefSetupBinding>(
+        val binding = DataBindingUtil.inflate<FragmentShelterPrefSetupBinding>(
             inflater,
-            R.layout.fragment_user_pref_setup, container, false
+            R.layout.fragment_shelter_pref_setup, container, false
         )
         userVM = activity?.run {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
@@ -37,59 +37,56 @@ class userPrefSetupFragment : Fragment() {
 
         binding.submitButton.setOnClickListener{view:View->
 
-            var checks = arrayOf(false,false,false)
+            var checks = arrayOf(false,false,false,false)
 
-            if(!edit_name.text?.toString().equals("")){
-                checks[0] = true
-            }
-            if(!address_text?.text?.toString().equals("")){
-                checks[1] = true
-            }
+            checks[0] = !shelter_name_text.text?.toString().equals("")
+
+            checks[1] = !s_address_text?.text?.toString().equals("")
             try{
-                if(phone_number.text?.toString()?.toInt() !=null) {
+                if(s_phone_number.text?.toString()?.toInt() !=null) {
                     checks[2] = true
                 }
             }
             catch (e: NumberFormatException){
                 checks[2] = false
             }
+            checks[3] = !shelter_website?.text?.toString().equals("")
 
-            if(checks[0] && checks[1] && checks[2]){
-                Log.d(TAG, "Successful account creation for user: "+phone_number.text?.toString()?.toInt())
-                userVM.user.name = edit_name.text?.toString()
-                userVM.user.address = address_text.text?.toString()
-                userVM.user.phone = phone_number.text?.toString()?.toInt()
-                userVM.user.bio = bio_input.text?.toString()
+            if(checks[0] && checks[1] && checks[2] && checks[3]){
+                Log.d(TAG, "Successful account creation for user: "+s_phone_number.text?.toString()?.toInt())
+                userVM.shelter.name = shelter_name_text.text?.toString()
+                userVM.shelter.address = s_address_text.text?.toString()
+                userVM.shelter.phone = s_phone_number.text?.toString()?.toInt()
+                userVM.shelter.bio = s_bio_input.text?.toString()
+                userVM.shelter.address = s_address_text.text?.toString()
+                userVM.shelter.website = shelter_website.text?.toString()
+
                 userVM.auth.createUserWithEmailAndPassword(userVM.tempEmail, userVM.tempPassword)
                     .addOnCompleteListener {
                         if (!it.isSuccessful) return@addOnCompleteListener
                         else {
                             Log.d(TAG, "Successful account creation for user ${it.result?.user?.uid}")
                             userVM.userID = it.result?.user?.uid
-                            val user = hashMapOf(
-                                "address" to userVM.user.address,
-                                "agePrefHigh" to null,
-                                "agePrefLow" to null,
-                                "uploadedIdPhoto" to false,
+                            val shelter = hashMapOf(
+                                "address" to userVM.shelter.address,
                                 "email" to userVM.tempEmail,
-                                "name" to userVM.user.name,
-                                "bio" to userVM.user.bio,
-                                "phone" to userVM.user.phone,
-                                "preferredBreeds" to arrayListOf(null),
-                                "dislikedDogs" to arrayListOf(null),
-                                "likedDogs" to arrayListOf(null)
+                                "websiteUrl" to userVM.shelter.website,
+                                "name" to userVM.shelter.name,
+                                "bio" to userVM.shelter.bio,
+                                "phone" to userVM.shelter.phone,
+                                "dogs" to arrayListOf(null),
+                                "photos" to arrayListOf(null)
                             )
-                            userVM.database.collection("users").document(userVM.userID.toString())
-                                .set(user)
+                            userVM.database.collection("shelters").document(userVM.userID.toString())
+                                .set(shelter)
                                 .addOnSuccessListener {
                                     Log.d(
                                         TAG,
-                                        "DocumentSnapshot successfully written!"
+                                        "DocumentSnapshot succwessfully written!"
                                     )
-                                    view.findNavController().navigate(R.id.action_userPrefSetupFragment_to_clientSavedDogs)
+                                    view?.findNavController()?.navigate(R.id.action_shelterPrefSetupFragment_to_shelterDogs)
                                 }
                                 .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
-
                         }
                     }
                     .addOnFailureListener {
@@ -100,8 +97,6 @@ class userPrefSetupFragment : Fragment() {
                         )
                             .show()
                     }
-                //add userVM.user information (put data in viewModel)
-
             }
             else{
                 for(i in 0 until checks.size){

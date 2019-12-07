@@ -46,7 +46,13 @@ class ShelterSettings : Fragment() {
             this.findNavController().navigate(R.id.action_shelterInformation_to_uploadDog)
             return@setOnMenuItemClickListener true
         }
+
         navBottom.selectedItemId = navBottom.menu[0].itemId
+
+        binding.shelterAddress.text = userVM.shelter.address
+        binding.shelterName.text = userVM.shelter.name
+        binding.shelterPhone.text = userVM.shelter.phone.toString()
+
         return binding.root
     }
 
