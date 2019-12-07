@@ -17,6 +17,7 @@ data class User(
     var email: String? = "",
     var address: String? = "",
     var phone: Int? = -1,
+    var bio: String? = "",
     var agePrefHigh: Int? = -1,
     var agePrefLow: Int? = -1,
     var preferredBreeds: List<String>? = null,
@@ -29,6 +30,7 @@ data class Shelter(
     var email: String? = "",
     var address: String? = "",
     var phone: Int? = -1,
+    var bio: String? = "",
     var dogs: List<String>? = null,
     var photos: List<String>? = null,
     var website: String? = ""

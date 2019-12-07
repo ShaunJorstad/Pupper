@@ -54,6 +54,11 @@
     <string name="editableName">Name (ex: Gabe)</string>
     <string name="userPrefTitle">Setup Info and Preferences</string>
     <string name="addressText">Address (ex: 200 Campus Drive, Grove City MA)</string>
-    <string name="phoneNumberText">phone number (ex: 1234567890)</string>
+    <string name="phoneNumberText">Phone Number (ex: 1234567890)</string>
     <string name="sumbit_button">Submit</string>
+    <string name="bio_hint">Enter a short bio about yourself</string>
+    <string name="shelter_title_text">Setup Info and Preferences</string>
+    <string name="s_name_hint">Shelter Name (ex: Bargain Barkers)</string>
+    <string name="s_bio_hint">Enter a short bio about the shelter</string>
+    <string name="s_website_hint">Shelter Website (ex: www.BargainBarkers.com)</string>
 </resources>

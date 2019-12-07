@@ -72,42 +72,9 @@ class SignUpFragment : Fragment() {
         if (userVM.userType == "user") {
             view?.findNavController()?.navigate(R.id.action_signUpFragment_to_userPrefSetupFragment)
         } else if (userVM.userType == "shelter") {
-            userVM.auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
-                    if (!it.isSuccessful) return@addOnCompleteListener
-                    else {
-                        Log.d(TAG, "Successful account creation for user ${it.result?.user?.uid}")
-                        userVM.userID = it.result?.user?.uid
-                        val shelter = hashMapOf(
-                            "address" to null,
-                            "email" to email,
-                            "websiteUrl" to null,
-                            "name" to null,
-                            "bio" to null,
-                            "phone" to null,
-                            "dogs" to arrayListOf(null),
-                            "photos" to arrayListOf(null)
-                        )
-                        userVM.database.collection("shelters").document(userVM.userID.toString())
-                            .set(shelter)
-                            .addOnSuccessListener {
-                                Log.d(
-                                    TAG,
-                                    "DocumentSnapshot succwessfully written!"
-                                )
-                                view?.findNavController()?.navigate(R.id.action_signUpFragment_to_shelterDogs)
-                            }
-                            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
-                    }
-                }
-                .addOnFailureListener {
-                    Toast.makeText(
-                        context,
-                        it.message,
-                        Toast.LENGTH_LONG
-                    )
-                        .show()
-                }
+            view?.findNavController()
+                ?.navigate(R.id.action_signUpFragment_to_shelterPrefSetupFragment)
+
         } else {
             Toast.makeText(
                 context,

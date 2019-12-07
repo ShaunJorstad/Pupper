@@ -138,6 +138,7 @@ class LoginFragment : Fragment() {
                     userVM.user.phone = document.data?.getValue("phone")?.toString()?.toInt()
                     userVM.user.agePrefHigh = document.data?.getValue("agePrefHigh")?.toString()?.toInt()
                     userVM.user.agePrefLow = document.data?.getValue("agePrefLow")?.toString()?.toInt()
+                    userVM.user.bio = document.data?.getValue("bio")?.toString()
 
                     var disLikedDogStr = document.data?.getValue("likedDogs")?.toString()
                     disLikedDogStr = disLikedDogStr?.substring(1,disLikedDogStr.length-1)

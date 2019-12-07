@@ -126,8 +126,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="426" />
-                            <option name="y" value="-8" />
+                            <option name="x" value="435" />
+                            <option name="y" value="-96" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -143,6 +143,27 @@
                               </value>
                             </entry>
                             <entry key="action_shelterDogs_to_userLoginFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="shelterPrefSetupFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="199" />
+                            <option name="y" value="-218" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_shelterPrefSetupFragment_to_shelterDogs">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -178,6 +199,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_shelterSettings_to_userLoginFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -194,12 +220,17 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_signUpFragment_to_clientSavedDogs">
+                            <entry key="action_signUpFragment_to_shelterDogs">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_signUpFragment_to_shelterDogs">
+                            <entry key="action_signUpFragment_to_shelterPrefSetupFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_signUpFragment_to_userPrefSetupFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -275,6 +306,15 @@
                             <option name="y" value="945" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_userPrefSetupFragment_to_clientSavedDogs">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -283,8 +323,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="-64" />
+                            <option name="y" value="-100" />
                           </Point>
                         </option>
                       </LayoutPositions>

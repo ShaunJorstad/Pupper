@@ -31,11 +31,11 @@
         android:label="SignUpFragment"
         tools:layout="@layout/fragment_sign_up">
         <action
-            android:id="@+id/action_signUpFragment_to_shelterDogs"
-            app:destination="@id/shelterDogs" />
-        <action
             android:id="@+id/action_signUpFragment_to_userPrefSetupFragment"
             app:destination="@id/userPrefSetupFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_shelterPrefSetupFragment"
+            app:destination="@id/shelterPrefSetupFragment" />
     </fragment>
     <fragment
         android:id="@+id/clientViewDog"
@@ -147,5 +147,14 @@
         <action
             android:id="@+id/action_userPrefSetupFragment_to_clientSavedDogs"
             app:destination="@id/clientSavedDogs" />
+    </fragment>
+    <fragment
+        android:id="@+id/shelterPrefSetupFragment"
+        android:name="com.example.puppr.shelterPrefSetupFragment"
+        android:label="shelterPrefSetupFragment"
+        tools:layout="@layout/fragment_shelter_pref_setup" >
+        <action
+            android:id="@+id/action_shelterPrefSetupFragment_to_shelterDogs"
+            app:destination="@id/shelterDogs" />
     </fragment>
 </navigation>
