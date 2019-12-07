@@ -61,4 +61,9 @@
     <string name="s_name_hint">Shelter Name (ex: Bargain Barkers)</string>
     <string name="s_bio_hint">Enter a short bio about the shelter</string>
     <string name="s_website_hint">Shelter Website (ex: www.BargainBarkers.com)</string>
+    <string name="prefNameText">prefNameText</string>
+    <string name="prefAddressText">prefAddressText</string>
+    <string name="prefBioText">prefBioText</string>
+    <string name="prefEmailText">prefEmailText</string>
+    <string name="prefPhoneText">prefPhoneText</string>
 </resources>

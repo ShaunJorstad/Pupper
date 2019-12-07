@@ -75,7 +75,7 @@ class userPrefSetupFragment : Fragment() {
                                 "name" to userVM.user.name,
                                 "bio" to userVM.user.bio,
                                 "phone" to userVM.user.phone,
-                                "prefferedBreeds" to arrayListOf(null),
+                                "preferredBreeds" to arrayListOf(null),
                                 "dislikedDogs" to arrayListOf(null),
                                 "likedDogs" to arrayListOf(null)
                             )

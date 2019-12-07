@@ -47,6 +47,11 @@ class ShelterSettings : Fragment() {
             return@setOnMenuItemClickListener true
         }
         navBottom.selectedItemId = navBottom.menu[2].itemId
+
+        binding.shelterAddress.text = userVM.shelter.address
+        binding.shelterName.text = userVM.shelter.name
+        binding.shelterPhone.text = userVM.shelter.phone.toString()
+
         return binding.root
     }
 

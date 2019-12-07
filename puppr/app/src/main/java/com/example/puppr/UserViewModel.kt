@@ -42,12 +42,11 @@ class UserViewModel : ViewModel() {
     var userType = ""
     var tempEmail = ""
     var tempPassword = ""
-    lateinit var shelter: Shelter
-    lateinit var user: User
-    lateinit var auth: FirebaseAuth
-    lateinit var database: FirebaseFirestore
-    lateinit var storage: FirebaseStorage
-//    lateinit var userID: FirebaseUser
+    var shelter: Shelter
+    var user: User
+    var auth: FirebaseAuth
+    var database: FirebaseFirestore
+    var storage: FirebaseStorage
 
     init {
         Log.i(TAG, "View Model Created")
