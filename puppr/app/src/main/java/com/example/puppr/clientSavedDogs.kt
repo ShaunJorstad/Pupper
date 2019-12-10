@@ -41,14 +41,20 @@ class clientSavedDogs : Fragment() {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
-        Log.d("YERT", "Liked Dogs?: ${userVM.userID}")
+        var myArray: Array<String> = arrayOf("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten","Eleven")
 
-        for (id in userVM.user.likedDogs!!) {
+        val docRef = userVM.database.collection("users").document(userVM.userID ?: "I want to die")
+        docRef.get()
+            .addOnSuccessListener { document ->
 
-            Log.d("YERT", "IDs?: $id")
-        }
+                var likedDogs = document.data?.get("likedDogs").toString()
+                likedDogs = likedDogs.substring(1, likedDogs.length - 2)
+                myArray = likedDogs.split(",").toTypedArray()
 
-        val myArray: Array<String> = arrayOf("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten","Eleven")
+                Log.d("YERT", myArray[0])
+            }
+
+        Log.d("YERT", myArray[0])
 
         viewManager = LinearLayoutManager(this.context)
         viewAdapter = dogCardAdapter(myArray)
