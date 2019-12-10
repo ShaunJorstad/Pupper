@@ -36,6 +36,16 @@ data class Shelter(
     var website: String? = ""
 )
 
+data class Dog(
+    var name: String? = "",
+    var bio: String? = "",
+    var breed: String? = "",
+    var color: String? = "",
+    var age: String? = "",
+    var shelter: String? = "",
+    var health: String? = ""
+)
+
 class UserViewModel : ViewModel() {
     private val TAG = "UserViewModel"
     var userID: String? = ""
@@ -47,6 +57,7 @@ class UserViewModel : ViewModel() {
     var auth: FirebaseAuth
     var database: FirebaseFirestore
     var storage: FirebaseStorage
+    var dog: Dog = Dog()
     var dogID: String = ""
     var dogIDs: ArrayList<String> = arrayListOf()
 
@@ -58,6 +69,24 @@ class UserViewModel : ViewModel() {
         user = User()
         shelter = Shelter()
         fillDogIDs()
+    }
+
+    fun loadDog(newDog: Boolean = false) {
+
+        if (newDog) { getDog() }
+
+        val docRef = database.collection("dogs").document(dogID)
+        docRef.get()
+            .addOnSuccessListener { document ->
+
+                dog.name = document.data?.get("name").toString()
+                dog.bio = document.data?.get("bio").toString()
+                dog.breed = document.data?.get("breed").toString()
+                dog.color = document.data?.get("color").toString()
+                dog.age = document.data?.get("age").toString()
+                dog.shelter = document.data?.get("shelter").toString()
+                dog.shelter = document.data?.get("health").toString()
+            }
     }
 
     fun getDog() {
@@ -80,6 +109,7 @@ class UserViewModel : ViewModel() {
             .addOnSuccessListener { documents ->
 
                 for (document in documents) {
+                    Log.d("YERT", "Document IDs: ${document.id}")
                     dogIDs.add(document.id)
                 }
             }

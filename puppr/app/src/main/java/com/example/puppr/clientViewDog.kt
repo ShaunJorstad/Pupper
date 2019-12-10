@@ -39,6 +39,11 @@ class clientViewDog : Fragment() {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
+        userVM.loadDog(userVM.dogID == "")
+        binding.dogName.text = userVM.dog.name
+        binding.dogImage.setImageResource(R.mipmap.client_base_dog_foreground)
+        binding.shelterName.text = userVM.dog.shelter
+
         val bottomNav: BottomNavigationView = binding.viewDogsBottomNav
         bottomNav.selectedItemId = bottomNav.menu[1].itemId
         bottomNav.menu[2].setOnMenuItemClickListener {
@@ -57,7 +62,11 @@ class clientViewDog : Fragment() {
         }
 
         binding.dislikeButton.setOnClickListener {
-            generateNewCard()
+
+            userVM.loadDog(true)
+            binding.dogName.text = userVM.dog.name
+            binding.dogImage.setImageResource(R.mipmap.client_base_dog_foreground)
+            binding.shelterName.text = userVM.dog.shelter
         }
 
         binding.clientDogCard.setOnClickListener {
@@ -65,35 +74,5 @@ class clientViewDog : Fragment() {
         }
 
         return binding.root
-    }
-
-    fun generateNewCard() {
-
-        userVM.getDog()
-        val docRef = userVM.database.collection("dogs").document(userVM.dogID)
-        var dogName: String = ""
-        var shelterName: String = ""
-        var dogImage: Int = 0
-
-        docRef.get()
-            .addOnSuccessListener { document ->
-
-                binding.dogName.text = document.data?.get("name").toString()
-                binding.dogImage.setImageResource(R.mipmap.client_base_dog_foreground)
-
-                val docRef2 = userVM.database.collection("shelters").document(document.data?.get("shelter").toString())
-                docRef2.get()
-                    .addOnSuccessListener { document2 ->
-                        binding.shelterName.text = document2.data?.get("name").toString()
-                    }
-                    .addOnFailureListener { exception ->
-                        Log.d("YERT", "get failed with ", exception)
-
-                    }
-            }
-            .addOnFailureListener { exception ->
-                Log.d("YERT", "get failed with ", exception)
-
-            }
     }
 }
