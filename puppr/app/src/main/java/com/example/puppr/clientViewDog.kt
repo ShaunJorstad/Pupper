@@ -11,10 +11,13 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.puppr.databinding.FragmentClientViewDogBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.client_view_dogs_base_card.view.*
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 
 /**
  * A simple [Fragment] subclass.
@@ -22,8 +25,8 @@ import kotlinx.android.synthetic.main.client_view_dogs_base_card.view.*
 class clientViewDog : Fragment() {
 
     private lateinit var binding: FragmentClientViewDogBinding
-    private lateinit var dogModel: ViewDogModel
-    private lateinit var card: CardView
+    private lateinit var userVM: UserViewModel
+    private lateinit var currentDogID: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,8 +34,10 @@ class clientViewDog : Fragment() {
 
         binding = DataBindingUtil.inflate<FragmentClientViewDogBinding>(inflater, R.layout.fragment_client_view_dog,
             container, false)
-        dogModel = ViewDogModel()
-        card = binding.tempCard
+
+        userVM = activity?.run {
+            ViewModelProviders.of(this).get(UserViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
 
         val bottomNav: BottomNavigationView = binding.viewDogsBottomNav
         bottomNav.selectedItemId = bottomNav.menu[1].itemId
@@ -55,20 +60,40 @@ class clientViewDog : Fragment() {
             generateNewCard()
         }
 
+        binding.clientDogCard.setOnClickListener {
+            this.findNavController().navigate(R.id.action_clientViewDog_to_clientFocusDog)
+        }
+
         return binding.root
     }
 
     fun generateNewCard() {
 
-        val cardInfo = LayoutInflater.from(this.context)
-            .inflate(R.layout.client_view_dogs_base_card, binding.tempCard, false) as ConstraintLayout
+        userVM.getDog()
+        val docRef = userVM.database.collection("dogs").document(userVM.dogID)
+        var dogName: String = ""
+        var shelterName: String = ""
+        var dogImage: Int = 0
 
-        dogModel.getNewDog()
-        cardInfo.dog_name.text = dogModel.dogName
-        cardInfo.shelter_name.text = dogModel.shelterName
-        cardInfo.dog_image.setImageResource(dogModel.dogImage)
+        docRef.get()
+            .addOnSuccessListener { document ->
 
-        binding.tempCard.removeAllViews()
-        binding.tempCard.addView(cardInfo)
+                binding.dogName.text = document.data?.get("name").toString()
+                binding.dogImage.setImageResource(R.mipmap.client_base_dog_foreground)
+
+                val docRef2 = userVM.database.collection("shelters").document(document.data?.get("shelter").toString())
+                docRef2.get()
+                    .addOnSuccessListener { document2 ->
+                        binding.shelterName.text = document2.data?.get("name").toString()
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.d("YERT", "get failed with ", exception)
+
+                    }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("YERT", "get failed with ", exception)
+
+            }
     }
 }

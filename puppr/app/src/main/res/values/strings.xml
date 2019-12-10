@@ -66,4 +66,9 @@
     <string name="prefBioText">prefBioText</string>
     <string name="prefEmailText">prefEmailText</string>
     <string name="prefPhoneText">prefPhoneText</string>
+    <string name="dogbio">dogBio</string>
+    <string name="dogage">dogAge</string>
+    <string name="dogbreed">dogBreed</string>
+    <string name="dogcolor">dogColor</string>
+    <string name="doghealth">dogHealth</string>
 </resources>

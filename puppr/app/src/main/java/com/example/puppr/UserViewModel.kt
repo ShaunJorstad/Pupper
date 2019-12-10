@@ -47,6 +47,8 @@ class UserViewModel : ViewModel() {
     var auth: FirebaseAuth
     var database: FirebaseFirestore
     var storage: FirebaseStorage
+    var dogID: String = ""
+    var dogIDs: ArrayList<String> = arrayListOf()
 
     init {
         Log.i(TAG, "View Model Created")
@@ -55,6 +57,35 @@ class UserViewModel : ViewModel() {
         storage = FirebaseStorage.getInstance()
         user = User()
         shelter = Shelter()
+        fillDogIDs()
+    }
+
+    fun getDog() {
+
+        val id = dogIDs[0]
+        dogIDs.removeAt(0)
+
+        if (dogIDs.isEmpty()) {
+            fillDogIDs()
+        }
+
+        dogID = id
+    }
+
+    private fun fillDogIDs() {
+
+        val docRef = database.collection("dogs")
+
+        docRef.get()
+            .addOnSuccessListener { documents ->
+
+                for (document in documents) {
+                    dogIDs.add(document.id)
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("YERT", "get failed with $exception")
+            }
     }
 
     fun populateFields(){

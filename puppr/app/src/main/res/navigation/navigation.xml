@@ -17,8 +17,8 @@
             android:id="@+id/action_userLoginFragment_to_shelterDogs"
             app:destination="@id/shelterDogs" />
         <action
-            android:id="@+id/action_userLoginFragment_to_clientSavedDogs"
-            app:destination="@id/clientSavedDogs" />
+            android:id="@+id/action_userLoginFragment_to_clientViewDog"
+            app:destination="@id/clientViewDog" />
     </fragment>
     <fragment
         android:id="@+id/userSettingsFragment"
@@ -54,6 +54,9 @@
         <action
             android:id="@+id/action_clientViewDog_to_clientSavedDogs2"
             app:destination="@id/clientSavedDogs" />
+        <action
+            android:id="@+id/action_clientViewDog_to_clientFocusDog"
+            app:destination="@id/clientFocusDog" />
     </fragment>
     <fragment
         android:id="@+id/clientPreferences"
@@ -157,4 +160,8 @@
             android:id="@+id/action_shelterPrefSetupFragment_to_shelterDogs"
             app:destination="@id/shelterDogs" />
     </fragment>
+    <fragment
+        android:id="@+id/clientFocusDog"
+        android:name="com.example.puppr.clientFocusDog"
+        android:label="clientFocusDog" />
 </navigation>
