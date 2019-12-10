@@ -41,7 +41,7 @@ class clientSavedDogs : Fragment() {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
-        var myArray: Array<String> = arrayOf("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten","Eleven")
+        val myArray: ArrayList<String> = arrayListOf()
 
         val docRef = userVM.database.collection("users").document(userVM.userID ?: "I want to die")
         docRef.get()
@@ -49,15 +49,16 @@ class clientSavedDogs : Fragment() {
 
                 var likedDogs = document.data?.get("likedDogs").toString()
                 likedDogs = likedDogs.substring(1, likedDogs.length - 2)
-                myArray = likedDogs.split(",").toTypedArray()
+                val array = likedDogs.split(",").toTypedArray()
 
-                Log.d("YERT", myArray[0])
+                for (word in array) {
+
+                    myArray.add(word)
+                }
             }
 
-        Log.d("YERT", myArray[0])
-
         viewManager = LinearLayoutManager(this.context)
-        viewAdapter = dogCardAdapter(myArray)
+        viewAdapter = dogCardAdapter(myArray.toTypedArray())
         recyclerView = binding.dogCards.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
