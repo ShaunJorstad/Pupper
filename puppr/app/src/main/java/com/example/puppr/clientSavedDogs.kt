@@ -48,23 +48,22 @@ class clientSavedDogs : Fragment() {
             .addOnSuccessListener { document ->
 
                 var likedDogs = document.data?.get("likedDogs").toString()
-                likedDogs = likedDogs.substring(1, likedDogs.length - 2)
+                likedDogs = likedDogs.substring(1, likedDogs.length - 1)
                 val array = likedDogs.split(",").toTypedArray()
 
                 for (word in array) {
 
-                    myArray.add(word)
+                    myArray.add(word.trim())
+                }
+
+                viewManager = LinearLayoutManager(this.context)
+                viewAdapter = dogCardAdapter(myArray.toTypedArray(), userVM)
+                recyclerView = binding.dogCards.apply {
+                    setHasFixedSize(true)
+                    layoutManager = viewManager
+                    adapter = viewAdapter
                 }
             }
-
-        viewManager = LinearLayoutManager(this.context)
-        viewAdapter = dogCardAdapter(myArray.toTypedArray())
-        recyclerView = binding.dogCards.apply {
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
-        }
-
 
         val navBottom: BottomNavigationView = binding.savedDogsBottomNav
         navBottom.selectedItemId = navBottom.menu[2].itemId

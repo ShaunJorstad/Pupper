@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,7 @@ class ShelterDogs : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var userVM: UserViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,10 +31,14 @@ class ShelterDogs : Fragment() {
         binding = DataBindingUtil.inflate<FragmentShelterDogsBinding>(inflater, R.layout.fragment_shelter_dogs,
             container, false)
 
+        userVM = activity?.run {
+            ViewModelProviders.of(this).get(UserViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
+
         val myArray: Array<String> = arrayOf("Regenald", "Coregenald", "Trogenald", "Fogenald", "Figenald", "Sigenald", "Sevengenald", "Eigenald")
 
         viewManager = LinearLayoutManager(this.context)
-        viewAdapter = dogCardAdapter(myArray)
+        viewAdapter = dogCardAdapter(myArray, userVM)
         recyclerView = binding.dogCards.apply {
             setHasFixedSize(true)
             layoutManager = viewManager

@@ -16,8 +16,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.puppr.databinding.FragmentClientViewDogBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.client_view_dogs_base_card.view.*
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
@@ -35,14 +37,13 @@ class clientViewDog : Fragment() {
         binding = DataBindingUtil.inflate<FragmentClientViewDogBinding>(inflater, R.layout.fragment_client_view_dog,
             container, false)
 
+        MainScope().launch { loadDog(true) }
+
         userVM = activity?.run {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
-        userVM.loadDog(userVM.dogID == "")
-        binding.dogName.text = userVM.dog.name
-        binding.dogImage.setImageResource(R.mipmap.client_base_dog_foreground)
-        binding.shelterName.text = userVM.dog.shelter
+        Log.d("YERT", "ON CREATE")
 
         val bottomNav: BottomNavigationView = binding.viewDogsBottomNav
         bottomNav.selectedItemId = bottomNav.menu[1].itemId
@@ -63,10 +64,7 @@ class clientViewDog : Fragment() {
 
         binding.dislikeButton.setOnClickListener {
 
-            userVM.loadDog(true)
-            binding.dogName.text = userVM.dog.name
-            binding.dogImage.setImageResource(R.mipmap.client_base_dog_foreground)
-            binding.shelterName.text = userVM.dog.shelter
+            MainScope().launch { loadDog(true) }
         }
 
         binding.clientDogCard.setOnClickListener {
@@ -74,5 +72,16 @@ class clientViewDog : Fragment() {
         }
 
         return binding.root
+    }
+
+    suspend fun loadDog(newDog: Boolean) {
+
+        userVM.loadDog(newDog)
+        binding.dogName.text = userVM.dog.name
+        binding.dogImage.setImageResource(R.mipmap.client_base_dog_foreground)
+        binding.shelterName.text = userVM.dog.shelter
+        binding.dogName.refreshDrawableState()
+        binding.dogImage.refreshDrawableState()
+        binding.shelterName.refreshDrawableState()
     }
 }

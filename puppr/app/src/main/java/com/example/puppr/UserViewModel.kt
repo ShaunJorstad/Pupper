@@ -6,11 +6,18 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 data class User(
     var name: String? = "",
@@ -58,7 +65,7 @@ class UserViewModel : ViewModel() {
     var database: FirebaseFirestore
     var storage: FirebaseStorage
     var dog: Dog = Dog()
-    var dogID: String = ""
+    var dogID: String = "test"
     var dogIDs: ArrayList<String> = arrayListOf()
 
     init {
@@ -68,13 +75,16 @@ class UserViewModel : ViewModel() {
         storage = FirebaseStorage.getInstance()
         user = User()
         shelter = Shelter()
-        fillDogIDs()
+        MainScope().launch {
+            loadDog(true)
+        }
     }
 
-    fun loadDog(newDog: Boolean = false) {
+    suspend fun loadDog(newDog: Boolean = false): Boolean {
 
         if (newDog) { getDog() }
 
+        Log.d("YERT", "Dog ID: $dogID")
         val docRef = database.collection("dogs").document(dogID)
         docRef.get()
             .addOnSuccessListener { document ->
@@ -84,24 +94,32 @@ class UserViewModel : ViewModel() {
                 dog.breed = document.data?.get("breed").toString()
                 dog.color = document.data?.get("color").toString()
                 dog.age = document.data?.get("age").toString()
-                dog.shelter = document.data?.get("shelter").toString()
-                dog.shelter = document.data?.get("health").toString()
+                dog.health = document.data?.get("health").toString()
+
+                val docRef2 = database.collection("shelter")
+                    .document(document.data?.get("shelter").toString())
+                docRef2.get()
+                    .addOnSuccessListener { document2 ->
+                        dog.shelter = document2.data?.get("name").toString()
+                    }
             }
+        return true
     }
 
-    fun getDog() {
+    suspend fun getDog() {
+
+        if (dogIDs.isEmpty()) {
+
+            fillDogIDs()
+        }
 
         val id = dogIDs[0]
         dogIDs.removeAt(0)
 
-        if (dogIDs.isEmpty()) {
-            fillDogIDs()
-        }
-
         dogID = id
     }
 
-    private fun fillDogIDs() {
+    fun fillDogIDs() {
 
         val docRef = database.collection("dogs")
 
