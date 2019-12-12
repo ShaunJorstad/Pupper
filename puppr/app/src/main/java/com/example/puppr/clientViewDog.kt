@@ -37,13 +37,11 @@ class clientViewDog : Fragment() {
         binding = DataBindingUtil.inflate<FragmentClientViewDogBinding>(inflater, R.layout.fragment_client_view_dog,
             container, false)
 
-        MainScope().launch { loadDog(true) }
-
         userVM = activity?.run {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
-        Log.d("YERT", "ON CREATE")
+        loadDog()
 
         val bottomNav: BottomNavigationView = binding.viewDogsBottomNav
         bottomNav.selectedItemId = bottomNav.menu[1].itemId
@@ -64,7 +62,7 @@ class clientViewDog : Fragment() {
 
         binding.dislikeButton.setOnClickListener {
 
-            MainScope().launch { loadDog(true) }
+            loadDog(true)
         }
 
         binding.clientDogCard.setOnClickListener {
@@ -74,9 +72,12 @@ class clientViewDog : Fragment() {
         return binding.root
     }
 
-    suspend fun loadDog(newDog: Boolean) {
+    private fun loadDog(newDog: Boolean = false) {
 
-        userVM.loadDog(newDog)
+        if (newDog) {
+            userVM.loadDog()
+        }
+        Log.d("YERT", userVM.dog.name ?: "NULL")
         binding.dogName.text = userVM.dog.name
         binding.dogImage.setImageResource(R.mipmap.client_base_dog_foreground)
         binding.shelterName.text = userVM.dog.shelter

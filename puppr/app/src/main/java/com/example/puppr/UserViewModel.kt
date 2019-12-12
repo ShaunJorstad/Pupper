@@ -65,7 +65,9 @@ class UserViewModel : ViewModel() {
     var database: FirebaseFirestore
     var storage: FirebaseStorage
     var dog: Dog = Dog()
+    var nextDog: Dog = Dog()
     var dogID: String = "test"
+    var nextDogID: String = "test2"
     var dogIDs: ArrayList<String> = arrayListOf()
 
     init {
@@ -75,51 +77,77 @@ class UserViewModel : ViewModel() {
         storage = FirebaseStorage.getInstance()
         user = User()
         shelter = Shelter()
-        MainScope().launch {
-            loadDog(true)
-        }
+
+        Thread(Runnable {
+            fillDogIDs(true)
+        }).start()
     }
 
-    suspend fun loadDog(newDog: Boolean = false): Boolean {
+    fun loadDog(firstTime: Boolean = false): Boolean {
 
-        if (newDog) { getDog() }
+        if (!firstTime) {
 
-        Log.d("YERT", "Dog ID: $dogID")
-        val docRef = database.collection("dogs").document(dogID)
+            dogID = nextDogID
+            nextDogID = dogIDs[0]
+            dogIDs.removeAt(0)
+
+            dog.name = nextDog.name
+            dog.bio = nextDog.bio
+            dog.breed = nextDog.breed
+            dog.color = nextDog.color
+            dog.age = nextDog.age
+            dog.health = nextDog.health
+
+            if (dogIDs.isEmpty()) {
+
+                Thread(Runnable {
+                    fillDogIDs()
+                }).start()
+            }
+        } else {
+
+            val docRef = database.collection("dogs").document(dogID)
+            docRef.get()
+                .addOnSuccessListener { document ->
+
+                    dog.name = document.data?.get("name").toString()
+                    dog.bio = document.data?.get("bio").toString()
+                    dog.breed = document.data?.get("breed").toString()
+                    dog.color = document.data?.get("color").toString()
+                    dog.age = document.data?.get("age").toString()
+                    dog.health = document.data?.get("health").toString()
+
+                    val docRef2 = database.collection("shelter")
+                        .document(document.data?.get("shelter").toString())
+                    docRef2.get()
+                        .addOnSuccessListener { document2 ->
+                            dog.shelter = document2.data?.get("name").toString()
+                        }
+                }
+        }
+
+        val docRef = database.collection("dogs").document(nextDogID)
         docRef.get()
             .addOnSuccessListener { document ->
 
-                dog.name = document.data?.get("name").toString()
-                dog.bio = document.data?.get("bio").toString()
-                dog.breed = document.data?.get("breed").toString()
-                dog.color = document.data?.get("color").toString()
-                dog.age = document.data?.get("age").toString()
-                dog.health = document.data?.get("health").toString()
+                nextDog.name = document.data?.get("name").toString()
+                nextDog.bio = document.data?.get("bio").toString()
+                nextDog.breed = document.data?.get("breed").toString()
+                nextDog.color = document.data?.get("color").toString()
+                nextDog.age = document.data?.get("age").toString()
+                nextDog.health = document.data?.get("health").toString()
 
                 val docRef2 = database.collection("shelter")
                     .document(document.data?.get("shelter").toString())
                 docRef2.get()
                     .addOnSuccessListener { document2 ->
-                        dog.shelter = document2.data?.get("name").toString()
+                        nextDog.shelter = document2.data?.get("name").toString()
                     }
             }
         return true
     }
 
-    suspend fun getDog() {
-
-        if (dogIDs.isEmpty()) {
-
-            fillDogIDs()
-        }
-
-        val id = dogIDs[0]
-        dogIDs.removeAt(0)
-
-        dogID = id
-    }
-
-    fun fillDogIDs() {
+    fun fillDogIDs(fillDogID: Boolean = false) {
 
         val docRef = database.collection("dogs")
 
@@ -127,9 +155,12 @@ class UserViewModel : ViewModel() {
             .addOnSuccessListener { documents ->
 
                 for (document in documents) {
-                    Log.d("YERT", "Document IDs: ${document.id}")
                     dogIDs.add(document.id)
                 }
+
+                dogID = if (fillDogID) dogIDs[0] else dogID
+                nextDogID = if (fillDogID) dogIDs[1] else nextDogID
+                loadDog(true)
             }
             .addOnFailureListener { exception ->
                 Log.d("YERT", "get failed with $exception")
