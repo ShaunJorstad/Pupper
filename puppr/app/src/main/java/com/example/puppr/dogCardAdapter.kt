@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.client_saved_dogs_base_card.view.*
 
 /*
@@ -19,12 +20,14 @@ class dogCardAdapter(private val myDataset: Array<String>, private val userVM: U
     : RecyclerView.Adapter<dogCardAdapter.MyViewHolder>() {
 
     class MyViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView)
+    lateinit var parentViewGroup: ViewGroup
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
         : dogCardAdapter.MyViewHolder {
 
         val cardView = LayoutInflater.from(parent.context)
             .inflate(R.layout.client_saved_dogs_base_card, parent, false) as CardView
+        parentViewGroup = parent
         return MyViewHolder(cardView)
     }
 
@@ -32,6 +35,7 @@ class dogCardAdapter(private val myDataset: Array<String>, private val userVM: U
 
         val dogName: TextView = holder.cardView.base_card_dog_name
         val shelterName: TextView = holder.cardView.base_dog_shelter_name
+
         val docRef = userVM.database.collection("dogs").document(myDataset[position])
         docRef.get()
             .addOnSuccessListener { document ->
@@ -43,6 +47,10 @@ class dogCardAdapter(private val myDataset: Array<String>, private val userVM: U
                         shelterName.text = document2.data?.get("name").toString()
                     }
             }
+
+        holder.cardView.setOnClickListener {
+            parentViewGroup.findNavController().navigate(R.id.action_clientSavedDogs_to_clientFocusDog)
+        }
 
         dogName.text = myDataset[position]
     }

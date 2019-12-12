@@ -155,8 +155,7 @@ import android.R.string
                     var prefDogList = prefDogStr?.split(",")?.toTypedArray()
                     userVM.user.likedDogs = prefDogList?.toList()
 
-
-                    view?.findNavController()?.navigate(R.id.action_userLoginFragment_to_clientViewDog)
+                    view?.findNavController()?.navigate(R.id.action_userLoginFragment_to_clientPreferences)
 
                 } else {
                     userVM.database.collection("shelters")

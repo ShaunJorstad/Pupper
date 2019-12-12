@@ -17,8 +17,8 @@
             android:id="@+id/action_userLoginFragment_to_shelterDogs"
             app:destination="@id/shelterDogs" />
         <action
-            android:id="@+id/action_userLoginFragment_to_clientViewDog"
-            app:destination="@id/clientViewDog" />
+            android:id="@+id/action_userLoginFragment_to_clientPreferences"
+            app:destination="@id/clientPreferences" />
     </fragment>
     <fragment
         android:id="@+id/userSettingsFragment"
@@ -96,6 +96,9 @@
         <action
             android:id="@+id/action_clientSavedDogs_to_clientPreferences2"
             app:destination="@id/clientPreferences" />
+        <action
+            android:id="@+id/action_clientSavedDogs_to_clientFocusDog"
+            app:destination="@id/clientFocusDog" />
     </fragment>
     <fragment
         android:id="@+id/uploadDog"

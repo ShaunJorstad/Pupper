@@ -30,14 +30,13 @@ class clientFocusDog : Fragment() {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
-        build()
+        //build()
 
         return binding.root
     }
 
     private fun build() {
 
-        Log.d("YERT", "Dog Name: ${userVM.dog.name ?: "NULL"}")
         binding.focusDogName.text = userVM.dog.name
         binding.focusDogImage.setImageResource(R.mipmap.client_base_dog_foreground)
         binding.focusDogBio.text = userVM.dog.bio

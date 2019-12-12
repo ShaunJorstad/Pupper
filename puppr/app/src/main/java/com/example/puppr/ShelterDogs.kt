@@ -35,7 +35,7 @@ class ShelterDogs : Fragment() {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
-        val myArray: Array<String> = arrayOf("Regenald", "Coregenald", "Trogenald", "Fogenald", "Figenald", "Sigenald", "Sevengenald", "Eigenald")
+        /*val myArray: Array<String> = arrayOf("Regenald", "Coregenald", "Trogenald", "Fogenald", "Figenald", "Sigenald", "Sevengenald", "Eigenald")
 
         viewManager = LinearLayoutManager(this.context)
         viewAdapter = dogCardAdapter(myArray, userVM)
@@ -43,7 +43,7 @@ class ShelterDogs : Fragment() {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
-        }
+        }*/
 
         val navBottom: BottomNavigationView = binding.preferenceBottomNav
         navBottom.selectedItemId = navBottom.menu[2].itemId

@@ -7,19 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.puppr.databinding.FragmentClientViewDogBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.client_view_dogs_base_card.view.*
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
@@ -62,6 +55,7 @@ class clientViewDog : Fragment() {
 
         binding.dislikeButton.setOnClickListener {
 
+            Log.d("YERT", "Liked Dogs List: ${userVM.user.likedDogs}")
             loadDog(true)
         }
 
