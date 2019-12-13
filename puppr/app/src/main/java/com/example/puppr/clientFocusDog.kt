@@ -30,12 +30,27 @@ class clientFocusDog : Fragment() {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
-        //build()
+        build()
 
         return binding.root
     }
 
     private fun build() {
+
+        if (userVM.savedDogsID != null) {
+
+            val docRef = userVM.database.collection("dogs").document(userVM.savedDogsID ?: "This is not possible")
+            docRef.get()
+                .addOnSuccessListener { document ->
+                    binding.focusDogName.text = document.data?.get("name").toString()
+                    binding.focusDogImage.setImageResource(R.mipmap.client_base_dog_foreground)
+                    binding.focusDogBio.text = document.data?.get("bio").toString()
+                    binding.focusDogBreed.text = document.data?.get("breed").toString()
+                    binding.focusDogColor.text = document.data?.get("color").toString()
+                    binding.focusDogHealth.text = document.data?.get("health").toString()
+                    binding.focusDogAge.text = document.data?.get("age").toString()
+                }
+        }
 
         binding.focusDogName.text = userVM.dog.name
         binding.focusDogImage.setImageResource(R.mipmap.client_base_dog_foreground)

@@ -50,12 +50,12 @@ class clientViewDog : Fragment() {
         }
 
         binding.likeButton.setOnClickListener {
-            Log.i("YERT", "Liked")
+
+            loadDog(true)
         }
 
         binding.dislikeButton.setOnClickListener {
 
-            Log.d("YERT", "Liked Dogs List: ${userVM.user.likedDogs}")
             loadDog(true)
         }
 
@@ -68,6 +68,7 @@ class clientViewDog : Fragment() {
 
     private fun loadDog(newDog: Boolean = false) {
 
+        userVM.savedDogsID = null
         if (newDog) {
             userVM.loadDog()
         }

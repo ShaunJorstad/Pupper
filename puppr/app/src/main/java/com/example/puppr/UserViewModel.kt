@@ -68,6 +68,7 @@ class UserViewModel : ViewModel() {
     var nextDog: Dog = Dog()
     var dogID: String = "test"
     var nextDogID: String = "test2"
+    var savedDogsID: String? = null
     var dogIDs: ArrayList<String> = arrayListOf()
 
     init {
