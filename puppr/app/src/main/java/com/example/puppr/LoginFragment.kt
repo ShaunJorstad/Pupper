@@ -16,11 +16,14 @@ import androidx.navigation.findNavController
 import com.example.puppr.databinding.FragmentLoginBinding
 import kotlinx.android.synthetic.main.fragment_login.email_input
 import kotlinx.android.synthetic.main.fragment_login.password_input
+import android.R.string
+
+
 
 /**
  * A simple [Fragment] subclass.
  */
-class LoginFragment : Fragment() {
+ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private lateinit var userVM: UserViewModel
     private var TAG = "userLogIn"
@@ -118,42 +121,62 @@ class LoginFragment : Fragment() {
         Log.d(TAG, "before firebase query. UserID: ${userVM.userID}");
         var firestoreUser = userVM.database.collection("users").document(userVM.userID.toString())
         firestoreUser.get()
-            .addOnSuccessListener { document ->
-                if (document.data != null) {
-                    Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+            .addOnSuccessListener { userDocument ->
+                if (userDocument.data != null) {
+                    Log.d(TAG, "DocumentSnapshot data: ${userDocument.data}")
                     userVM.userType = "user"
-                    Log.d(TAG, "DocumentSnapshot: ${document}")
+                    Log.d(TAG, "DocumentSnapshot: ${userDocument}")
                     Log.d(TAG, "This user type is!: ${userVM.userType}")
-                    Log.d(TAG, "DocumentSnapshot data: " + document.data)
+                    Log.d(TAG, "DocumentSnapshot data: " + userDocument.data)
                     //navigate to user fragment view thing
-                    userVM.user.name = document.data?.getValue("name").toString()
-                    userVM.user.email = document.data?.getValue("email").toString()
-                    userVM.user.address = document.data?.getValue("address").toString()
-                    userVM.user.phone = document.data?.getValue("phone").toString().toInt()
-                    userVM.user.agePrefHigh = document.data?.getValue("agePrefHigh").toString().toInt()
-                    userVM.user.agePrefLow = document.data?.getValue("agePrefLow").toString().toInt()
-//                    userVM.user.preferredBreeds = document.data?.getValue("preferredBreeds")
-//                    userVM.user.likedDogs = document.data?.getValue("likedDogs")
-//                    userVM.user.dislikedDogs = document.data?.getValue("dislikedDogs")
+                    Log.d(TAG, "liked dogs list: " + userDocument.data?.getValue("likedDogs"))
+                    //userVM.user.likedDogs = userVM.user.likedDogs?.plusElement("hey shaun")
+
+                    userVM.user.name = userDocument.data?.getValue("name")?.toString()
+                    userVM.user.email = userDocument.data?.getValue("email")?.toString()
+                    userVM.user.address = userDocument.data?.getValue("address")?.toString()
+                    userVM.user.phone = userDocument.data?.getValue("phone")?.toString()?.toInt()
+                    userVM.user.agePrefHigh = userDocument.data?.getValue("agePrefHigh")?.toString()?.toInt()
+                    userVM.user.agePrefLow = userDocument.data?.getValue("agePrefLow")?.toString()?.toInt()
+                    userVM.user.bio = userDocument.data?.getValue("bio")?.toString()
+
+                    var disLikedDogStr = userDocument.data?.getValue("likedDogs")?.toString()
+                    disLikedDogStr = disLikedDogStr?.substring(1,disLikedDogStr.length-1)
+                    var DLdogList = disLikedDogStr?.split(",")?.toTypedArray()
+                    userVM.user.likedDogs = DLdogList?.toList()
+
+                    var likedDogStr = userDocument.data?.getValue("dislikedDogs")?.toString()
+                    likedDogStr = likedDogStr?.substring(1,likedDogStr.length-1)
+                    var LdogList = likedDogStr?.split(",")?.toTypedArray()
+                    userVM.user.likedDogs = LdogList?.toList()
+
+                    var prefDogStr = userDocument.data?.getValue("preferredBreeds")?.toString()
+                    prefDogStr = prefDogStr?.substring(1,prefDogStr.length-1)
+                    var prefDogList = prefDogStr?.split(",")?.toTypedArray()
+                    userVM.user.likedDogs = prefDogList?.toList()
+
 
                     view?.findNavController()?.navigate(R.id.action_userLoginFragment_to_clientSavedDogs)
 
                 } else {
                     userVM.database.collection("shelters")
                         .document(userVM.userID.toString()).get()
-                        .addOnSuccessListener { innerDocument ->
-                            if (innerDocument.data != null) {
-                                Log.d(TAG, "DocumentSnapshot data: ${innerDocument.data}")
+                        .addOnSuccessListener { shelterDocument ->
+                            if (shelterDocument.data != null) {
+                                Log.d(TAG, "DocumentSnapshot data: ${shelterDocument.data}")
                                 userVM.userType = "shelter"
                                 Log.d(TAG, "This user type is!: ${userVM.userType}")
-                                Log.d(TAG, "This name is: " + innerDocument.data?.getValue("name"))
-                                userVM.shelter.name = innerDocument.data?.getValue("name").toString()
-                                userVM.shelter.address = innerDocument.data?.getValue("address").toString()
-                                userVM.shelter.phone = innerDocument.data?.getValue("phone").toString().toInt()
-//                                userVM.shelter.dogs = innerDocument.data?.getValue("dogs")
+                                Log.d(TAG, "This name is: " + shelterDocument.data?.getValue("name"))
+                                userVM.shelter.name = shelterDocument.data?.getValue("name")?.toString()
+                                userVM.shelter.address = shelterDocument.data?.getValue("address")?.toString()
+                                userVM.shelter.phone = shelterDocument.data?.getValue("phone")?.toString()?.toInt()
 //                                userVM.shelter.photos = innerDocument.data?.getValue("photos")
-                                userVM.shelter.website = innerDocument.data?.getValue("websiteUrl").toString()
-                                Log.d(TAG, "this is data from the viewModel: "+ userVM.shelter.phone)
+                                userVM.shelter.website = shelterDocument.data?.getValue("websiteUrl")?.toString()
+
+                                var dogStr = shelterDocument.data?.getValue("dogs")?.toString()
+                                dogStr = dogStr?.substring(1,dogStr.length-1)
+                                var dogList = dogStr?.split(",")?.toTypedArray()
+                                userVM.shelter.dogs= dogList?.toList()
 
                                 view?.findNavController()?.navigate(R.id.action_userLoginFragment_to_shelterDogs)
                             }

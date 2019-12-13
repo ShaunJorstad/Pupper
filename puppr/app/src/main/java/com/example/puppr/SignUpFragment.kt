@@ -48,6 +48,8 @@ class SignUpFragment : Fragment() {
     private fun joinWithEmailPassword() {
         var email = email_input.text.toString()
         var password = password_input.text.toString()
+        userVM.tempEmail = email
+        userVM.tempPassword = password
 
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(
@@ -68,82 +70,11 @@ class SignUpFragment : Fragment() {
         }
 
         if (userVM.userType == "user") {
-            userVM.auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
-                    if (!it.isSuccessful) return@addOnCompleteListener
-                    else {
-                        Log.d(TAG, "Successful account creation for user ${it.result?.user?.uid}")
-                        userVM.userID = it.result?.user?.uid
-                        val user = hashMapOf(
-                            "address" to null,
-                            "agePrefHigh" to null,
-                            "agePrefLow" to null,
-                            "uploadedIdPhoto" to false,
-                            "email" to email,
-                            "name" to null,
-                            "bio" to null,
-                            "phone" to null,
-                            "prefferedBreeds" to arrayListOf(null),
-                            "dislikedDogs" to arrayListOf(null),
-                            "likedDogs" to arrayListOf(null)
-                        )
-                        userVM.database.collection("users").document(userVM.userID.toString())
-                            .set(user)
-                            .addOnSuccessListener {
-                                Log.d(
-                                    TAG,
-                                    "DocumentSnapshot successfully written!"
-                                )
-                                view?.findNavController()?.navigate(R.id.action_signUpFragment_to_clientSavedDogs)
-                            }
-                            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
-                    }
-                }
-                .addOnFailureListener {
-                    Toast.makeText(
-                        context,
-                        it.message,
-                        Toast.LENGTH_LONG
-                    )
-                        .show()
-                }
+            view?.findNavController()?.navigate(R.id.action_signUpFragment_to_userPrefSetupFragment)
         } else if (userVM.userType == "shelter") {
-            userVM.auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
-                    if (!it.isSuccessful) return@addOnCompleteListener
-                    else {
-                        Log.d(TAG, "Successful account creation for user ${it.result?.user?.uid}")
-                        userVM.userID = it.result?.user?.uid
-                        val shelter = hashMapOf(
-                            "address" to null,
-                            "email" to email,
-                            "websiteUrl" to null,
-                            "name" to null,
-                            "bio" to null,
-                            "phone" to null,
-                            "dogs" to arrayListOf(null),
-                            "photos" to arrayListOf(null)
-                        )
-                        userVM.database.collection("shelters").document(userVM.userID.toString())
-                            .set(shelter)
-                            .addOnSuccessListener {
-                                Log.d(
-                                    TAG,
-                                    "DocumentSnapshot succwessfully written!"
-                                )
-                                view?.findNavController()?.navigate(R.id.action_signUpFragment_to_shelterDogs)
-                            }
-                            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
-                    }
-                }
-                .addOnFailureListener {
-                    Toast.makeText(
-                        context,
-                        it.message,
-                        Toast.LENGTH_LONG
-                    )
-                        .show()
-                }
+            view?.findNavController()
+                ?.navigate(R.id.action_signUpFragment_to_shelterPrefSetupFragment)
+
         } else {
             Toast.makeText(
                 context,

@@ -17,27 +17,26 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/userPrefTitle"
+                    android:id="@+id/shelterPrefTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/userPrefTitle"
-                    android:textSize="30sp"
-                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/signika_bold"
-                    android:layout_gravity="center_horizontal"/>
+                    android:text="@string/shelter_title_text"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/edit_name"
+                    android:id="@+id/shelter_name_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50sp"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:hint="@string/editableName"
+                    android:hint="@string/s_name_hint"
                     android:textColorHint="#868686" />
 
                 <EditText
-                    android:id="@+id/address_text"
+                    android:id="@+id/s_address_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25sp"
@@ -47,22 +46,32 @@
                     android:textColorHint="#868686"/>
 
                 <EditText
-                    android:id="@+id/phone_number"
+                    android:id="@+id/s_phone_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25sp"
                     android:ems="10"
-                    android:inputType="textPostalAddress"
                     android:hint="@string/phoneNumberText"
+                    android:inputType="textPostalAddress"
                     android:textColorHint="#868686" />
 
                 <EditText
-                    android:id="@+id/bio_input"
+                    android:id="@+id/s_bio_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25sp"
                     android:ems="10"
-                    android:hint="@string/bio_hint"
+                    android:hint="@string/s_bio_hint"
+                    android:textColorHint="#868686" />
+
+                <EditText
+                    android:id="@+id/shelter_website"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25sp"
+                    android:ems="10"
+                    android:inputType="textWebEditText"
+                    android:hint="@string/s_website_hint"
                     android:textColorHint="#868686" />
 
                 <Button

@@ -49,6 +49,12 @@ class clientPreferences : Fragment() {
             return@setOnMenuItemClickListener true
         }
 
+        binding.prefName.text = userVM.user.name
+        binding.prefAddress.text = userVM.user.address
+        binding.prefBio.text = userVM.user.bio
+        binding.prefEmail.text = userVM.user.email
+        binding.prefPhone.text = userVM.user.phone.toString()
+
         return binding.root
     }
 }
