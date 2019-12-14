@@ -11,6 +11,8 @@ import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.GlideContext
 import com.example.puppr.databinding.FragmentClientViewDogBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -74,7 +76,11 @@ class clientViewDog : Fragment() {
         }
         Log.d("YERT", userVM.dog.name ?: "NULL")
         binding.dogName.text = userVM.dog.name
-        binding.dogImage.setImageResource(R.mipmap.client_base_dog_foreground)
+
+        Glide.with(this)
+            .load(userVM.dog.photo?.get(0))
+            .into(binding.dogImage)
+
         binding.shelterName.text = userVM.dog.shelter
         binding.dogName.refreshDrawableState()
         binding.dogImage.refreshDrawableState()

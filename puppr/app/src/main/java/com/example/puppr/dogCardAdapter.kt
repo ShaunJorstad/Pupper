@@ -2,11 +2,13 @@ package com.example.puppr
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.client_saved_dogs_base_card.view.*
 
 /*
@@ -35,11 +37,18 @@ class dogCardAdapter(private val myDataset: Array<String>, private val userVM: U
 
         val dogName: TextView = holder.cardView.base_card_dog_name
         val shelterName: TextView = holder.cardView.base_dog_shelter_name
+        val dogImage: ImageView = holder.cardView.base_card_dog_image
 
         val docRef = userVM.database.collection("dogs").document(myDataset[position])
         docRef.get()
             .addOnSuccessListener { document ->
                 dogName.text = document.data?.get("name").toString()
+
+                Glide.with(parentViewGroup)
+                    .load(document.data?.get("photos").toString()
+                        .replace("[", "").replace("]", "").replace(" ", "").split(",").toTypedArray()[0])
+                    .into(dogImage)
+
                 val docRef2 = userVM.database.collection("shelter")
                     .document(document.data?.get("shelter").toString())
                 docRef2.get()

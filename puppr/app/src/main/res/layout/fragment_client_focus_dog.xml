@@ -21,27 +21,27 @@
             android:gravity="center"
             android:text="@string/dogName"
             android:textSize="55sp"
-            app:layout_constraintEnd_toStartOf="@+id/focus_dog_image"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/focus_dog_image"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/focus_dog_cards"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:contentDescription="@string/dogImage"
-            android:src="@mipmap/client_base_dog"
-            app:layout_constraintEnd_toStartOf="@+id/focus_dog_name"
+            android:layout_height="wrap_content"
+            android:scrollbars="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/focus_dog_name" />
+            app:layout_constraintTop_toBottomOf="@+id/focus_dog_name" />
 
         <ScrollView
+            android:id="@+id/focus_scrollview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="300dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/focus_dog_image">
+            app:layout_constraintTop_toBottomOf="@+id/focus_dog_cards">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -61,45 +61,45 @@
                     android:id="@+id/focus_dog_age"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="20dp"
                     android:gravity="center"
                     android:text="@string/dogage"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/focus_dog_bio" />
+                    app:layout_constraintTop_toBottomOf="@+id/focus_dog_bio" />
 
                 <TextView
                     android:id="@+id/focus_dog_breed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="20dp"
                     android:gravity="center"
                     android:text="@string/dogbreed"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/focus_dog_age" />
+                    app:layout_constraintTop_toBottomOf="@+id/focus_dog_age" />
 
                 <TextView
                     android:id="@+id/focus_dog_color"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="20dp"
                     android:gravity="center"
                     android:text="@string/dogcolor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/focus_dog_breed" />
+                    app:layout_constraintTop_toBottomOf="@+id/focus_dog_breed" />
 
                 <TextView
                     android:id="@+id/focus_dog_health"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="19dp"
                     android:gravity="center"
                     android:text="@string/doghealth"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/focus_dog_color" />
+                    app:layout_constraintTop_toBottomOf="@+id/focus_dog_color" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 

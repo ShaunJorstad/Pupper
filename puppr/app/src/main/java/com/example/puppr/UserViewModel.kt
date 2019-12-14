@@ -50,7 +50,8 @@ data class Dog(
     var color: String? = "",
     var age: String? = "",
     var shelter: String? = "",
-    var health: String? = ""
+    var health: String? = "",
+    var photo: Array<String>? = arrayOf()
 )
 
 class UserViewModel : ViewModel() {
@@ -98,6 +99,7 @@ class UserViewModel : ViewModel() {
             dog.color = nextDog.color
             dog.age = nextDog.age
             dog.health = nextDog.health
+            dog.photo = nextDog.photo
 
             if (dogIDs.isEmpty()) {
 
@@ -117,6 +119,8 @@ class UserViewModel : ViewModel() {
                     dog.color = document.data?.get("color").toString()
                     dog.age = document.data?.get("age").toString()
                     dog.health = document.data?.get("health").toString()
+                    dog.photo = document.data?.get("photos").toString()
+                        .replace("[", "").replace("]", "").replace(" ", "").split(",").toTypedArray()
 
                     val docRef2 = database.collection("shelter")
                         .document(document.data?.get("shelter").toString())
@@ -137,6 +141,8 @@ class UserViewModel : ViewModel() {
                 nextDog.color = document.data?.get("color").toString()
                 nextDog.age = document.data?.get("age").toString()
                 nextDog.health = document.data?.get("health").toString()
+                nextDog.photo = document.data?.get("photos").toString()
+                    .replace("[", "").replace("]", "").replace(" ", "").split(",").toTypedArray()
 
                 val docRef2 = database.collection("shelter")
                     .document(document.data?.get("shelter").toString())
