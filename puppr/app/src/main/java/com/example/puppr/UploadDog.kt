@@ -63,27 +63,32 @@ class UploadDog : Fragment() {
             userVM.database.collection("dogs").add(dog)
                 .addOnSuccessListener { documentReference ->
                     Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
-                    val docRef = userVM.database.collection("shelters").document(documentReference.id.toString())
-                    docRef.get()
-                        .addOnSuccessListener { document ->
-                            if (document != null) {
-                                Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                                if(document.data!=null) {
-                                    for (i in document.data!!) {
-                                        Log.d(TAG, i.toString())
-                                    }
-                                } else {
-                                    val dogs: List<String> = listOf(documentReference.id)
-                                    userVM.database.collection("shelters").document(userVM.userID.toString())
-                                        .update(mapOf("dogs" to dogs));
-                                }
-                            } else {
-                                Log.d(TAG, "No such document")
-                            }
-                        }
-                        .addOnFailureListener { exception ->
-                            Log.d(TAG, "get failed with ", exception)
-                        }
+                    userVM.shelter.dogs?.plusElement(documentReference.id)
+                    userVM.database.collection("shelters").document(userVM.userID.toString())
+                        .update("dogs", userVM.shelter.dogs)
+                        .addOnSuccessListener { Log.d(TAG, "Shelter Dogs successfully updated!") }
+                        .addOnFailureListener { e -> Log.w(TAG, "Error updating Shelter Dogs", e) }
+//                    val docRef = userVM.database.collection("shelters").document(documentReference.id.toString())
+//                    docRef.get()
+//                        .addOnSuccessListener { document ->
+//                            if (document != null) {
+//                                Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+//                                if(document.data!=null) {
+//                                    for (i in document.data!!) {
+//                                        Log.d(TAG, i.toString())
+//                                    }
+//                                } else {
+//                                    val dogs: List<String> = listOf(documentReference.id)
+//                                    userVM.database.collection("shelters").document(userVM.userID.toString())
+//                                        .update(mapOf("dogs" to dogs));
+//                                }
+//                            } else {
+//                                Log.d(TAG, "No such document")
+//                            }
+//                        }
+//                        .addOnFailureListener { exception ->
+//                            Log.d(TAG, "get failed with ", exception)
+//                        }
 
                 }
                 .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
