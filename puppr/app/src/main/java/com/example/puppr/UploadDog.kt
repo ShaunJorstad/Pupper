@@ -1,26 +1,21 @@
 package com.example.puppr
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
-import android.util.Log
 import android.widget.Toast
-import androidx.core.content.FileProvider
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.puppr.databinding.FragmentUploadDogBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.io.File
-import java.io.IOException
-import kotlin.reflect.typeOf
+
 
 /**
  * This class allows the animal shelter to upload a dog
@@ -34,7 +29,8 @@ class UploadDog : Fragment() {
 
     val packageManager: PackageManager? = context?.getPackageManager()
     val REQUEST_TAKE_PHOTO = 1;
-    val REQUEST_IMAGE_CAPTURE = 1
+    val REQUEST_IMAGE_CAPTURE = 1;
+    val GET_FROM_GALLERY = 1;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -113,7 +109,12 @@ class UploadDog : Fragment() {
 
         // Take a photo of the dog
         binding.captureDogButton.setOnClickListener {
-
+            startActivityForResult(
+                Intent(
+                    Intent.ACTION_PICK,
+                    MediaStore.Images.Media.INTERNAL_CONTENT_URI
+                ), GET_FROM_GALLERY
+            )
         }
 
         return binding.root
