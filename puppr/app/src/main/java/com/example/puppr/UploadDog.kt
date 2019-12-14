@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.get
 import android.util.Log
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -25,7 +26,6 @@ class UploadDog : Fragment() {
     private lateinit var userVM: UserViewModel
     val REQUEST_IMAGE_CAPTURE = 1
     val TAG: String = "Urgent UploadDog"
-    //private lateinit var userVM: UserViewModel
     //val packageManager: PackageManager? = context?.getPackageManager()
     //val packageManager = android.content.pm.PackageManager.FEATURE_CAMERA
     override fun onCreateView(
@@ -66,30 +66,20 @@ class UploadDog : Fragment() {
                     userVM.shelter.dogs?.plusElement(documentReference.id)
                     userVM.database.collection("shelters").document(userVM.userID.toString())
                         .update("dogs", userVM.shelter.dogs)
-                        .addOnSuccessListener { Log.d(TAG, "Shelter Dogs successfully updated!") }
+                        .addOnSuccessListener {
+                            binding.dogAge.setText("");
+                            binding.dogBio.setText("");
+                            binding.dogBreed.setText("");
+                            binding.dogColor.setText("");
+                            binding.dogName.setText("");
+                            binding.healthHistory.setText("");
+                            binding.vaccinations.setText("");
+                            binding.currentHealth.setText("");
+                            Toast.makeText(getActivity(), "Dog saved!",
+                                Toast.LENGTH_LONG).show();
+                            Log.d(TAG, "Shelter Dogs successfully updated!")
+                        }
                         .addOnFailureListener { e -> Log.w(TAG, "Error updating Shelter Dogs", e) }
-//                    val docRef = userVM.database.collection("shelters").document(documentReference.id.toString())
-//                    docRef.get()
-//                        .addOnSuccessListener { document ->
-//                            if (document != null) {
-//                                Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-//                                if(document.data!=null) {
-//                                    for (i in document.data!!) {
-//                                        Log.d(TAG, i.toString())
-//                                    }
-//                                } else {
-//                                    val dogs: List<String> = listOf(documentReference.id)
-//                                    userVM.database.collection("shelters").document(userVM.userID.toString())
-//                                        .update(mapOf("dogs" to dogs));
-//                                }
-//                            } else {
-//                                Log.d(TAG, "No such document")
-//                            }
-//                        }
-//                        .addOnFailureListener { exception ->
-//                            Log.d(TAG, "get failed with ", exception)
-//                        }
-
                 }
                 .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
             //binding.dogAge.
