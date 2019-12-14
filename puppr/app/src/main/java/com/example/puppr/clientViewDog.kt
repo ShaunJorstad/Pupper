@@ -74,11 +74,13 @@ class clientViewDog : Fragment() {
         if (newDog) {
             userVM.loadDog()
         }
-        Log.d("YERT", userVM.dog.name ?: "NULL")
+
         binding.dogName.text = userVM.dog.name
 
         Glide.with(this)
             .load(userVM.dog.photo?.get(0))
+            .placeholder(R.mipmap.client_base_dog)
+            .optionalCenterCrop()
             .into(binding.dogImage)
 
         binding.shelterName.text = userVM.dog.shelter

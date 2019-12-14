@@ -9,6 +9,7 @@ import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.client_saved_dogs_base_card.view.*
 
 class dogFocusCardAdapter(private val myDataset: Array<String>, private val userVM: UserViewModel)
@@ -28,9 +29,10 @@ class dogFocusCardAdapter(private val myDataset: Array<String>, private val user
 
     override fun onBindViewHolder(holder: dogFocusCardAdapter.MyViewHolder, position: Int) {
 
-        Log.d("YERT", myDataset[position])
-        Glide.with(parentViewGroup)
+        Glide.with(parentViewGroup.context)
             .load(myDataset[position])
+            .centerCrop()
+            .placeholder(R.mipmap.client_base_dog)
             .into(holder.imageView)
     }
 

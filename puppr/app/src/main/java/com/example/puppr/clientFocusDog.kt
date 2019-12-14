@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.puppr.databinding.FragmentClientFocusDogBinding
@@ -58,26 +59,35 @@ class clientFocusDog : Fragment() {
                     val myArray = document.data?.get("photos").toString()
                         .replace("[", "").replace("]", "").replace(" ", "").split(",").toTypedArray()
 
-                    viewManager = LinearLayoutManager(this.context)
-                    viewAdapter = dogFocusCardAdapter(myArray, userVM)
-                    recyclerView = binding.focusDogCards.apply {
-                        setHasFixedSize(true)
-                        layoutManager = viewManager
-                        adapter = viewAdapter
+                    if (myArray.isNotEmpty()) {
+                        val helper = LinearSnapHelper()
+                        viewManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+                        viewAdapter = dogFocusCardAdapter(myArray, userVM)
+                        recyclerView = binding.focusDogCards.apply {
+                            setHasFixedSize(true)
+                            layoutManager = viewManager
+                            adapter = viewAdapter
+                        }
+                        helper.attachToRecyclerView(recyclerView)
                     }
                 }
         } else {
 
             binding.focusDogName.text = userVM.dog.name
 
-            val myArray = userVM.dog.photo ?: arrayOf()
+            val myArray: Array<String> = userVM.dog.photo ?: arrayOf()
 
-            viewManager = LinearLayoutManager(this.context)
-            viewAdapter = dogFocusCardAdapter(myArray, userVM)
-            recyclerView = binding.focusDogCards.apply {
-                setHasFixedSize(true)
-                layoutManager = viewManager
-                adapter = viewAdapter
+            if (myArray.isNotEmpty()) {
+
+                val helper = LinearSnapHelper()
+                viewManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+                viewAdapter = dogFocusCardAdapter(myArray, userVM)
+                recyclerView = binding.focusDogCards.apply {
+                    setHasFixedSize(true)
+                    layoutManager = viewManager
+                    adapter = viewAdapter
+                }
+                helper.attachToRecyclerView(recyclerView)
             }
 
             binding.focusDogBio.text = userVM.dog.bio
