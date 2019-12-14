@@ -63,7 +63,9 @@ class UploadDog : Fragment() {
             userVM.database.collection("dogs").add(dog)
                 .addOnSuccessListener { documentReference ->
                     Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
-                    userVM.shelter.dogs?.plusElement(documentReference.id)
+                    Log.d(TAG, userVM.shelter.dogs.toString());
+                    userVM.shelter.dogs = userVM.shelter.dogs?.plusElement(documentReference.id)
+                    Log.d(TAG, userVM.shelter.dogs.toString());
                     userVM.database.collection("shelters").document(userVM.userID.toString())
                         .update("dogs", userVM.shelter.dogs)
                         .addOnSuccessListener {
