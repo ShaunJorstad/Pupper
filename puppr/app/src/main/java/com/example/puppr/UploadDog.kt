@@ -1,12 +1,11 @@
 package com.example.puppr
 
-import android.R.string
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,10 +16,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.puppr.databinding.FragmentUploadDogBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FieldValue
-import java.io.File
 
 
 /**
@@ -170,9 +170,22 @@ class UploadDog : Fragment() {
 //            val imageBitmap = data.extras?.get("data") as Bitmap
 //            binding.dogImage.setImageBitmap(imageBitmap)
             imageExists = true;
-            binding.dogImage.setImageURI(data?.data)
-
+           // binding.dogImage.setImageURI(data?.data)
             file = data?.data!!
+
+//            val displayMetrics = DisplayMetrics()
+//            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            val targetW: Int = binding.dogImage.width
+
+
+//            var width = displayMetrics.widthPixels
+//            Log.d(TAG, width.toString());
+            Glide.with(this)
+                .load(data?.data)
+                .placeholder(R.mipmap.client_base_dog)
+                .apply(RequestOptions().override(targetW, targetW))
+                .optionalCenterCrop()
+                .into(binding.dogImage)
 
 
 
