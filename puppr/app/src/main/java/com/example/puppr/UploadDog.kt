@@ -1,10 +1,12 @@
 package com.example.puppr
+
+import android.R.string
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +19,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.puppr.databinding.FragmentUploadDogBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.firestore.FieldValue
+import java.io.File
 
 
 /**
@@ -33,6 +37,9 @@ class UploadDog : Fragment() {
     val REQUEST_TAKE_PHOTO = 1;
     val REQUEST_IMAGE_CAPTURE = 1;
     val GET_FROM_GALLERY = 1;
+
+    lateinit var file: Uri;
+    var imageExists = false;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,26 +77,57 @@ class UploadDog : Fragment() {
                 "health" to null,
                 "likes" to null,
                 "name" to binding.dogName.getText().toString(),
-                "photos" to null,
+                "photos" to arrayListOf<String>(),
                 "shelter" to userVM.userID
             )
 
             // Add the dog to the database
             userVM.database.collection("dogs").add(dog)
                 .addOnSuccessListener { documentReference ->
-                    Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
+                    var dogID = documentReference.id
+                    Log.d(TAG, "DocumentSnapshot written with ID: ${dogID}")
                     Log.d(TAG, userVM.shelter.dogs.toString());
 
-                    //Add the dog to shelter in the ViewModel
+                    // Add the dog image to the database
+                    // If there is a dog image, add it
+                    if (imageExists) {
+                        val ref = userVM.storage.reference.child("dogs/${dogID}/photo.jpg")
+                        val uploadTask = ref.putFile(file)
+
+                        val urlTask = uploadTask.continueWithTask { task ->
+                            if (!task.isSuccessful) {
+                                task.exception?.let {
+                                    throw it
+                                }
+                            }
+                            ref.downloadUrl
+                        }.addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val downloadUri = task.result
+                                // add imageRef to the dog's list of images
+                                // todo: add url of dog image to local dog object
+                                userVM.dog.photo = arrayOf(task.result.toString())
+                                // pushes the Dogs changed list of images to the database
+                                val dogRef = userVM.database.collection("dogs").document(dogID)
+                                dogRef.update("photos", FieldValue.arrayUnion(task.result.toString()))
+                                    .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!")}
+                                    .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+                            } else {
+                                // Handle failures
+                                // ...
+                            }
+                        }
+                    }
+
+                    // Add the dog to shelter in the ViewModel
                     userVM.shelter.dogs = userVM.shelter.dogs?.plusElement(documentReference.id)
                     Log.d(TAG, userVM.shelter.dogs.toString());
 
-                    //Add the dog to shelter records in the database
+                    // Add the dog to shelter records in the database
                     userVM.database.collection("shelters").document(userVM.userID.toString())
                         .update("dogs", userVM.shelter.dogs)
-
-                        //if that works, clear the fields and make a toast indicating the dog was saved
                         .addOnSuccessListener {
+                            // If that works, clear the fields and make a toast indicating the dog was saved
                             binding.dogAge.setText("");
                             binding.dogBio.setText("");
                             binding.dogBreed.setText("");
@@ -98,6 +136,8 @@ class UploadDog : Fragment() {
                             binding.healthHistory.setText("");
                             binding.vaccinations.setText("");
                             binding.currentHealth.setText("");
+                            binding.dogImage.setImageURI(null);
+
                             Toast.makeText(
                                 getActivity(), "Dog saved!",
                                 Toast.LENGTH_LONG
@@ -113,13 +153,6 @@ class UploadDog : Fragment() {
 
         // Take a photo of the dog
         binding.captureDogButton.setOnClickListener {
-//            startActivityForResult(
-//                Intent(
-//                    Intent.ACTION_PICK,
-//                    MediaStore.Images.Media.INTERNAL_CONTENT_URI
-//                ), GET_FROM_GALLERY
-//            );
-
             val galleryIntent = Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(galleryIntent, GET_FROM_GALLERY)
@@ -136,9 +169,45 @@ class UploadDog : Fragment() {
         if (requestCode == GET_FROM_GALLERY && resultCode == RESULT_OK && data!=null) {
 //            val imageBitmap = data.extras?.get("data") as Bitmap
 //            binding.dogImage.setImageBitmap(imageBitmap)
+            imageExists = true;
             binding.dogImage.setImageURI(data?.data)
+
+            file = data?.data!!
+
+
+
+//            val imageUri= data?.data
+//            val mBitmap: Bitmap = Media.getBitmap(this.getContentResolver(), imageUri)
+//            val my_img_view: Imageview = findViewById(R.id.my_img_view) as Imageview
+//            my_img_view.setImageBitmap(bitmap)
+
+//            // Get the dimensions of the View
+//            val targetW: Int = binding.dogImage.width
+//            val targetH: Int = binding.dogImage.height
+//
+//            val bmOptions = BitmapFactory.Options().apply {
+//                // Get the dimensions of the bitmap
+//                inJustDecodeBounds = true
+//
+//                val photoW: Int = outWidth
+//                val photoH: Int = outHeight
+//
+//                // Determine how much to scale down the image
+//                val scaleFactor: Int = Math.min(photoW / targetW, photoH / targetH)
+//
+//                // Decode the image file into a Bitmap sized to fill the View
+//                inJustDecodeBounds = false
+//                inSampleSize = scaleFactor
+//                inPurgeable = true
+//            }
+//            BitmapFactory.decodeFile(data?.data, bmOptions)?.also { bitmap ->
+//                binding.dogImage.setImageBitmap(bitmap)
+//            }
+
         } else {
             Toast.makeText(context, "Error loading image", Toast.LENGTH_LONG)
         }
+
+
     }
 }
