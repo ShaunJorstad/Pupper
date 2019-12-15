@@ -133,9 +133,9 @@ class UploadDog : Fragment() {
                             binding.dogBreed.setText("");
                             binding.dogColor.setText("");
                             binding.dogName.setText("");
-                            binding.healthHistory.setText("");
+                            /*binding.healthHistory.setText("");
                             binding.vaccinations.setText("");
-                            binding.currentHealth.setText("");
+                            binding.currentHealth.setText("");*/
                             binding.dogImage.setImageURI(null);
 
                             Toast.makeText(
@@ -158,8 +158,6 @@ class UploadDog : Fragment() {
             startActivityForResult(galleryIntent, GET_FROM_GALLERY)
         }
 
-
-
         return binding.root
     }
 
@@ -167,55 +165,18 @@ class UploadDog : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == GET_FROM_GALLERY && resultCode == RESULT_OK && data!=null) {
-//            val imageBitmap = data.extras?.get("data") as Bitmap
-//            binding.dogImage.setImageBitmap(imageBitmap)
             imageExists = true;
-           // binding.dogImage.setImageURI(data?.data)
+
             file = data?.data!!
 
-//            val displayMetrics = DisplayMetrics()
-//            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             val targetW: Int = binding.dogImage.width
 
-
-//            var width = displayMetrics.widthPixels
-//            Log.d(TAG, width.toString());
             Glide.with(this)
                 .load(data?.data)
                 .placeholder(R.mipmap.client_base_dog)
                 .apply(RequestOptions().override(targetW, targetW))
                 .optionalCenterCrop()
                 .into(binding.dogImage)
-
-
-
-//            val imageUri= data?.data
-//            val mBitmap: Bitmap = Media.getBitmap(this.getContentResolver(), imageUri)
-//            val my_img_view: Imageview = findViewById(R.id.my_img_view) as Imageview
-//            my_img_view.setImageBitmap(bitmap)
-
-//            // Get the dimensions of the View
-//            val targetW: Int = binding.dogImage.width
-//            val targetH: Int = binding.dogImage.height
-//
-//            val bmOptions = BitmapFactory.Options().apply {
-//                // Get the dimensions of the bitmap
-//                inJustDecodeBounds = true
-//
-//                val photoW: Int = outWidth
-//                val photoH: Int = outHeight
-//
-//                // Determine how much to scale down the image
-//                val scaleFactor: Int = Math.min(photoW / targetW, photoH / targetH)
-//
-//                // Decode the image file into a Bitmap sized to fill the View
-//                inJustDecodeBounds = false
-//                inSampleSize = scaleFactor
-//                inPurgeable = true
-//            }
-//            BitmapFactory.decodeFile(data?.data, bmOptions)?.also { bitmap ->
-//                binding.dogImage.setImageBitmap(bitmap)
-//            }
 
         } else {
             Toast.makeText(context, "Error loading image", Toast.LENGTH_LONG)
