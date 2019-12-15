@@ -133,10 +133,7 @@ class UploadDog : Fragment() {
                             binding.dogBreed.setText("");
                             binding.dogColor.setText("");
                             binding.dogName.setText("");
-                            /*binding.healthHistory.setText("");
-                            binding.vaccinations.setText("");
-                            binding.currentHealth.setText("");*/
-                            binding.dogImage.setImageURI(null);
+                            binding.dogImage.setImageResource(android.R.color.transparent);
 
                             Toast.makeText(
                                 getActivity(), "Dog saved!",
