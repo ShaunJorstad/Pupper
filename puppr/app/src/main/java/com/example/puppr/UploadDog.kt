@@ -1,6 +1,8 @@
 package com.example.puppr
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -107,16 +109,36 @@ class UploadDog : Fragment() {
                 .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
         }
 
+        var picID = 12345;
+
         // Take a photo of the dog
         binding.captureDogButton.setOnClickListener {
-            startActivityForResult(
-                Intent(
-                    Intent.ACTION_PICK,
-                    MediaStore.Images.Media.INTERNAL_CONTENT_URI
-                ), GET_FROM_GALLERY
-            )
+//            startActivityForResult(
+//                Intent(
+//                    Intent.ACTION_PICK,
+//                    MediaStore.Images.Media.INTERNAL_CONTENT_URI
+//                ), GET_FROM_GALLERY
+//            );
+
+            val galleryIntent = Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(galleryIntent, GET_FROM_GALLERY)
         }
 
+
+
         return binding.root
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == GET_FROM_GALLERY && resultCode == RESULT_OK && data!=null) {
+//            val imageBitmap = data.extras?.get("data") as Bitmap
+//            binding.dogImage.setImageBitmap(imageBitmap)
+            binding.dogImage.setImageURI(data?.data)
+        } else {
+            Toast.makeText(context, "Error loading image", Toast.LENGTH_LONG)
+        }
     }
 }
