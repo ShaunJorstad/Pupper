@@ -76,12 +76,13 @@ class clientViewDog : Fragment() {
         }
 
         binding.dogName.text = userVM.dog.name
-
-        Glide.with(this)
-            .load(userVM.dog.photo?.get(0))
-            .placeholder(R.mipmap.client_base_dog)
-            .optionalCenterCrop()
-            .into(binding.dogImage)
+        if(userVM.dog.photo!!.size>0) {
+            Glide.with(this)
+                .load(userVM.dog.photo?.get(0))
+                .placeholder(R.mipmap.client_base_dog)
+                .optionalCenterCrop()
+                .into(binding.dogImage)
+        }
 
         binding.shelterName.text = userVM.dog.shelter
         binding.dogName.refreshDrawableState()

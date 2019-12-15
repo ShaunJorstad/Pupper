@@ -80,9 +80,9 @@ class UserViewModel : ViewModel() {
         user = User()
         shelter = Shelter()
 
-//        Thread(Runnable {
-//            fillDogIDs(true)
-//        }).start()
+        Thread(Runnable {
+            fillDogIDs(true)
+        }).start()
     }
 
     fun loadDog(firstTime: Boolean = false): Boolean {
@@ -101,12 +101,12 @@ class UserViewModel : ViewModel() {
             dog.health = nextDog.health
             dog.photo = nextDog.photo
 
-//            if (dogIDs.isEmpty()) {
-//
-//                Thread(Runnable {
-//                    fillDogIDs()
-//                }).start()
-//            }
+            if (dogIDs.isEmpty()) {
+
+                Thread(Runnable {
+                    fillDogIDs()
+                }).start()
+            }
         } else {
 
             val docRef = database.collection("dogs").document(dogID)
@@ -154,25 +154,25 @@ class UserViewModel : ViewModel() {
         return true
     }
 
-//    fun fillDogIDs(fillDogID: Boolean = false) {
-//
-//        val docRef = database.collection("dogs")
-//
-//        docRef.get()
-//            .addOnSuccessListener { documents ->
-//
-//                for (document in documents) {
-//                    dogIDs.add(document.id)
-//                }
-//
-//                dogID = if (fillDogID) dogIDs[0] else dogID
-//                nextDogID = if (fillDogID) dogIDs[1] else nextDogID
-//                loadDog(true)
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.d("YERT", "get failed with $exception")
-//            }
-//    }
+    fun fillDogIDs(fillDogID: Boolean = false) {
+
+        val docRef = database.collection("dogs")
+
+        docRef.get()
+            .addOnSuccessListener { documents ->
+
+                for (document in documents) {
+                    dogIDs.add(document.id)
+                }
+
+                dogID = if (fillDogID) dogIDs[0] else dogID
+                nextDogID = if (fillDogID) dogIDs[1] else nextDogID
+                loadDog(true)
+            }
+            .addOnFailureListener { exception ->
+                Log.d("YERT", "get failed with $exception")
+            }
+    }
 
     fun populateFields(){
         Log.d(TAG, "inside populate fields")
