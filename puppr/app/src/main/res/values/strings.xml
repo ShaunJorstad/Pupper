@@ -71,4 +71,6 @@
     <string name="dogbreed">dogBreed</string>
     <string name="dogcolor">dogColor</string>
     <string name="doghealth">dogHealth</string>
+    <string name="UserInfroID" />
+    <string name="UserInfoID">Uner Information:</string>
 </resources>

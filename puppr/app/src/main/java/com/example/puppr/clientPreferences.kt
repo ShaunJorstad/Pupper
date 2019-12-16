@@ -14,6 +14,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.puppr.databinding.FragmentClientPreferencesBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.fragment_client_preferences.view.*
+import kotlinx.android.synthetic.main.fragment_settings.view.*
 
 /**
  * A simple [Fragment] subclass.
@@ -48,12 +50,11 @@ class clientPreferences : Fragment() {
             this.findNavController().navigate(R.id.action_clientPreferences_to_clientSavedDogs)
             return@setOnMenuItemClickListener true
         }
-
-        binding.prefName.text = userVM.user.name
-        binding.prefAddress.text = userVM.user.address
-        binding.prefBio.text = userVM.user.bio
-        binding.prefEmail.text = userVM.user.email
-        binding.prefPhone.text = userVM.user.phone.toString()
+        binding.prefName.text = "Name: "+userVM.user.name
+        binding.prefAddress.text = "Address: "+userVM.user.address
+        binding.prefBio.text = "User Bio: "+userVM.user.bio
+        binding.prefEmail.text = "Email: "+userVM.user.email
+        binding.prefPhone.text = "Phone Number: "+userVM.user.phone.toString()
 
         return binding.root
     }

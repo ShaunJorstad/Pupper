@@ -34,22 +34,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/preference_bottom_nav" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            tools:srcCompat="@tools:sample/avatars[0]" />
-
         <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintBottom_toTopOf="@+id/signOutButton"
-            app:layout_constraintTop_toBottomOf="@+id/imageView">
+            app:layout_constraintTop_toBottomOf="@+id/title">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,39 +48,74 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="User Information"
+                    android:textSize="30sp" />
+
+                <TextView
                     android:id="@+id/prefName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/prefNameText" />
+                    android:gravity="center|left"
+                    android:text="@string/prefNameText"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/prefAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/prefAddressText" />
+                    android:gravity="center|left"
+                    android:text="@string/prefAddressText"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/prefBio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/prefBioText" />
+                    android:gravity="center|left"
+                    android:text="@string/prefBioText"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/prefEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/prefEmailText" />
+                    android:gravity="center|left"
+                    android:text="@string/prefEmailText"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/prefPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/prefPhoneText" />
+                    android:gravity="center|left"
+                    android:text="@string/prefPhoneText"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\nDog Preferences"
+                    android:textSize="30sp" />
+
+                <Switch
+                    android:id="@+id/switch3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gender: (Left for male)"
+                    android:textSize="20sp" />
+
+                <Switch
+                    android:id="@+id/switch4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Neutered"
+                    android:textSize="20sp" />
+
             </LinearLayout>
         </ScrollView>
 
@@ -101,5 +127,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
