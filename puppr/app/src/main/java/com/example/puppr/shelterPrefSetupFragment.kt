@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.example.puppr.databinding.FragmentShelterPrefSetupBinding
 import kotlinx.android.synthetic.main.fragment_shelter_pref_setup.*
+import kotlinx.android.synthetic.main.fragment_user_pref_setup.*
 
 /**
  * A simple [Fragment] subclass.
@@ -43,7 +44,7 @@ class shelterPrefSetupFragment : Fragment() {
 
             checks[1] = !s_address_text?.text?.toString().equals("")
             try{
-                if(s_phone_number.text?.toString()?.toInt() !=null) {
+                if(phone_number.text.toString().matches(Regex("^[+]?[0-9]{10,12}\$"))) {
                     checks[2] = true
                 }
             }
@@ -56,7 +57,7 @@ class shelterPrefSetupFragment : Fragment() {
                 Log.d(TAG, "Successful account creation for user: "+s_phone_number.text?.toString()?.toInt())
                 userVM.shelter.name = shelter_name_text.text?.toString()
                 userVM.shelter.address = s_address_text.text?.toString()
-                userVM.shelter.phone = s_phone_number.text?.toString()?.toInt()
+                userVM.shelter.phone = s_phone_number.text?.toString()
                 userVM.shelter.bio = s_bio_input.text?.toString()
                 userVM.shelter.address = s_address_text.text?.toString()
                 userVM.shelter.website = shelter_website.text?.toString()

@@ -73,4 +73,5 @@
     <string name="doghealth">dogHealth</string>
     <string name="UserInfroID" />
     <string name="UserInfoID">Uner Information:</string>
+    <string name="forgotPasswordText">Reset my Password</string>
 </resources>

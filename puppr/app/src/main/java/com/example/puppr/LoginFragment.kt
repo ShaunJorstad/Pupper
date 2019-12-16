@@ -57,6 +57,26 @@ import android.R.string
             it.findNavController()
                 .navigate(R.id.action_userLoginFragment_to_signUpFragment)
         }
+        binding.forgotPassword.setOnClickListener{
+            try {
+                userVM.auth.sendPasswordResetEmail(email_input.text.toString())
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(context, "Password reset link sent to: " + email_input.text.toString(), Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+            } catch(error: Exception) {
+                Toast.makeText(context, error.message, Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+        }
+
         return binding.root
     }
 
@@ -119,6 +139,7 @@ import android.R.string
 
     public fun signInUser() {
         Log.d(TAG, "before firebase query. UserID: ${userVM.userID}");
+        Log.d(TAG, "user verification: " + userVM.auth.currentUser?.isEmailVerified().toString());
         var firestoreUser = userVM.database.collection("users").document(userVM.userID.toString())
         firestoreUser.get()
             .addOnSuccessListener { userDocument ->
@@ -135,7 +156,7 @@ import android.R.string
                     userVM.user.name = userDocument.data?.getValue("name")?.toString()
                     userVM.user.email = userDocument.data?.getValue("email")?.toString()
                     userVM.user.address = userDocument.data?.getValue("address")?.toString()
-                    userVM.user.phone = userDocument.data?.getValue("phone")?.toString()?.toInt()
+                    userVM.user.phone = userDocument.data?.getValue("phone").toString()
                     userVM.user.agePrefHigh = userDocument.data?.getValue("agePrefHigh")?.toString()?.toInt()
                     userVM.user.agePrefLow = userDocument.data?.getValue("agePrefLow")?.toString()?.toInt()
                     userVM.user.bio = userDocument.data?.getValue("bio")?.toString()
@@ -168,7 +189,7 @@ import android.R.string
                                 Log.d(TAG, "This name is: " + shelterDocument.data?.getValue("name"))
                                 userVM.shelter.name = shelterDocument.data?.getValue("name")?.toString()
                                 userVM.shelter.address = shelterDocument.data?.getValue("address")?.toString()
-                                userVM.shelter.phone = shelterDocument.data?.getValue("phone")?.toString()?.toInt()
+                                userVM.shelter.phone = shelterDocument.data?.getValue("phone")?.toString()
 //                                userVM.shelter.photos = innerDocument.data?.getValue("photos")
                                 userVM.shelter.website = shelterDocument.data?.getValue("websiteUrl")?.toString()
 

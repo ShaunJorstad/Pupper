@@ -46,7 +46,7 @@ class userPrefSetupFragment : Fragment() {
                 checks[1] = true
             }
             try{
-                if(phone_number.text.toString().matches(Regex("^[0-9]{10,12}\$"))) {
+                if(phone_number.text.toString().matches(Regex("^[+]?[0-9]{10,12}\$"))) {
                     checks[2] = true
                 }
             }
@@ -55,10 +55,10 @@ class userPrefSetupFragment : Fragment() {
             }
 
             if(checks[0] && checks[1] && checks[2]){
-                Log.d(TAG, "Successful account creation for user: "+phone_number.text?.toString()?.toInt())
+                Log.d(TAG, "Successful account creation for user: "+phone_number.text?.toString())
                 userVM.user.name = edit_name.text?.toString()
                 userVM.user.address = address_text.text?.toString()
-                userVM.user.phone = phone_number.text?.toString()?.toInt()
+                userVM.user.phone = phone_number.text?.toString()
                 userVM.user.bio = bio_input.text?.toString()
                 userVM.auth.createUserWithEmailAndPassword(userVM.tempEmail, userVM.tempPassword)
                     .addOnCompleteListener {

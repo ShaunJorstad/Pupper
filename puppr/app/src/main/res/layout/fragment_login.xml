@@ -34,7 +34,7 @@
             android:id="@+id/password_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="50dp"
             android:fontFamily="@font/lato_bold"
             android:hint="@string/passwordEntry"
             android:inputType="textPassword"
@@ -59,6 +59,18 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_conversion_absoluteHeight="51dp"
             tools:layout_conversion_absoluteWidth="181dp" />
+
+        <TextView
+            android:id="@+id/forgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="11dp"
+            android:shadowColor="#00FFFFFF"
+            android:text="@string/forgotPasswordText"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/signInSubmitButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password_input" />
 
         <Button
             android:id="@+id/signInSubmitButton"
