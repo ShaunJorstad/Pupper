@@ -2,6 +2,7 @@ package com.example.puppr
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,30 @@ class ShelterDogs : Fragment() {
         userVM = activity?.run {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
+
+        var myArray: ArrayList<String> = arrayListOf()
+        var shelterDogsUploaded = userVM.shelter.dogs.toString()
+
+        Log.d("Harry",shelterDogsUploaded)
+
+        shelterDogsUploaded = shelterDogsUploaded.substring(1,shelterDogsUploaded.length - 1)
+        val array = shelterDogsUploaded.split(",").toTypedArray()
+
+        for(word in array){
+            myArray.add(word.trim())
+        }
+
+        viewManager = LinearLayoutManager(this.context)
+        viewAdapter = dogCardAdapter(myArray.toTypedArray(), userVM)
+        recyclerView = binding.dogCards.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
+
+
+        // update the ui
+
 
         /*val myArray: Array<String> = arrayOf("Regenald", "Coregenald", "Trogenald", "Fogenald", "Figenald", "Sigenald", "Sevengenald", "Eigenald")
 

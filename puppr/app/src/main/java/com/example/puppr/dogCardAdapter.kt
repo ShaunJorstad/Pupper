@@ -1,5 +1,6 @@
 package com.example.puppr
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -44,17 +45,25 @@ class dogCardAdapter(private val myDataset: Array<String>, private val userVM: U
             .addOnSuccessListener { document ->
                 dogName.text = document.data?.get("name").toString()
 
+                if(userVM.userType == "shelter"){
+                    Log.i("Harry", document.data?.get("bio").toString())
+                    shelterName.text = document.data?.get("bio").toString()
+                }
+
                 Glide.with(parentViewGroup)
                     .load(document.data?.get("photos").toString()
                         .replace("[", "").replace("]", "").replace(" ", "").split(",").toTypedArray()[0])
                     .into(dogImage)
 
-                val docRef2 = userVM.database.collection("shelter")
-                    .document(document.data?.get("shelter").toString())
-                docRef2.get()
-                    .addOnSuccessListener { document2 ->
-                        shelterName.text = document2.data?.get("name").toString()
-                    }
+                if(userVM.userType == "user") {
+                    val docRef2 = userVM.database.collection("shelter")
+                        .document(document.data?.get("shelter").toString())
+                    docRef2.get()
+                        .addOnSuccessListener { document2 ->
+                            shelterName.text = document2.data?.get("name").toString()
+                        }
+                }
+
             }
 
         holder.cardView.setOnClickListener {

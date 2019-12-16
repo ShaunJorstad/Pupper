@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.GlideContext
 import com.example.puppr.databinding.FragmentClientViewDogBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.firestore.FieldValue
 
 /**
  * A simple [Fragment] subclass.
@@ -53,11 +54,25 @@ class clientViewDog : Fragment() {
 
         binding.likeButton.setOnClickListener {
 
+            val likedDogsRef = userVM.database.collection("users").document(userVM.userID.toString())
+            val likedDogID = userVM.dogID
+
+            likedDogsRef
+                .update("likedDogs", FieldValue.arrayUnion(likedDogID))
+                .addOnSuccessListener { Log.d("YERT", "DocumentSnapshot successfully updated!") }
+                .addOnFailureListener { e -> Log.w("YERT", "Error updating document", e) }
             loadDog(true)
         }
 
         binding.dislikeButton.setOnClickListener {
 
+            val likedDogsRef = userVM.database.collection("users").document(userVM.userID.toString())
+            val likedDogID = userVM.dogID
+
+            likedDogsRef
+                .update("dislikedDogs", FieldValue.arrayUnion(likedDogID))
+                .addOnSuccessListener { Log.d("YERT", "DocumentSnapshot successfully updated!") }
+                .addOnFailureListener { e -> Log.w("YERT", "Error updating document", e) }
             loadDog(true)
         }
 
@@ -71,17 +86,27 @@ class clientViewDog : Fragment() {
     private fun loadDog(newDog: Boolean = false) {
 
         userVM.savedDogsID = null
+
         if (newDog) {
+
             userVM.loadDog()
         }
 
-        binding.dogName.text = userVM.dog.name
+//        Log.d("YERT", userVM.user.likedDogs.toString())
+//        if (!userVM.user.likedDogs.isNullOrEmpty() && !userVM.user.dislikedDogs.isNullOrEmpty()
+//            && userVM.user.likedDogs!!.contains(userVM.dogID) or userVM.user.dislikedDogs!!.contains(userVM.dogID)) {
+//            loadDog(true)
+//            return
+//        }
 
-        Glide.with(this)
-            .load(userVM.dog.photo?.get(0))
-            .placeholder(R.mipmap.client_base_dog)
-            .optionalCenterCrop()
-            .into(binding.dogImage)
+        binding.dogName.text = userVM.dog.name
+        if(userVM.dog.photo!!.size>0) {
+            Glide.with(this)
+                .load(userVM.dog.photo?.get(0))
+                .placeholder(R.mipmap.client_base_dog)
+                .optionalCenterCrop()
+                .into(binding.dogImage)
+        }
 
         binding.shelterName.text = userVM.dog.shelter
         binding.dogName.refreshDrawableState()

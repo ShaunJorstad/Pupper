@@ -38,7 +38,7 @@ data class Shelter(
     var address: String? = "",
     var phone: Int? = -1,
     var bio: String? = "",
-    var dogs: List<String>? = null,
+    var dogs: List<String>? = listOf(),
     var photos: List<String>? = null,
     var website: String? = ""
 )
@@ -101,7 +101,7 @@ class UserViewModel : ViewModel() {
             dog.health = nextDog.health
             dog.photo = nextDog.photo
 
-            if (dogIDs.isEmpty()) {
+            if (dogIDs.size <= 2) {
 
                 Thread(Runnable {
                     fillDogIDs()
