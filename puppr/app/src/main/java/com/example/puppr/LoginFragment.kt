@@ -140,12 +140,12 @@ import android.R.string
                     userVM.user.agePrefLow = userDocument.data?.getValue("agePrefLow")?.toString()?.toInt()
                     userVM.user.bio = userDocument.data?.getValue("bio")?.toString()
 
-                    var disLikedDogStr = userDocument.data?.getValue("likedDogs")?.toString()
+                    var disLikedDogStr = userDocument.data?.getValue("dislikedDogs")?.toString()
                     disLikedDogStr = disLikedDogStr?.substring(1,disLikedDogStr.length-1)
                     var DLdogList = disLikedDogStr?.split(",")?.toTypedArray()
-                    userVM.user.likedDogs = DLdogList?.toList()
+                    userVM.user.dislikedDogs = DLdogList?.toList()
 
-                    var likedDogStr = userDocument.data?.getValue("dislikedDogs")?.toString()
+                    var likedDogStr = userDocument.data?.getValue("likedDogs")?.toString()
                     likedDogStr = likedDogStr?.substring(1,likedDogStr.length-1)
                     var LdogList = likedDogStr?.split(",")?.toTypedArray()
                     userVM.user.likedDogs = LdogList?.toList()
@@ -153,7 +153,7 @@ import android.R.string
                     var prefDogStr = userDocument.data?.getValue("preferredBreeds")?.toString()
                     prefDogStr = prefDogStr?.substring(1,prefDogStr.length-1)
                     var prefDogList = prefDogStr?.split(",")?.toTypedArray()
-                    userVM.user.likedDogs = prefDogList?.toList()
+                    userVM.user.preferredBreeds = prefDogList?.toList()
 
                     view?.findNavController()?.navigate(R.id.action_userLoginFragment_to_clientPreferences)
 

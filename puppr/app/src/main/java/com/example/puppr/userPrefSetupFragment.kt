@@ -46,7 +46,7 @@ class userPrefSetupFragment : Fragment() {
                 checks[1] = true
             }
             try{
-                if(phone_number.text?.toString()?.toInt() !=null) {
+                if(phone_number.text.toString().matches(Regex("^[0-9]{10,12}\$"))) {
                     checks[2] = true
                 }
             }
