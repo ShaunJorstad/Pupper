@@ -38,7 +38,7 @@ data class Shelter(
     var address: String? = "",
     var phone: Int? = -1,
     var bio: String? = "",
-    var dogs: List<String>? = null,
+    var dogs: List<String>? = listOf(),
     var photos: List<String>? = null,
     var website: String? = ""
 )

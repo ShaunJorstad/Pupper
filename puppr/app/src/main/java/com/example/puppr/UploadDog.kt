@@ -120,7 +120,11 @@ class UploadDog : Fragment() {
                     }
 
                     // Add the dog to shelter in the ViewModel
-                    userVM.shelter.dogs = userVM.shelter.dogs?.plusElement(documentReference.id)
+                    if(userVM.shelter.dogs != null) {
+                        userVM.shelter.dogs = userVM.shelter.dogs?.plusElement(documentReference.id);
+                    } else {
+                        userVM.shelter.dogs = listOf(documentReference.id);
+                    }
                     Log.d(TAG, userVM.shelter.dogs.toString());
 
                     // Add the dog to shelter records in the database
