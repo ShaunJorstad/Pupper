@@ -101,7 +101,7 @@ class UserViewModel : ViewModel() {
             dog.health = nextDog.health
             dog.photo = nextDog.photo
 
-            if (dogIDs.isEmpty()) {
+            if (dogIDs.size <= 2) {
 
                 Thread(Runnable {
                     fillDogIDs()
