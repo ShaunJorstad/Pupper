@@ -62,7 +62,7 @@ class dogCardAdapter(private val myDataset: Array<String>, private val userVM: U
                         .document(document.data?.get("shelter").toString())
                     docRef2.get()
                         .addOnSuccessListener { document2 ->
-                            shelterName.text = document2.data?.get("name").toString()
+                            shelterName.text = ""
                         }
                 }
 

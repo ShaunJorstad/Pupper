@@ -113,7 +113,7 @@ class clientViewDog : Fragment() {
                     .into(binding.dogImage)
             }
 
-            binding.shelterName.text = userVM.dog.shelter
+            binding.shelterName.text = ""
             binding.dogName.refreshDrawableState()
             binding.dogImage.refreshDrawableState()
             binding.shelterName.refreshDrawableState()

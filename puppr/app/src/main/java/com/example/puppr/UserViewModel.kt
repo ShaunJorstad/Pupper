@@ -103,6 +103,7 @@ class UserViewModel : ViewModel() {
             dog.age = nextDog.age
             dog.health = nextDog.health
             dog.photo = nextDog.photo
+            dog.shelter = nextDog.shelter
 
 //            if (dogIDs.size <= 2) {
 //
@@ -132,6 +133,7 @@ class UserViewModel : ViewModel() {
                             dog.shelter = document2.data?.get("name").toString()
                         }
                 }
+            dog.shelter = ""
         }
 
         val docRef = database.collection("dogs").document(nextDogID)
@@ -147,12 +149,15 @@ class UserViewModel : ViewModel() {
                 nextDog.photo = document.data?.get("photos").toString()
                     .replace("[", "").replace("]", "").replace(" ", "").split(",").toTypedArray()
 
+                Log.d("Dog Test", "Shelter ID: ${document.data?.get("shelter")}")
                 val docRef2 = database.collection("shelter")
                     .document(document.data?.get("shelter").toString())
                 docRef2.get()
                     .addOnSuccessListener { document2 ->
+                        Log.d("Dog Test", "Shelter Name: ${document2.data?.get("name")}")
                         nextDog.shelter = document2.data?.get("name").toString()
                     }
+                nextDog.shelter = ""
             }
         return true
     }
