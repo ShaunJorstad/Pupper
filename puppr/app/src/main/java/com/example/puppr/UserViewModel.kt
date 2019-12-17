@@ -81,6 +81,7 @@ class UserViewModel : ViewModel() {
         shelter = Shelter()
 
         Thread(Runnable {
+            Thread.sleep(2000)
             fillDogIDs(true)
         }).start()
     }
@@ -90,8 +91,10 @@ class UserViewModel : ViewModel() {
         if (!firstTime) {
 
             dogID = nextDogID
-            nextDogID = dogIDs[0]
-            dogIDs.removeAt(0)
+            nextDogID = if (dogIDs.isNotEmpty()) dogIDs[0] else "Dogs Done"
+            if (dogIDs.isNotEmpty()) {
+                dogIDs.removeAt(0)
+            }
 
             dog.name = nextDog.name
             dog.bio = nextDog.bio
@@ -101,12 +104,12 @@ class UserViewModel : ViewModel() {
             dog.health = nextDog.health
             dog.photo = nextDog.photo
 
-            if (dogIDs.size <= 2) {
-
-                Thread(Runnable {
-                    fillDogIDs()
-                }).start()
-            }
+//            if (dogIDs.size <= 2) {
+//
+//                Thread(Runnable {
+//                    fillDogIDs()
+//                }).start()
+//            }
         } else {
 
             val docRef = database.collection("dogs").document(dogID)
@@ -157,16 +160,28 @@ class UserViewModel : ViewModel() {
     fun fillDogIDs(fillDogID: Boolean = false) {
 
         val docRef = database.collection("dogs")
+        Log.d("Dog Add", "Fill Dog IDs Entered")
 
         docRef.get()
             .addOnSuccessListener { documents ->
 
                 for (document in documents) {
-                    dogIDs.add(document.id)
+
+                    if (user.likedDogs != null && user.dislikedDogs != null) {
+
+                        Log.d("Dog Add", "Comparison: ${!user.likedDogs!!.contains(document.id) and !user.dislikedDogs!!.contains(document.id)}")
+                        if (!user.likedDogs!!.contains(document.id) and !user.dislikedDogs!!.contains(document.id)) {
+
+                            if (!dogIDs.contains(document.id)) {
+                                Log.d("Dog Add", "Dog Added - ID: ${document.id}")
+                                dogIDs.add(document.id)
+                            }
+                        }
+                    }
                 }
 
-                dogID = if (fillDogID) dogIDs[0] else dogID
-                nextDogID = if (fillDogID) dogIDs[1] else nextDogID
+                dogID = if (fillDogID && dogIDs.isNotEmpty()) dogIDs[0] else dogID
+                nextDogID = if (fillDogID && dogIDs.size >= 2) dogIDs[1] else nextDogID
                 loadDog(true)
             }
             .addOnFailureListener { exception ->

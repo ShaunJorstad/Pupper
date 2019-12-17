@@ -42,9 +42,9 @@ class clientSavedDogs : Fragment() {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
-        val myArray: ArrayList<String> = arrayListOf()
+        val likedDogsArray: ArrayList<String> = arrayListOf()
 
-        val docRef = userVM.database.collection("users").document(userVM.userID ?: "I want to die")
+        val docRef = userVM.database.collection("users").document(userVM.userID ?: "Not Possible")
         docRef.get()
             .addOnSuccessListener { document ->
 
@@ -52,14 +52,15 @@ class clientSavedDogs : Fragment() {
                 likedDogs = likedDogs.substring(1, likedDogs.length - 1)
                 val array = likedDogs.split(",").toTypedArray()
 
+                // Put liked dogs' id into array
                 for (word in array) {
 
-                    myArray.add(word.trim())
+                    likedDogsArray.add(word.trim())
                 }
 
-                myArray.removeAt(0)
+                likedDogsArray.removeAt(0) // First is always null to maintain array structure in Firebase so remove it
                 viewManager = LinearLayoutManager(this.context)
-                viewAdapter = dogCardAdapter(myArray.toTypedArray(), userVM)
+                viewAdapter = dogCardAdapter(likedDogsArray.toTypedArray(), userVM)
                 recyclerView = binding.dogCards.apply {
                     setHasFixedSize(true)
                     layoutManager = viewManager

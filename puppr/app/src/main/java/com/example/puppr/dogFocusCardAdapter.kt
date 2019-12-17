@@ -29,6 +29,7 @@ class dogFocusCardAdapter(private val myDataset: Array<String>, private val user
 
     override fun onBindViewHolder(holder: dogFocusCardAdapter.MyViewHolder, position: Int) {
 
+        // Put picture into view
         Glide.with(parentViewGroup.context)
             .load(myDataset[position])
             .centerCrop()

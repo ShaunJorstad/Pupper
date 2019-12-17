@@ -54,26 +54,34 @@ class clientViewDog : Fragment() {
 
         binding.likeButton.setOnClickListener {
 
-            val likedDogsRef = userVM.database.collection("users").document(userVM.userID.toString())
-            val likedDogID = userVM.dogID
+            if (userVM.dogID != "Dogs Done") {
 
-            likedDogsRef
-                .update("likedDogs", FieldValue.arrayUnion(likedDogID))
-                .addOnSuccessListener { Log.d("YERT", "DocumentSnapshot successfully updated!") }
-                .addOnFailureListener { e -> Log.w("YERT", "Error updating document", e) }
-            loadDog(true)
+                val likedDogsRef = userVM.database.collection("users").document(userVM.userID.toString())
+                val likedDogID = userVM.dogID
+
+                // Put dog into likedDogs
+                likedDogsRef
+                    .update("likedDogs", FieldValue.arrayUnion(likedDogID))
+                    .addOnSuccessListener { Log.d("YERT", "DocumentSnapshot successfully updated!") }
+                    .addOnFailureListener { e -> Log.w("YERT", "Error updating document", e) }
+                loadDog(true)
+            }
         }
 
         binding.dislikeButton.setOnClickListener {
 
-            val likedDogsRef = userVM.database.collection("users").document(userVM.userID.toString())
-            val likedDogID = userVM.dogID
+            if (userVM.dogID != "Dogs Done") {
 
-            likedDogsRef
-                .update("dislikedDogs", FieldValue.arrayUnion(likedDogID))
-                .addOnSuccessListener { Log.d("YERT", "DocumentSnapshot successfully updated!") }
-                .addOnFailureListener { e -> Log.w("YERT", "Error updating document", e) }
-            loadDog(true)
+                val dislikedDogsRef = userVM.database.collection("users").document(userVM.userID.toString())
+                val dislikedDogID = userVM.dogID
+
+                // Put dog into dislikedDogs
+                dislikedDogsRef
+                    .update("dislikedDogs", FieldValue.arrayUnion(dislikedDogID))
+                    .addOnSuccessListener { Log.d("YERT", "DocumentSnapshot successfully updated!") }
+                    .addOnFailureListener { e -> Log.w("YERT", "Error updating document", e) }
+                loadDog(true)
+            }
         }
 
         binding.clientDogCard.setOnClickListener {
@@ -85,32 +93,38 @@ class clientViewDog : Fragment() {
 
     private fun loadDog(newDog: Boolean = false) {
 
+        // Makes sure the focus card uses view dog info
         userVM.savedDogsID = null
 
+        // Load new dog if need be
         if (newDog) {
 
             userVM.loadDog()
         }
 
-//        Log.d("YERT", userVM.user.likedDogs.toString())
-//        if (!userVM.user.likedDogs.isNullOrEmpty() && !userVM.user.dislikedDogs.isNullOrEmpty()
-//            && userVM.user.likedDogs!!.contains(userVM.dogID) or userVM.user.dislikedDogs!!.contains(userVM.dogID)) {
-//            loadDog(true)
-//            return
-//        }
+        // Populate Fields
+        if (userVM.dogID != "Dogs Done") {
+            binding.dogName.text = userVM.dog.name
+            if(userVM.dog.photo!!.size>0) {
+                Glide.with(this)
+                    .load(userVM.dog.photo?.get(0))
+                    .placeholder(R.mipmap.client_base_dog)
+                    .optionalCenterCrop()
+                    .into(binding.dogImage)
+            }
 
-        binding.dogName.text = userVM.dog.name
-        if(userVM.dog.photo!!.size>0) {
-            Glide.with(this)
-                .load(userVM.dog.photo?.get(0))
-                .placeholder(R.mipmap.client_base_dog)
-                .optionalCenterCrop()
-                .into(binding.dogImage)
+            binding.shelterName.text = userVM.dog.shelter
+            binding.dogName.refreshDrawableState()
+            binding.dogImage.refreshDrawableState()
+            binding.shelterName.refreshDrawableState()
+        } else {
+
+            binding.dogName.text = "No More Dogs"
+            binding.dogImage.setImageResource(R.mipmap.client_base_dog_foreground)
+            binding.shelterName.text = "No More Dogs"
+            binding.dogName.refreshDrawableState()
+            binding.dogImage.refreshDrawableState()
+            binding.shelterName.refreshDrawableState()
         }
-
-        binding.shelterName.text = userVM.dog.shelter
-        binding.dogName.refreshDrawableState()
-        binding.dogImage.refreshDrawableState()
-        binding.shelterName.refreshDrawableState()
     }
 }

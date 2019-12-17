@@ -163,12 +163,12 @@ import android.R.string
 
                     var disLikedDogStr = userDocument.data?.getValue("dislikedDogs")?.toString()
                     disLikedDogStr = disLikedDogStr?.substring(1,disLikedDogStr.length-1)
-                    var DLdogList = disLikedDogStr?.split(",")?.toTypedArray()
+                    var DLdogList = disLikedDogStr?.replace(" ", "")!!.split(",")?.toTypedArray()
                     userVM.user.dislikedDogs = DLdogList?.toList()
 
                     var likedDogStr = userDocument.data?.getValue("likedDogs")?.toString()
                     likedDogStr = likedDogStr?.substring(1,likedDogStr.length-1)
-                    var LdogList = likedDogStr?.split(",")?.toTypedArray()
+                    var LdogList = likedDogStr?.replace(" ", "")!!.split(",")?.toTypedArray()
                     userVM.user.likedDogs = LdogList?.toList()
 
                     var prefDogStr = userDocument.data?.getValue("preferredBreeds")?.toString()

@@ -36,11 +36,12 @@ class dogCardAdapter(private val myDataset: Array<String>, private val userVM: U
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
+        // Fields to be populated
         val dogName: TextView = holder.cardView.base_card_dog_name
         val shelterName: TextView = holder.cardView.base_dog_shelter_name
         val dogImage: ImageView = holder.cardView.base_card_dog_image
 
-        Log.d("TEST", myDataset[position])
+        // Get Dog info for dog id in myDataset[position]
         val docRef = userVM.database.collection("dogs").document(myDataset[position])
         docRef.get()
             .addOnSuccessListener { document ->
@@ -51,6 +52,7 @@ class dogCardAdapter(private val myDataset: Array<String>, private val userVM: U
                     shelterName.text = document.data?.get("bio").toString()
                 }
 
+                // Put image into dogImage ImageView
                 Glide.with(parentViewGroup)
                     .load(document.data?.get("photos").toString()
                         .replace("[", "").replace("]", "").replace(" ", "").split(",").toTypedArray()[0])
@@ -70,6 +72,7 @@ class dogCardAdapter(private val myDataset: Array<String>, private val userVM: U
         holder.cardView.setOnClickListener {
             userVM.savedDogsID = myDataset[position]
 
+            // Adapter used for multiple fragments containing the same RecyclerView this determines where it's coming from
             if (userVM.userType != "user") {
                 parentViewGroup.findNavController().navigate(R.id.action_shelterDogs_to_clientFocusDog)
             } else {
@@ -78,7 +81,7 @@ class dogCardAdapter(private val myDataset: Array<String>, private val userVM: U
             }
         }
 
-        dogName.text = myDataset[position]
+//        dogName.text = myDataset[position]
     }
 
     override fun getItemCount() = myDataset.size

@@ -46,6 +46,9 @@ class clientFocusDog : Fragment() {
 
         if (userVM.savedDogsID != null) {
 
+            // If coming in from the View Dog Side
+
+            // Get info for selected dog
             val docRef = userVM.database.collection("dogs").document(userVM.savedDogsID ?: "This is not possible")
             docRef.get()
                 .addOnSuccessListener { document ->
@@ -56,13 +59,13 @@ class clientFocusDog : Fragment() {
                     binding.focusDogHealth.text = document.data?.get("health").toString()
                     binding.focusDogAge.text = document.data?.get("age").toString()
 
-                    val myArray = document.data?.get("photos").toString()
+                    val photoArray = document.data?.get("photos").toString()
                         .replace("[", "").replace("]", "").replace(" ", "").split(",").toTypedArray()
 
-                    if (myArray.isNotEmpty()) {
+                    if (photoArray.isNotEmpty()) {
                         val helper = LinearSnapHelper()
                         viewManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-                        viewAdapter = dogFocusCardAdapter(myArray, userVM)
+                        viewAdapter = dogFocusCardAdapter(photoArray, userVM)
                         recyclerView = binding.focusDogCards.apply {
                             setHasFixedSize(true)
                             layoutManager = viewManager
@@ -73,15 +76,18 @@ class clientFocusDog : Fragment() {
                 }
         } else {
 
+            // If coming in from the Saved Dog Side
+
             binding.focusDogName.text = userVM.dog.name
 
-            val myArray: Array<String> = userVM.dog.photo ?: arrayOf()
+            val photoArray: Array<String> = userVM.dog.photo ?: arrayOf()
 
-            if (myArray.isNotEmpty()) {
+            // If photos exist put them in
+            if (photoArray.isNotEmpty()) {
 
                 val helper = LinearSnapHelper()
                 viewManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-                viewAdapter = dogFocusCardAdapter(myArray, userVM)
+                viewAdapter = dogFocusCardAdapter(photoArray, userVM)
                 recyclerView = binding.focusDogCards.apply {
                     setHasFixedSize(true)
                     layoutManager = viewManager
@@ -90,6 +96,7 @@ class clientFocusDog : Fragment() {
                 helper.attachToRecyclerView(recyclerView)
             }
 
+            // Populate data
             binding.focusDogBio.text = userVM.dog.bio
             binding.focusDogBreed.text = userVM.dog.breed
             binding.focusDogColor.text = userVM.dog.color

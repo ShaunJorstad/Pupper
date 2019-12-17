@@ -34,6 +34,7 @@ class clientPreferences : Fragment() {
         userVM = activity?.run {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
+
         binding.signOutButton.setOnClickListener {view ->
             userVM.auth.signOut()
             view.findNavController().navigate(R.id.action_clientPreferences_to_userLoginFragment)
@@ -50,6 +51,8 @@ class clientPreferences : Fragment() {
             this.findNavController().navigate(R.id.action_clientPreferences_to_clientSavedDogs)
             return@setOnMenuItemClickListener true
         }
+
+        // Populate fields
         binding.prefName.text = "Name: "+userVM.user.name
         binding.prefAddress.text = "Address: "+userVM.user.address
         binding.prefBio.text = "User Bio: "+userVM.user.bio
