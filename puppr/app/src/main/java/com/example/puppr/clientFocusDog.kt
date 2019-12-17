@@ -56,7 +56,6 @@ class clientFocusDog : Fragment() {
                     binding.focusDogBio.text = document.data?.get("bio").toString()
                     binding.focusDogBreed.text = document.data?.get("breed").toString()
                     binding.focusDogColor.text = document.data?.get("color").toString()
-                    binding.focusDogHealth.text = document.data?.get("health").toString()
                     binding.focusDogAge.text = document.data?.get("age").toString()
 
                     val photoArray = document.data?.get("photos").toString()
@@ -100,7 +99,6 @@ class clientFocusDog : Fragment() {
             binding.focusDogBio.text = userVM.dog.bio
             binding.focusDogBreed.text = userVM.dog.breed
             binding.focusDogColor.text = userVM.dog.color
-            binding.focusDogHealth.text = userVM.dog.health
             binding.focusDogAge.text = userVM.dog.age
         }
     }

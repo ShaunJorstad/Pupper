@@ -15,15 +15,13 @@
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/client_base_dog_foreground" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/dog_name"
         style="@style/Title_Style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/dog_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dog_image" />
@@ -33,7 +31,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/signika"
-        android:text="@string/dog_shelter_name"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

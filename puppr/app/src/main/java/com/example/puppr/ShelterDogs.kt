@@ -29,26 +29,32 @@ class ShelterDogs : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //Set up databinding
         binding = DataBindingUtil.inflate<FragmentShelterDogsBinding>(inflater, R.layout.fragment_shelter_dogs,
             container, false)
 
+        //Set up view model
         userVM = activity?.run {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
+        //Array list to save the dog id keys
         var myArray: ArrayList<String> = arrayListOf()
-        var shelterDogsUploaded = userVM.shelter.dogs.toString()
+        var shelterDogsUploaded = userVM.shelter.dogs.toString()    //List of shelter dog IDs from the view model
 
-        Log.d("Harry",shelterDogsUploaded)
+        Log.i("Harry", "Before Sub: " + shelterDogsUploaded)
+        shelterDogsUploaded = shelterDogsUploaded.substring(1,shelterDogsUploaded.length - 1)   //Trim Brackets
+        Log.i("Harry", "After Sub: " + shelterDogsUploaded)
+        val array = shelterDogsUploaded.split(",").toTypedArray()//Split on the comma delimeter into an array
 
-        shelterDogsUploaded = shelterDogsUploaded.substring(1,shelterDogsUploaded.length - 1)
-        val array = shelterDogsUploaded.split(",").toTypedArray()
 
         for(word in array){
-            myArray.add(word.trim())
+            myArray.add(word.trim())    //Populate arraylist
         }
 
-        myArray.removeAt(0)
+        myArray.removeAt(0) //Remove first element which is always null
+
+        //Pupulate the recycler view
         viewManager = LinearLayoutManager(this.context)
         viewAdapter = dogCardAdapter(myArray.toTypedArray(), userVM)
         recyclerView = binding.dogCards.apply {
@@ -58,19 +64,7 @@ class ShelterDogs : Fragment() {
         }
 
 
-        // update the ui
-
-
-        /*val myArray: Array<String> = arrayOf("Regenald", "Coregenald", "Trogenald", "Fogenald", "Figenald", "Sigenald", "Sevengenald", "Eigenald")
-
-        viewManager = LinearLayoutManager(this.context)
-        viewAdapter = dogCardAdapter(myArray, userVM)
-        recyclerView = binding.dogCards.apply {
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
-        }*/
-
+        //Navagation info
         val navBottom: BottomNavigationView = binding.preferenceBottomNav
         navBottom.selectedItemId = navBottom.menu[2].itemId
         navBottom.menu[1].setOnMenuItemClickListener {

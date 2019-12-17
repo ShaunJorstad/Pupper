@@ -48,7 +48,6 @@ class dogCardAdapter(private val myDataset: Array<String>, private val userVM: U
                 dogName.text = document.data?.get("name").toString()
 
                 if(userVM.userType == "shelter"){
-                    Log.i("Harry", document.data?.get("bio").toString())
                     shelterName.text = document.data?.get("bio").toString()
                 }
 
