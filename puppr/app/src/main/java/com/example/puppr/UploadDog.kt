@@ -1,10 +1,15 @@
 package com.example.puppr
 
+import android.app.Activity.CAMERA_SERVICE
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +25,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.puppr.databinding.FragmentUploadDogBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FieldValue
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -32,18 +41,24 @@ class UploadDog : Fragment() {
 
     val TAG: String = "UploadDog"
 
-    val packageManager: PackageManager? = context?.getPackageManager()
-    val REQUEST_TAKE_PHOTO = 1;
+    lateinit var packageManager: PackageManager
     val REQUEST_IMAGE_CAPTURE = 1;
     val GET_FROM_GALLERY = 1;
 
     lateinit var file: Uri;
     var imageExists = false;
+    var takePhoto = false;
+    var uploadPhoto = false;
+
+    lateinit var currentPhotoPath: String
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        packageManager = context!!.getPackageManager()
+
         userVM = activity?.run {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
@@ -149,10 +164,21 @@ class UploadDog : Fragment() {
         }
 
         // Upload a photo of the dog
-        binding.captureDogButton.setOnClickListener {
+        binding.chooseDogButton.setOnClickListener {
+            uploadPhoto = true;
             val galleryIntent = Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(galleryIntent, GET_FROM_GALLERY)
+        }
+
+        // Take a photo of the dog
+        binding.captureDogButton.setOnClickListener {
+            takePhoto = true;
+            Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                takePictureIntent.resolveActivity(packageManager)?.also {
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+                }
+            }
         }
         return binding.root
     }
@@ -160,7 +186,9 @@ class UploadDog : Fragment() {
     // Listen for when a photo of the dog was taken
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == GET_FROM_GALLERY && resultCode == RESULT_OK && data!=null) {
+
+
+        if (uploadPhoto && requestCode == GET_FROM_GALLERY && resultCode == RESULT_OK && data!=null) {
             // Obtain image URI
             imageExists = true;
             file = data?.data!!
@@ -174,8 +202,25 @@ class UploadDog : Fragment() {
                 .optionalCenterCrop()
                 .into(binding.dogImage)
 
+        } else if (takePhoto && requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            // Obtain image URI
+            imageExists = true;
+            file = data?.data!!
+
+            // Add the image to the ImageView
+            val targetW: Int = binding.dogImage.width
+            Glide.with(this)
+                .load(file)
+                .placeholder(R.mipmap.client_base_dog)
+                .apply(RequestOptions().override(targetW, targetW))
+                .optionalCenterCrop()
+                .into(binding.dogImage)
+
+
+
         } else {
             Toast.makeText(context, "Error loading image", Toast.LENGTH_LONG)
         }
     }
+    
 }
