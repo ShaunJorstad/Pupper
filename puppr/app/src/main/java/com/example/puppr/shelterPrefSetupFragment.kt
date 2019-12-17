@@ -44,7 +44,7 @@ class shelterPrefSetupFragment : Fragment() {
 
             checks[1] = !s_address_text?.text?.toString().equals("")
             try{
-                if(phone_number.text.toString().matches(Regex("^[+]?[0-9]{10,12}\$"))) {
+                if(s_phone_number.text.toString().matches(Regex("^[+]?[0-9]{10,12}\$"))) {
                     checks[2] = true
                 }
             }
@@ -54,7 +54,7 @@ class shelterPrefSetupFragment : Fragment() {
             checks[3] = !shelter_website?.text?.toString().equals("")
 
             if(checks[0] && checks[1] && checks[2] && checks[3]){
-                Log.d(TAG, "Successful account creation for user: "+s_phone_number.text?.toString()?.toInt())
+                Log.d(TAG, "Successful account creation for user: "+s_phone_number.text?.toString())
                 userVM.shelter.name = shelter_name_text.text?.toString()
                 userVM.shelter.address = s_address_text.text?.toString()
                 userVM.shelter.phone = s_phone_number.text?.toString()
