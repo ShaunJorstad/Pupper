@@ -48,6 +48,7 @@ class ShelterDogs : Fragment() {
             myArray.add(word.trim())
         }
 
+        myArray.removeAt(0)
         viewManager = LinearLayoutManager(this.context)
         viewAdapter = dogCardAdapter(myArray.toTypedArray(), userVM)
         recyclerView = binding.dogCards.apply {

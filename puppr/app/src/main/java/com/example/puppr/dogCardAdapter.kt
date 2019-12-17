@@ -40,6 +40,7 @@ class dogCardAdapter(private val myDataset: Array<String>, private val userVM: U
         val shelterName: TextView = holder.cardView.base_dog_shelter_name
         val dogImage: ImageView = holder.cardView.base_card_dog_image
 
+        Log.d("TEST", myDataset[position])
         val docRef = userVM.database.collection("dogs").document(myDataset[position])
         docRef.get()
             .addOnSuccessListener { document ->
@@ -68,7 +69,13 @@ class dogCardAdapter(private val myDataset: Array<String>, private val userVM: U
 
         holder.cardView.setOnClickListener {
             userVM.savedDogsID = myDataset[position]
-            parentViewGroup.findNavController().navigate(R.id.action_clientSavedDogs_to_clientFocusDog)
+
+            if (userVM.userType != "user") {
+                parentViewGroup.findNavController().navigate(R.id.action_shelterDogs_to_clientFocusDog)
+            } else {
+
+                parentViewGroup.findNavController().navigate(R.id.action_clientSavedDogs_to_clientFocusDog)
+            }
         }
 
         dogName.text = myDataset[position]

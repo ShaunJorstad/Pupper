@@ -144,6 +144,9 @@
         <action
             android:id="@+id/action_shelterDogs_to_userLoginFragment"
             app:destination="@id/userLoginFragment" />
+        <action
+            android:id="@+id/action_shelterDogs_to_clientFocusDog"
+            app:destination="@id/clientFocusDog" />
     </fragment>
     <fragment
         android:id="@+id/userPrefSetupFragment"
