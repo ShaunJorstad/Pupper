@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -24,14 +23,14 @@ import com.google.firebase.firestore.FieldValue
 
 
 /**
- * This class allows the animal shelter to upload a dog
+ * This class allows the animal shelter to upload a dog to the database
  */
 
 class UploadDog : Fragment() {
     private lateinit var binding: FragmentUploadDogBinding
     private lateinit var userVM: UserViewModel
 
-    val TAG: String = "Urgent UploadDog"
+    val TAG: String = "UploadDog"
 
     val packageManager: PackageManager? = context?.getPackageManager()
     val REQUEST_TAKE_PHOTO = 1;
@@ -89,7 +88,6 @@ class UploadDog : Fragment() {
                     Log.d(TAG, userVM.shelter.dogs.toString());
 
                     // Add the dog image to the database
-                    // If there is a dog image, add it
                     if (imageExists) {
                         val ref = userVM.storage.reference.child("dogs/${dogID}/photo.jpg")
                         val uploadTask = ref.putFile(file)
@@ -104,17 +102,17 @@ class UploadDog : Fragment() {
                         }.addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 val downloadUri = task.result
-                                // add imageRef to the dog's list of images
-                                // todo: add url of dog image to local dog object
+
+                                // Add imageRef to the dog's list of images
                                 userVM.dog.photo = arrayOf(task.result.toString())
-                                // pushes the Dogs changed list of images to the database
+
+                                // Push the Dogs changed list of images to the database
                                 val dogRef = userVM.database.collection("dogs").document(dogID)
                                 dogRef.update("photos", FieldValue.arrayUnion(task.result.toString()))
-                                    .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!")}
-                                    .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+                                    .addOnSuccessListener { Log.d(TAG, "Image successfully updated!")}
+                                    .addOnFailureListener { e -> Log.w(TAG, "Error updating image", e) }
                             } else {
-                                // Handle failures
-                                // ...
+                                Log.d(TAG, "Image ipload failure");
                             }
                         }
                     }
@@ -125,7 +123,6 @@ class UploadDog : Fragment() {
                     } else {
                         userVM.shelter.dogs = listOf(documentReference.id);
                     }
-                    Log.d(TAG, userVM.shelter.dogs.toString());
 
                     // Add the dog to shelter records in the database
                     userVM.database.collection("shelters").document(userVM.userID.toString())
@@ -139,6 +136,7 @@ class UploadDog : Fragment() {
                             binding.dogName.setText("");
                             binding.dogImage.setImageResource(android.R.color.transparent);
 
+                            // Give confirmation that the dog was uploaded
                             Toast.makeText(
                                 getActivity(), "Dog saved!",
                                 Toast.LENGTH_LONG
@@ -147,31 +145,28 @@ class UploadDog : Fragment() {
                         }
                         .addOnFailureListener { e -> Log.w(TAG, "Error updating Shelter Dogs", e) }
                 }
-                .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+                .addOnFailureListener { e -> Log.w(TAG, "Error adding dog", e) }
         }
 
-        var picID = 12345;
-
-        // Take a photo of the dog
+        // Upload a photo of the dog
         binding.captureDogButton.setOnClickListener {
             val galleryIntent = Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(galleryIntent, GET_FROM_GALLERY)
         }
-
         return binding.root
     }
 
+    // Listen for when a photo of the dog was taken
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (requestCode == GET_FROM_GALLERY && resultCode == RESULT_OK && data!=null) {
+            // Obtain image URI
             imageExists = true;
-
             file = data?.data!!
 
+            // Add the image to the ImageView
             val targetW: Int = binding.dogImage.width
-
             Glide.with(this)
                 .load(data?.data)
                 .placeholder(R.mipmap.client_base_dog)
@@ -182,7 +177,5 @@ class UploadDog : Fragment() {
         } else {
             Toast.makeText(context, "Error loading image", Toast.LENGTH_LONG)
         }
-
-
     }
 }
