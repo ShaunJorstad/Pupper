@@ -1,14 +1,12 @@
 package com.example.puppr
 
-import android.app.Activity.CAMERA_SERVICE
 import android.app.Activity.RESULT_OK
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,10 +23,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.puppr.databinding.FragmentUploadDogBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FieldValue
-import java.io.File
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
+import java.io.ByteArrayOutputStream
 
 
 /**
@@ -46,6 +41,8 @@ class UploadDog : Fragment() {
     val GET_FROM_GALLERY = 1;
 
     lateinit var file: Uri;
+    lateinit var imageBitmap: Bitmap;
+
     var imageExists = false;
     var takePhoto = false;
     var uploadPhoto = false;
@@ -105,8 +102,13 @@ class UploadDog : Fragment() {
                     // Add the dog image to the database
                     if (imageExists) {
                         val ref = userVM.storage.reference.child("dogs/${dogID}/photo.jpg")
-                        val uploadTask = ref.putFile(file)
-
+                        val stream = ByteArrayOutputStream()
+                        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+                        val bitmapdata = stream.toByteArray()
+                        var uploadTask = ref.putBytes(bitmapdata)
+                        if (uploadPhoto) {
+                            uploadTask = ref.putFile(file)
+                        }
                         val urlTask = uploadTask.continueWithTask { task ->
                             if (!task.isSuccessful) {
                                 task.exception?.let {
@@ -166,6 +168,7 @@ class UploadDog : Fragment() {
         // Upload a photo of the dog
         binding.chooseDogButton.setOnClickListener {
             uploadPhoto = true;
+            takePhoto = false;
             val galleryIntent = Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(galleryIntent, GET_FROM_GALLERY)
@@ -174,6 +177,7 @@ class UploadDog : Fragment() {
         // Take a photo of the dog
         binding.captureDogButton.setOnClickListener {
             takePhoto = true;
+            uploadPhoto = false;
             Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
                 takePictureIntent.resolveActivity(packageManager)?.also {
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
@@ -205,12 +209,30 @@ class UploadDog : Fragment() {
         } else if (takePhoto && requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             // Obtain image URI
             imageExists = true;
-            file = data?.data!!
+
+            imageBitmap = data?.extras!!.get("data") as Bitmap
+            val targetW: Int = binding.dogImage.width
+
+
+            val matrix = Matrix()
+
+            matrix.postRotate(90F)
+
+            val scaledBitmap = Bitmap.createScaledBitmap(imageBitmap, targetW, targetW, true)
+
+            val rotatedBitmap = Bitmap.createBitmap(
+                scaledBitmap,
+                0,
+                0,
+                scaledBitmap.width,
+                scaledBitmap.height,
+                matrix,
+                true
+            )
 
             // Add the image to the ImageView
-            val targetW: Int = binding.dogImage.width
             Glide.with(this)
-                .load(file)
+                .load(rotatedBitmap)
                 .placeholder(R.mipmap.client_base_dog)
                 .apply(RequestOptions().override(targetW, targetW))
                 .optionalCenterCrop()
@@ -222,5 +244,4 @@ class UploadDog : Fragment() {
             Toast.makeText(context, "Error loading image", Toast.LENGTH_LONG)
         }
     }
-    
 }
