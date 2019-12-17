@@ -77,6 +77,4 @@ class ShelterDogs : Fragment() {
         }
         return binding.root
     }
-
-
 }

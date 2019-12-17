@@ -105,12 +105,6 @@ class UserViewModel : ViewModel() {
             dog.photo = nextDog.photo
             dog.shelter = nextDog.shelter
 
-//            if (dogIDs.size <= 2) {
-//
-//                Thread(Runnable {
-//                    fillDogIDs()
-//                }).start()
-//            }
         } else {
 
             val docRef = database.collection("dogs").document(dogID)
@@ -191,41 +185,6 @@ class UserViewModel : ViewModel() {
             }
             .addOnFailureListener { exception ->
                 Log.d("YERT", "get failed with $exception")
-            }
-    }
-
-    fun populateFields(){
-        Log.d(TAG, "inside populate fields")
-        Log.d(TAG, "current userID: ${userID}")
-//        load settings from firestore into user or shelter object
-        // loads firestoreUser and sets userType
-        var firestoreUser = database.collection("users").document(userID.toString())
-        firestoreUser.get()
-            .addOnSuccessListener { document ->
-                if (document.data != null) {
-                    Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                    userType = "user"
-                    Log.d(TAG, "DocumentSnapshot: ${document}")
-                    Log.d(TAG, "This user type is!: ${userType}")
-                    //navigate to user fragment view thing
-//                    TODO: pull all other user information from firebase into the viewmodel here
-                } else {
-                    database.collection("shelters")
-                        .document(userID.toString()).get()
-                        .addOnSuccessListener { innerDocument ->
-                            if (innerDocument.data != null) {
-                                Log.d(TAG, "DocumentSnapshot data: ${innerDocument.data}")
-                                userType = "shelter"
-                                Log.d(TAG, "This user type is!: ${userType}")
-                            }
-                        }
-                        .addOnFailureListener { exception ->
-                            Log.d(TAG, "get failed with ", exception)
-                        }
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "get failed with ", exception)
             }
     }
 

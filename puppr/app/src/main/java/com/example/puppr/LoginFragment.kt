@@ -19,11 +19,10 @@ import kotlinx.android.synthetic.main.fragment_login.password_input
 import android.R.string
 
 
-
 /**
- * A simple [Fragment] subclass.
+ * Fragment that handles user login and account creation
  */
- class LoginFragment : Fragment() {
+class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private lateinit var userVM: UserViewModel
     private var TAG = "userLogIn"
@@ -57,12 +56,16 @@ import android.R.string
             it.findNavController()
                 .navigate(R.id.action_userLoginFragment_to_signUpFragment)
         }
-        binding.forgotPassword.setOnClickListener{
+        binding.forgotPassword.setOnClickListener {
             try {
                 userVM.auth.sendPasswordResetEmail(email_input.text.toString())
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(context, "Password reset link sent to: " + email_input.text.toString(), Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                context,
+                                "Password reset link sent to: " + email_input.text.toString(),
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         }
                     }
@@ -70,7 +73,7 @@ import android.R.string
                         Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
                             .show()
                     }
-            } catch(error: Exception) {
+            } catch (error: Exception) {
                 Toast.makeText(context, error.message, Toast.LENGTH_SHORT)
                     .show()
             }
@@ -80,6 +83,9 @@ import android.R.string
         return binding.root
     }
 
+    /**
+     * logs in user with the provided information
+     */
     private fun loginUser(view: View) {
         var email = email_input.text.toString()
         var password = password_input.text.toString()
@@ -102,20 +108,6 @@ import android.R.string
                 else {
                     userVM.userID = it.result?.user?.uid
                     signInUser()
-                    /*
-                    if (userVM.userType == "user") {
-                        Log.d(TAG, "Successful signed in user ${it.result?.user?.uid}")
-                        view.findNavController()
-                            .navigate(R.id.action_userLoginFragment_to_clientSavedDogs)
-                    }
-                    if (userVM.userType == "shelter") {
-                        Log.d(TAG, "Successful signed in user ${it.result?.user?.uid}")
-                        view.findNavController()
-                            .navigate(R.id.action_userLoginFragment_to_shelterDogs)
-                    } */
-
-                    // load user settings from firestore and populate in view module
-//                    userVM.populateFields()
                 }
             }
             .addOnFailureListener {
@@ -125,6 +117,9 @@ import android.R.string
             }
     }
 
+    /**
+     * changes fragment if there is a signed in user.
+     */
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
@@ -137,68 +132,71 @@ import android.R.string
         }
     }
 
+    /**
+     * gets the signed in user's account data, such as liked dogs, disliked dogs, etc... this is all
+     * stored in the user View Model
+     */
     public fun signInUser() {
-        Log.d(TAG, "before firebase query. UserID: ${userVM.userID}");
-        Log.d(TAG, "user verification: " + userVM.auth.currentUser?.isEmailVerified().toString());
         var firestoreUser = userVM.database.collection("users").document(userVM.userID.toString())
         firestoreUser.get()
             .addOnSuccessListener { userDocument ->
                 if (userDocument.data != null) {
                     Log.d(TAG, "DocumentSnapshot data: ${userDocument.data}")
                     userVM.userType = "user"
-                    Log.d(TAG, "DocumentSnapshot: ${userDocument}")
-                    Log.d(TAG, "This user type is!: ${userVM.userType}")
-                    Log.d(TAG, "DocumentSnapshot data: " + userDocument.data)
                     //navigate to user fragment view thing
-                    Log.d(TAG, "liked dogs list: " + userDocument.data?.getValue("likedDogs"))
                     //userVM.user.likedDogs = userVM.user.likedDogs?.plusElement("hey shaun")
 
                     userVM.user.name = userDocument.data?.getValue("name")?.toString()
                     userVM.user.email = userDocument.data?.getValue("email")?.toString()
                     userVM.user.address = userDocument.data?.getValue("address")?.toString()
                     userVM.user.phone = userDocument.data?.getValue("phone").toString()
-                    userVM.user.agePrefHigh = userDocument.data?.getValue("agePrefHigh")?.toString()?.toInt()
-                    userVM.user.agePrefLow = userDocument.data?.getValue("agePrefLow")?.toString()?.toInt()
+                    userVM.user.agePrefHigh =
+                        userDocument.data?.getValue("agePrefHigh")?.toString()?.toInt()
+                    userVM.user.agePrefLow =
+                        userDocument.data?.getValue("agePrefLow")?.toString()?.toInt()
                     userVM.user.bio = userDocument.data?.getValue("bio")?.toString()
 
                     var disLikedDogStr = userDocument.data?.getValue("dislikedDogs")?.toString()
-                    disLikedDogStr = disLikedDogStr?.substring(1,disLikedDogStr.length-1)
-                    var DLdogList = disLikedDogStr?.replace(" ", "")!!.split(",")?.toTypedArray()
-                    userVM.user.dislikedDogs = DLdogList?.toList()
+                    disLikedDogStr = disLikedDogStr?.substring(1, disLikedDogStr.length - 1)
+                    var DLdogList = disLikedDogStr?.replace(" ", "")!!.split(",").toTypedArray()
+                    userVM.user.dislikedDogs = DLdogList.toList()
 
                     var likedDogStr = userDocument.data?.getValue("likedDogs")?.toString()
-                    likedDogStr = likedDogStr?.substring(1,likedDogStr.length-1)
-                    var LdogList = likedDogStr?.replace(" ", "")!!.split(",")?.toTypedArray()
-                    userVM.user.likedDogs = LdogList?.toList()
+                    likedDogStr = likedDogStr?.substring(1, likedDogStr.length - 1)
+                    var LdogList = likedDogStr?.replace(" ", "")!!.split(",").toTypedArray()
+                    userVM.user.likedDogs = LdogList.toList()
 
                     var prefDogStr = userDocument.data?.getValue("preferredBreeds")?.toString()
-                    prefDogStr = prefDogStr?.substring(1,prefDogStr.length-1)
+                    prefDogStr = prefDogStr?.substring(1, prefDogStr.length - 1)
                     var prefDogList = prefDogStr?.split(",")?.toTypedArray()
                     userVM.user.preferredBreeds = prefDogList?.toList()
 
-                    view?.findNavController()?.navigate(R.id.action_userLoginFragment_to_clientPreferences)
+                    view?.findNavController()
+                        ?.navigate(R.id.action_userLoginFragment_to_clientPreferences)
 
                 } else {
                     userVM.database.collection("shelters")
                         .document(userVM.userID.toString()).get()
                         .addOnSuccessListener { shelterDocument ->
                             if (shelterDocument.data != null) {
-                                Log.d(TAG, "DocumentSnapshot data: ${shelterDocument.data}")
                                 userVM.userType = "shelter"
-                                Log.d(TAG, "This user type is!: ${userVM.userType}")
-                                Log.d(TAG, "This name is: " + shelterDocument.data?.getValue("name"))
-                                userVM.shelter.name = shelterDocument.data?.getValue("name")?.toString()
-                                userVM.shelter.address = shelterDocument.data?.getValue("address")?.toString()
-                                userVM.shelter.phone = shelterDocument.data?.getValue("phone")?.toString()
+                                userVM.shelter.name =
+                                    shelterDocument.data?.getValue("name")?.toString()
+                                userVM.shelter.address =
+                                    shelterDocument.data?.getValue("address")?.toString()
+                                userVM.shelter.phone =
+                                    shelterDocument.data?.getValue("phone")?.toString()
 //                                userVM.shelter.photos = innerDocument.data?.getValue("photos")
-                                userVM.shelter.website = shelterDocument.data?.getValue("websiteUrl")?.toString()
+                                userVM.shelter.website =
+                                    shelterDocument.data?.getValue("websiteUrl")?.toString()
 
                                 var dogStr = shelterDocument.data?.getValue("dogs")?.toString()
-                                dogStr = dogStr?.substring(1,dogStr.length-1)
+                                dogStr = dogStr?.substring(1, dogStr.length - 1)
                                 var dogList = dogStr?.split(",")?.toTypedArray()
-                                userVM.shelter.dogs= dogList?.toList()
+                                userVM.shelter.dogs = dogList?.toList()
 
-                                view?.findNavController()?.navigate(R.id.action_userLoginFragment_to_shelterDogs)
+                                view?.findNavController()
+                                    ?.navigate(R.id.action_userLoginFragment_to_shelterDogs)
                             }
                         }
                         .addOnFailureListener { exception ->
@@ -211,6 +209,9 @@ import android.R.string
             }
     }
 
+    /**
+     * hides the keyboard
+     */
     fun View.hideKeyboard() {
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(windowToken, 0)

@@ -21,11 +21,6 @@
             app:destination="@id/clientPreferences" />
     </fragment>
     <fragment
-        android:id="@+id/userSettingsFragment"
-        android:name="com.example.puppr.SettingsFragment"
-        android:label="fragment_user_settings"
-        tools:layout="@layout/fragment_settings" />
-    <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.puppr.SignUpFragment"
         android:label="SignUpFragment"

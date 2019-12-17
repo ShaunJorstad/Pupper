@@ -45,6 +45,9 @@ class SignUpFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * creates an account in firebase
+     */
     private fun joinWithEmailPassword() {
         var email = email_input.text.toString()
         var password = password_input.text.toString()
@@ -85,11 +88,17 @@ class SignUpFragment : Fragment() {
         }
     }
 
+    /**
+     * currently non-functioning button that would later authenticate a user with their google account
+     */
     private fun joinWithGoogle() {
         Toast.makeText(context, "Google authentication is currently unavailable", Toast.LENGTH_LONG)
             .show()
     }
 
+    /**
+     * current non-functioning button that would later authenticate a user with their phone number
+     */
     private fun joinWithPhone() {
         Toast.makeText(
             context,
