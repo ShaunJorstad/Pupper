@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
+        android:weightSum="2"
         tools:context=".Preference">
 
         <TextView
@@ -38,27 +39,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:contentDescription="@string/dogImage"
-            app:layout_constraintBottom_toTopOf="@id/captureDogButton"
+            app:layout_constraintBottom_toTopOf="@id/chooseDogButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintVertical_bias="0.19"
             app:layout_constraintVertical_chainStyle="packed"
             tools:src="@tools:sample/avatars[0]" />
 
-        <Button
-            android:id="@+id/captureDogButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/lightOrange"
-            android:text="@string/takePhoto"
-            android:textColor="@color/white"
-            android:textColorHighlight="@android:color/black"
-            app:layout_constraintBottom_toTopOf="@id/dog_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
+            <Button
+                android:id="@+id/chooseDogButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@color/lightOrange"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Upload Photo"
+                android:textColor="@color/white"
+                android:textColorHighlight="@android:color/black"
+                app:layout_constraintBottom_toTopOf="@id/dog_name"
+                app:layout_constraintEnd_toStartOf="@id/captureDogButton"
+                app:layout_constraintHorizontal_bias="0.311"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <EditText
+            <Button
+                android:id="@+id/captureDogButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/lightOrange"
+                android:text="@string/takePhoto"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColorHighlight="@android:color/black"
+                app:layout_constraintBottom_toTopOf="@id/dog_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.311"
+                app:layout_constraintTop_toBottomOf="@id/dogImage"
+                app:layout_constraintStart_toEndOf="@+id/chooseDogButton" />
+
+            <EditText
             android:id="@+id/dog_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

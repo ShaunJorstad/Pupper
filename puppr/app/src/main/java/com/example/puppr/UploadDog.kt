@@ -3,9 +3,11 @@ package com.example.puppr
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
-import android.util.DisplayMetrics
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,30 +23,41 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.puppr.databinding.FragmentUploadDogBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FieldValue
+import java.io.ByteArrayOutputStream
 
 
 /**
- * This class allows the animal shelter to upload a dog
+ * This class allows the animal shelter to upload a dog to the database
  */
 
 class UploadDog : Fragment() {
     private lateinit var binding: FragmentUploadDogBinding
     private lateinit var userVM: UserViewModel
 
-    val TAG: String = "Urgent UploadDog"
+    val TAG: String = "UploadDog"
 
-    val packageManager: PackageManager? = context?.getPackageManager()
-    val REQUEST_TAKE_PHOTO = 1;
+    // Variables for taking photos
+    lateinit var packageManager: PackageManager
     val REQUEST_IMAGE_CAPTURE = 1;
     val GET_FROM_GALLERY = 1;
 
+    // Stores uploaded photos
     lateinit var file: Uri;
+
+    // Stores photos taken within app
+    lateinit var imageBitmap: Bitmap;
+
+    // Keep track of whether a photo was taken
     var imageExists = false;
+    var takePhoto = false;
+    var uploadPhoto = false;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        packageManager = context!!.getPackageManager()
+
         userVM = activity?.run {
             ViewModelProviders.of(this).get(UserViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
@@ -89,11 +102,9 @@ class UploadDog : Fragment() {
                     Log.d(TAG, userVM.shelter.dogs.toString());
 
                     // Add the dog image to the database
-                    // If there is a dog image, add it
-                    if (imageExists) {
+                    if (imageExists && uploadPhoto) {
                         val ref = userVM.storage.reference.child("dogs/${dogID}/photo.jpg")
-                        val uploadTask = ref.putFile(file)
-
+                        var uploadTask = ref.putFile(file)
                         val urlTask = uploadTask.continueWithTask { task ->
                             if (!task.isSuccessful) {
                                 task.exception?.let {
@@ -104,20 +115,53 @@ class UploadDog : Fragment() {
                         }.addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 val downloadUri = task.result
-                                // add imageRef to the dog's list of images
-                                // todo: add url of dog image to local dog object
+
+                                // Add imageRef to the dog's list of images
                                 userVM.dog.photo = arrayOf(task.result.toString())
-                                // pushes the Dogs changed list of images to the database
+
+                                // Push the Dogs changed list of images to the database
                                 val dogRef = userVM.database.collection("dogs").document(dogID)
                                 dogRef.update("photos", FieldValue.arrayUnion(task.result.toString()))
-                                    .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!")}
-                                    .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+                                    .addOnSuccessListener { Log.d(TAG, "Image successfully updated!")}
+                                    .addOnFailureListener { e -> Log.w(TAG, "Error updating image", e) }
                             } else {
-                                // Handle failures
-                                // ...
+                                Log.d(TAG, "Image upload failure");
                             }
                         }
                     }
+
+                    // Add the dog image to the database
+                    else if (imageExists && takePhoto) {
+                        val ref = userVM.storage.reference.child("dogs/${dogID}/photo.jpg")
+                        val stream = ByteArrayOutputStream()
+                        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+                        val bitmapdata = stream.toByteArray()
+                        var uploadTask = ref.putBytes(bitmapdata)
+                        val urlTask = uploadTask.continueWithTask { task ->
+                            if (!task.isSuccessful) {
+                                task.exception?.let {
+                                    throw it
+                                }
+                            }
+                            ref.downloadUrl
+                        }.addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val downloadUri = task.result
+
+                                // Add imageRef to the dog's list of images
+                                userVM.dog.photo = arrayOf(task.result.toString())
+
+                                // Push the Dogs changed list of images to the database
+                                val dogRef = userVM.database.collection("dogs").document(dogID)
+                                dogRef.update("photos", FieldValue.arrayUnion(task.result.toString()))
+                                    .addOnSuccessListener { Log.d(TAG, "Image successfully updated!")}
+                                    .addOnFailureListener { e -> Log.w(TAG, "Error updating image", e) }
+                            } else {
+                                Log.d(TAG, "Image upload failure");
+                            }
+                        }
+                    }
+
 
                     // Add the dog to shelter in the ViewModel
                     if(userVM.shelter.dogs != null) {
@@ -125,7 +169,6 @@ class UploadDog : Fragment() {
                     } else {
                         userVM.shelter.dogs = listOf(documentReference.id);
                     }
-                    Log.d(TAG, userVM.shelter.dogs.toString());
 
                     // Add the dog to shelter records in the database
                     userVM.database.collection("shelters").document(userVM.userID.toString())
@@ -139,6 +182,7 @@ class UploadDog : Fragment() {
                             binding.dogName.setText("");
                             binding.dogImage.setImageResource(android.R.color.transparent);
 
+                            // Give confirmation that the dog was uploaded
                             Toast.makeText(
                                 getActivity(), "Dog saved!",
                                 Toast.LENGTH_LONG
@@ -147,42 +191,87 @@ class UploadDog : Fragment() {
                         }
                         .addOnFailureListener { e -> Log.w(TAG, "Error updating Shelter Dogs", e) }
                 }
-                .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+                .addOnFailureListener { e -> Log.w(TAG, "Error adding dog", e) }
         }
 
-        var picID = 12345;
-
-        // Take a photo of the dog
-        binding.captureDogButton.setOnClickListener {
+        // Upload a photo of the dog
+        binding.chooseDogButton.setOnClickListener {
+            uploadPhoto = true;
+            takePhoto = false;
             val galleryIntent = Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(galleryIntent, GET_FROM_GALLERY)
         }
 
+        // Take a photo of the dog
+        binding.captureDogButton.setOnClickListener {
+            takePhoto = true;
+            uploadPhoto = false;
+            Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                takePictureIntent.resolveActivity(packageManager)?.also {
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+                }
+            }
+        }
         return binding.root
     }
 
+    // Listen for when a photo of the dog was taken
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == GET_FROM_GALLERY && resultCode == RESULT_OK && data!=null) {
+        // Get image from local file upload
+        if (uploadPhoto && requestCode == GET_FROM_GALLERY && resultCode == RESULT_OK && data!=null) {
+            // Record that we obtained the image
             imageExists = true;
 
+            // Obtain image URI
             file = data?.data!!
 
+            // Add the image to the ImageView
             val targetW: Int = binding.dogImage.width
-
             Glide.with(this)
                 .load(data?.data)
                 .placeholder(R.mipmap.client_base_dog)
                 .apply(RequestOptions().override(targetW, targetW))
                 .optionalCenterCrop()
                 .into(binding.dogImage)
+        }
 
+        // Get image from photgraph within app
+        else if (takePhoto && requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            // Record that we obtained image
+            imageExists = true;
+
+            // Get image bitmap
+            imageBitmap = data?.extras!!.get("data") as Bitmap
+
+            // Resize image
+            val targetW: Int = binding.dogImage.width
+
+            //Rotate image
+            val matrix = Matrix()
+            matrix.postRotate(90F)
+            val scaledBitmap = Bitmap.createScaledBitmap(imageBitmap, targetW, targetW, true)
+            imageBitmap = Bitmap.createBitmap(
+                scaledBitmap,
+                0,
+                0,
+                scaledBitmap.width,
+                scaledBitmap.height,
+                matrix,
+                true
+            )
+
+            // Add the image to the ImageView
+            Glide.with(this)
+                .load(imageBitmap)
+                .placeholder(R.mipmap.client_base_dog)
+                .apply(RequestOptions().override(targetW, targetW))
+                .optionalCenterCrop()
+                .into(binding.dogImage)
         } else {
             Toast.makeText(context, "Error loading image", Toast.LENGTH_LONG)
         }
-
-
     }
 }
