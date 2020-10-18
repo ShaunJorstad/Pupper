@@ -1,6 +1,0 @@
-App name: Puppr
-Collaborators: David Dray, Shaun Jorstad, Spencer Gray, Sarah Calvis, Gabe Armstrong, Harry Schreiber
-
-Our project when compressed was 288M which is larger than myGCC allows. We were unsure what directories and files were safe to remove from the android project so we uploaded the archive to Onedrive instead. the link is found below.
-
-project available at: https://grovecitycollege-my.sharepoint.com/:u:/g/personal/jorstadsd17_gcc_edu/EaakVGQ839BIiV2iFLGR8xkBq1Ma1mictTl2Q7CSjeMbyA?e=BkEqTn
